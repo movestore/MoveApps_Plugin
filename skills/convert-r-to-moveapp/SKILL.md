@@ -297,8 +297,8 @@ Before generating any of the MoveApps deliverables, summarize the agreed App des
 - the output IO type;
 - the expected artifacts, if any;
 - the agreed user-configurable settings, including each setting `id` and how it
-  will be received by `RFunction.R`, following the setting-specific and
-  auxiliary-file rules;
+  will be received by `RFunction.R`, following the setting-specific,
+  auxiliary-file, and secret-credential rules;
 - any source-code changes that must be made before or during conversion.
 
 Before proceeding, resolve the settings needed by the selected App and their
@@ -332,7 +332,7 @@ If a secret credential is required:
   
 If no secret credential is required:
 
-- Skip "Step 19. Change `sdk.R` and `.gitignore`, if required"
+- Skip the "Change `sdk.R` and `.gitignore`" step.
 
 ### Step 12. Produce `RFunction.R`
 
@@ -453,8 +453,8 @@ If no secret credential is required:
 
 ### Step 19. Change `sdk.R` and `.gitignore`, if required
 
-- Apply this step only if "Step 13. Determine whether the App needs secret credentials" determined that the App requires a secret
-  credential.
+- Apply this step only if the "Determine whether the App needs secret credentials"
+  step determined that the App requires a secret credential.
 
 - Read and follow
   `references/Dealing_with_secret_credentials.md` and the linked official
