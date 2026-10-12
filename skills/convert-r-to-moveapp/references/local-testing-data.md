@@ -17,20 +17,20 @@ Then follow the corresponding section below.
 - Ask the user about the IO type:
      - If the input IO type is `move2::move2_loc` Ask:
          **Was this CSV downloaded directly from Movebank?**
-         - Yes:
-             1- Use `move2::mt_read()` to read the Movebank CSV and convert it to a `move2` object.
-             2- Do not ask the user for custom column mappings intended for generic CSV files.
-             3- Verify that the resulting object satisfies the App's declared `move2::move2_loc` input type.
-             4- Save the prepared object as an `.rds` file under `data/owndata/`.
-             5- Update `SOURCE_FILE` in `.env` to point to that `.rds` file.
+         - Yes:  
+             1- Use `move2::mt_read()` to read the Movebank CSV and convert it to a `move2` object.  
+             2- Do not ask the user for custom column mappings intended for generic CSV files.  
+             3- Verify that the resulting object satisfies the App's declared `move2::move2_loc` input type.  
+             4- Save the prepared object as an `.rds` file under `data/owndata/`.  
+             5- Update `SOURCE_FILE` in `.env` to point to that `.rds` file.  
 
-         - No:
-             1- Follow the conversion approach used by the MoveApps [ `Upload-File-from-Local` App](https://github.com/movestore/Upload-File-from-Local).
-             2- Ask the user for: `time_col`, `track_id_col`, `track_attr`, `coords`, `crss`
-             3- Do not invent values when they cannot be established from the CSV or the documented defaults.
-             4- Convert the data to a compatible `move2::move2_loc` object.
-             5- Save the prepared object as an `.rds` file under `data/owndata/`.
-             6- Update `SOURCE_FILE` in `.env` to point to that `.rds` file.
+         - No:  
+             1- Follow the conversion approach used by the MoveApps [ `Upload-File-from-Local` App](https://github.com/movestore/Upload-File-from-Local).  
+             2- Ask the user for: `time_col`, `track_id_col`, `track_attr`, `coords`, `crss`.  
+             3- Do not invent values when they cannot be established from the CSV or the documented defaults.  
+             4- Convert the data to a compatible `move2::move2_loc` object.  
+             5- Save the prepared object as an `.rds` file under `data/owndata/`.  
+             6- Update `SOURCE_FILE` in `.env` to point to that `.rds` file.  
 
     - If the input IO type is not `move2::move2_loc`: ??????
  
