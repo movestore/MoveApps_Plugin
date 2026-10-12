@@ -11,9 +11,10 @@ Currently, the following specifications can/need to be added:
 1- Settings:
 - Read and follow the official MoveApps specification for [Settings](https://docs.moveapps.org/#/appspec/current/settings/README).
 - Follow the official [example](https://docs.moveapps.org/#/appspec/current/settings/README?id=example).
-- Every setting needs `id` (matches the R argument name), `name` (short label), `description` (plain language), and `defaultValue`. Choose
-`type` based on what the argument represents
-- For each setting type, consult the corresponding current documentation:
+- Every setting needs `id`, `name`, `description`, and `type`.
+- Whether `defaultValue` is required or allowed depends on the setting type.
+  
+Follow the current documentation for that type:
   - [Text](https://docs.moveapps.org/#/appspec/current/settings/string) and [Example](https://docs.moveapps.org/#/appspec/current/settings/string?id=example).
   - [Integer numbers](https://docs.moveapps.org/#/appspec/current/settings/integer) and [Example](https://docs.moveapps.org/#/appspec/current/settings/integer?id=example).
   - [Real numbers](https://docs.moveapps.org/#/appspec/current/settings/double) and [Example](https://docs.moveapps.org/#/appspec/current/settings/double?id=example).
@@ -25,7 +26,9 @@ Currently, the following specifications can/need to be added:
   - [Auxiliary/user files](https://docs.moveapps.org/#/appspec/current/settings/user_file).
     
 - Determine the appropriate setting type from the App's R function arguments and behavior. Follow the current documentation rather than hard-coded rules in this file.
-
+- For `SECRET` settings, do not ask for, store, expose, or hard-code the real
+  credential in `appspec.json`. Follow
+  `references/Dealing_with_secret_credentials.md` for secret-specific handling.
 2- Dependencies:
   - Read and follow the official MoveApps specification for [Dependencies](https://docs.moveapps.org/#/appspec/current/dependencies_appspec) 
   - All libraries on which the App needs for its construction and/or runtime.
