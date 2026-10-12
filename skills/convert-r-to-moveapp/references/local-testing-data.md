@@ -52,12 +52,12 @@ Then follow the corresponding section below.
 
  - **Then:**
 
-   1- Read the current documentation for [`movebank_download_study`](https://search.r-project.org/CRAN/refmans/move2/html/movebank_download_study.html).
-   2- Provide the R code needed to download the requested data from Movebank.
-   3- Adapt the code only to the study, time range, and animals specified by the user.
-   4- Do not ask the user to provide or paste their Movebank password or other real credential into the conversation.
-   5- Tell the user to run the credential-dependent download code locally in an environment where Claude cannot see the password.
-   6- Do not hard-code or reproduce the password in generated code, examples, messages, or documentation.
+   1- Read the current documentation for [`movebank_download_study`](https://search.r-project.org/CRAN/refmans/move2/html/movebank_download_study.html).  
+   2- Provide the R code needed to download the requested data from Movebank.  
+   3- Adapt the code only to the study, time range, and animals specified by the user.  
+   4- Do not ask the user to provide or paste their Movebank password or other real credential into the conversation.  
+   5- Tell the user to run the credential-dependent download code locally in an environment where Claude cannot see the password.  
+   6- Do not hard-code or reproduce the password in generated code, examples, messages, or documentation.  
 
 
           
