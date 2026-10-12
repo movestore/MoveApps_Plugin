@@ -59,5 +59,5 @@ The values most relevant here are:
 
 - Use this setting only when the App requires auxiliary files.
 - Follow the relevant MoveApps auxiliary-file rules and the corresponding
-  reference guidance for the required folder structure.
+  local-testing guidance in `references/R_Function.md`.
 - Do not rename `USER_APP_FILE_HOME_DIR`.
