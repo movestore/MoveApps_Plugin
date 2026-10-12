@@ -16,13 +16,16 @@ and follow its rules when constructing the file, including the required formatti
        - `TIMESTAMP` → Read [app-configuration.json](https://docs.moveapps.org/#/run_app_locally?id=_1-file-app-configurationjson) 
        - `RADIOBUTTONS`, `DROPDOWN`  → show the allowed option values to the user and ask which value they want to use. Validate the selected value against the allowed options defined in `appspec.json`.
        - `CHECKBOX` → JSON boolean. The value must be either true or false. It cannot be a string, such as "False".
-       - `SECRET` → do not write its real value into app-configuration.json. Set that setting's value to the literal placeholder string "secret" instead — never the actual password, API key, token, or other credential. Tell the user that                   the real secret value must be handled outside app-configuration.json for local testing. Show the user the official MoveApps documentation and ask them to follow its instructions:
-         [Dealing with passwords](https://docs.moveapps.org/?utm_source=chatgpt.com#/create_app?id=dealing-with-passwords). Never expose or reproduce the real secret value in generated files, examples, logs, documentation, or messages.
-       - `USER_FILE` → do not assume ordinary scalar-value handling and do not invent a local value or file path yourself. The correct local-testing setup depends on the auxiliary-file pattern used by the App. Follow the `Auxiliary/user files` rules in `appspec.md`.
+       - `SECRET` → set the value in `app-configuration.json` to the literal placeholder string `"secret"` and follow `references/Dealing_with_secret_credentials.md` for all secret-credential handling.
+       - `USER_FILE` → do not assume ordinary scalar-value handling and do not invent a
+  local value or file path yourself. The correct local-testing setup depends on
+  whether the App uses a fixed auxiliary file, a local-upload auxiliary file, or
+  a local-upload auxiliary file with a fixed fallback. Follow the corresponding
+  auxiliary-file and local-testing rules in `references/R_Function.md`.
 
-  - For setting types that allow multiple values, use the exact representation required by the current MoveApps documentation.
-  - Do not infer or invent a value format from the setting name alone.
-  - Apply the general `defaultValue` fallback only when it is compatible with the setting type's specific handling rules below. Type-specific rules for `SECRET` and `USER_FILE` take precedence.
+    - For setting types that allow multiple values, use the exact representation required by the current MoveApps documentation.
+    - Do not infer or invent a value format from the setting name alone.
+    - Apply the general `defaultValue` fallback only when it is compatible with the setting type's specific handling rules below. Type-specific rules for `SECRET` and `USER_FILE` take precedence.
 
 - Arrange the resulting values in `app-configuration.json` following the official template structure and MoveApps formatting requirements.
 - Ensure the final file is valid JSON and contains only configuration entries corresponding to settings defined in `appspec.json`.
