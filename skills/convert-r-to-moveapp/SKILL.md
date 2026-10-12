@@ -35,7 +35,9 @@ have been completed, do not generate it out of order. Explain which prerequisite
 deliverable must be completed first and ask whether the user wants to proceed
 with that prerequisite.
 
-It does not create or modify `tests/`, `src/app/`, `Dockerfile`, `sdk.R`, `renv.lock`, or any other template/SDK file.
+It does not create or modify `tests/`, `src/app/`, `Dockerfile`, `renv.lock`,
+or other template/SDK files. When secret credentials are required, it may
+provide the necessary changes for `sdk.R` and `.gitignore`.
 
 Files outside these five deliverables are outside the scope of this skill.
 They may come from the
@@ -328,25 +330,31 @@ generating `RFunction.R`, `appspec.json`, `app-configuration.json`, `.env` or
   [Adding large fixed or fallback files to an App](https://docs.moveapps.org/#/auxiliary?id=adding-large-fixed-or-fallback-files-to-an-app)
 - Do not create or modify `.gitignore` directly.
 
-### Step 13. Determine App Categories
+### Step 13. Determine whether the App needs secret credentials
 
-- Read the official MoveApps documentation for
-  [App Categories](https://docs.moveapps.org/#/IO_types?id=app-categories).
-- Check the current
-  [MoveApps App Browser](https://www.moveapps.org/apps/browser)
-  to identify the available App Categories.
-- Based on the App's actual purpose and functionality, suggest one or more
-  suitable Categories.
-- Show the proposed Category or Categories to the user and ask them to confirm
-  or correct the selection.
-- Do not invent a Category that does not currently exist.
-- If none of the existing MoveApps Categories suitably describes the App,
-  tell the user that a new Category can be requested during App submission,
-  following the official
-  [App Categories documentation](https://docs.moveapps.org/#/IO_types?id=app-categories).
-- Treat App Categories as submission metadata unless the current MoveApps
-  specification explicitly requires them in one of the generated App files.
+- Determine whether the App requires sensitive authentication information such as
+  a password, personal API key, access token, client secret, or other credential.
 
+Treat secret credentials as required when any of the following applies:
+
+- the source code uses or contains a credential;
+- the App accesses an external API or service that requires authentication;
+- the user states that authentication credentials are required; or
+- the App requires a setting that should be defined as type `SECRET`.
+
+If a secret credential is required:
+
+- Read and follow
+  `references/Dealing_with_secret_credentials.md` and its linked official
+  MoveApps documentation.
+- Never ask the user to provide or paste the actual credential into the
+  conversation.
+- Apply "Step 19. Change `sdk.R` and `.gitignore`, if required" only when a secret credential is required.
+
+If no secret credential is required:
+
+- Skip "Step 19. Change `sdk.R` and `.gitignore`, if required"
+  
 ### Step 14. Produce `appspec.json`
 
 - Before creating `appspec.json`, read `references/appspec.md` and follow all
@@ -423,8 +431,42 @@ generating `RFunction.R`, `appspec.json`, `app-configuration.json`, `.env` or
 - Verify the final README against the current MoveApps template before
   presenting it to the user.
 
+### Step 18. Determine App Categories
 
-### Step 18. Final check
+- Read the official MoveApps documentation for
+  [App Categories](https://docs.moveapps.org/#/IO_types?id=app-categories).
+- Check the current
+  [MoveApps App Browser](https://www.moveapps.org/apps/browser)
+  to identify the available App Categories.
+- Based on the App's actual purpose and functionality, suggest one or more
+  suitable Categories.
+- Show the proposed Category or Categories to the user and ask them to confirm
+  or correct the selection.
+- Do not invent a Category that does not currently exist.
+- If none of the existing MoveApps Categories suitably describes the App,
+  tell the user that a new Category can be requested during App submission,
+  following the official
+  [App Categories documentation](https://docs.moveapps.org/#/IO_types?id=app-categories).
+- Treat App Categories as submission metadata unless the current MoveApps
+  specification explicitly requires them in one of the generated App files.
+
+### Step 19. Change `sdk.R` and `.gitignore`, if required
+
+- Apply this step only if Step 13 determined that the App requires a secret
+  credential.
+
+- Read and follow
+  `references/Dealing_with_secret_credentials.md` and the linked official
+  MoveApps documentation.
+
+- Make only the changes to `sdk.R` and `.gitignore` that are required for
+  secure local handling of the secret credential.
+
+- If Step 13 determined that no secret credential is required, do not modify
+  `sdk.R` or `.gitignore`.
+
+  
+### Step 20. Final check
 
 Before finishing, verify the generated deliverable or deliverables against the
 agreed App design and any previously generated deliverables.
