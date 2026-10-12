@@ -11,7 +11,7 @@ First ask the user if:
 
 Then follow the corresponding section below.
 
-### 1. User already has a CSV file
+#### 1. User already has a CSV file
 
 - Tell the user to place the CSV file in `data/raw/` and provide its filename.
 - Ask the user about the IO type:
@@ -35,19 +35,19 @@ Then follow the corresponding section below.
     - If the input IO type is not `move2::move2_loc`: ??????
  
 
-### 2. User wants to to use a suitable study for testing from Movebank
+#### 2. User wants to to use a suitable study for testing from Movebank
 -  If the user would like help choosing a suitable study for testing, tell them
   that examples of Movebank studies with useful or unusual testing
   characteristics are listed in [Movebank_Example_Datasets](https://github.com/movestore/Movebank_Example_Datasets/blob/main/README.md).
 
 
 
- ### 3. User wants to download the specific data from movebank
+ #### 3. User wants to download the specific data from movebank
  
   - **Ask the user for:**
     
-    1- the Movebank study name and ID
-    2- whether they want the full study or only a specific time range
+    1- the Movebank study name and ID  
+    2- whether they want the full study or only a specific time range  
     3- whether they want all animals or only specific animals.
 
  - **Then:**
