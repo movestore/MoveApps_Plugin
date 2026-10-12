@@ -55,13 +55,19 @@ for the full list. The guidance below only applies when the App's input type is 
      }
 ```
 
-9. **Helper functions**
-   - Helper functions can be defined above `rFunction`.
-   - Pass required data and settings to helper functions through their arguments rather than relying on global variables.
-   - Alternatively, helper functions can live in separate R scripts sourced
-  into `RFunction.R`: see [Source aditional R scripts](https://docs.moveapps.org/#/copilot-r-sdk?id=source-aditional-r-scripts).
-   
+### 9. Helper functions
 
+- Helper functions can be defined above `rFunction` in the same `RFunction.R`
+  file.
+- Pass required data and settings to helper functions through their arguments
+  rather than relying on global variables.
+- If the App is later reorganized manually into multiple R files after this
+  Skill has finished, additional scripts can be sourced into `RFunction.R`.
+  See: [Source additional R scripts](https://docs.moveapps.org/#/copilot-r-sdk?id=source-aditional-r-scripts).
+- Creating or splitting code into additional R files is outside the scope of
+  this Skill.
+
+  
 10. **App Input**
    1. Input from previous App: the first parameter of the R function must be named `data` — don't reuse that name for anything else, it's reserved for the input passed on from the previous App. Read this link: [Input from previous App](https://docs.moveapps.org/#/copilot-r-sdk?id=input-from-previous-app).
    2. MoveApps parameters: other parameters come from `appspec.json`'s `settings`, named by their `id`, followed by a trailing `...`. Read this link for more details: [MoveApps parameters](https://docs.moveapps.org/#/copilot-r-sdk?id=moveapps-parameters), and this one for an example: [Example](https://docs.moveapps.org/#/copilot-r-sdk?id=example-2).
