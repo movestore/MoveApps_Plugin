@@ -328,7 +328,6 @@ generating `RFunction.R`, `appspec.json`, `app-configuration.json`, `.env` or
 - Instruct the user to add: `data/auxiliary/user-files/provided-app-files/**`  to `.gitignore`.
 - Remind the user to follow the official MoveApps instructions:
   [Adding large fixed or fallback files to an App](https://docs.moveapps.org/#/auxiliary?id=adding-large-fixed-or-fallback-files-to-an-app)
-- Do not create or modify `.gitignore` directly.
 
 ### Step 13. Determine whether the App needs secret credentials
 
@@ -452,7 +451,7 @@ If no secret credential is required:
 
 ### Step 19. Change `sdk.R` and `.gitignore`, if required
 
-- Apply this step only if Step 13 determined that the App requires a secret
+- Apply this step only if "Step 13. Determine whether the App needs secret credentials" determined that the App requires a secret
   credential.
 
 - Read and follow
@@ -462,8 +461,7 @@ If no secret credential is required:
 - Make only the changes to `sdk.R` and `.gitignore` that are required for
   secure local handling of the secret credential.
 
-- If Step 13 determined that no secret credential is required, do not modify
-  `sdk.R` or `.gitignore`.
+- If no secret credential is required, skip this step.
 
   
 ### Step 20. Final check
