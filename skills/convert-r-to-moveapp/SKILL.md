@@ -13,7 +13,8 @@ Read each reference file at the workflow step where it is required.
 
 ## Introduction
 
-**Scope: exactly five deliverables, no more.**
+**Scope: five primary deliverables, plus conditional guidance for `sdk.R` and
+`.gitignore` when secret credentials are required.**
 
 This skill only produces the content of the files below. Generate the deliverables in this order:
 
@@ -308,28 +309,7 @@ Present the plan to the user and ask them to confirm or correct it before
 generating `RFunction.R`, `appspec.json`, `app-configuration.json`, `.env` or
 `README.md`.
 
-### Step 11. Produce `RFunction.R`
-
-- Generate the App logic in `RFunction.R`.
-- Before writing or modifying this file, read `references/R_Function.md` and
-  follow its instructions and linked references for the required structure,
-  coding rules, input/output handling, and MoveApps-specific expectations.
-- Keep all App R code in this file unless explicitly instructed otherwise.
-- Only `RFunction.R` and the directories listed in `appspec.json` under
-  `providedAppFiles` are bundled into the final MoveApps App. Do not rely on
-  any other project files being available at runtime.
-
-### Step 12. Check large fixed or fallback auxiliary files, if applicable
-
-- If the App uses fixed or fallback auxiliary input files, ask the user
-  whether any of those files are larger than 100 MB.
-- If any such file is larger than 100 MB, tell the user that handling this is
-  outside the scope of this skill and must be done manually.
-- Instruct the user to add: `data/auxiliary/user-files/provided-app-files/**`  to `.gitignore`.
-- Remind the user to follow the official MoveApps instructions:
-  [Adding large fixed or fallback files to an App](https://docs.moveapps.org/#/auxiliary?id=adding-large-fixed-or-fallback-files-to-an-app)
-
-### Step 13. Determine whether the App needs secret credentials
+### Step 11. Determine whether the App needs secret credentials
 
 - Determine whether the App requires sensitive authentication information such as
   a password, personal API key, access token, client secret, or other credential.
@@ -348,11 +328,33 @@ If a secret credential is required:
   MoveApps documentation.
 - Never ask the user to provide or paste the actual credential into the
   conversation.
-- Apply "Step 19. Change `sdk.R` and `.gitignore`, if required" only when a secret credential is required.
-
+- Apply the "Change `sdk.R` and `.gitignore`" step only when a secret credential is required.
+  
 If no secret credential is required:
 
 - Skip "Step 19. Change `sdk.R` and `.gitignore`, if required"
+
+### Step 12. Produce `RFunction.R`
+
+- Generate the App logic in `RFunction.R`.
+- Before writing or modifying this file, read `references/R_Function.md` and
+  follow its instructions and linked references for the required structure,
+  coding rules, input/output handling, and MoveApps-specific expectations.
+- Keep all App R code in this file unless explicitly instructed otherwise.
+- Only `RFunction.R` and the directories listed in `appspec.json` under
+  `providedAppFiles` are bundled into the final MoveApps App. Do not rely on
+  any other project files being available at runtime.
+
+### Step 13. Check large fixed or fallback auxiliary files, if applicable
+
+- If the App uses fixed or fallback auxiliary input files, ask the user
+  whether any of those files are larger than 100 MB.
+- If any such file is larger than 100 MB, tell the user that handling this is
+  outside the scope of this skill and must be done manually.
+- Instruct the user to add: `data/auxiliary/user-files/provided-app-files/**`  to `.gitignore`.
+- Remind the user to follow the official MoveApps instructions:
+  [Adding large fixed or fallback files to an App](https://docs.moveapps.org/#/auxiliary?id=adding-large-fixed-or-fallback-files-to-an-app)
+
   
 ### Step 14. Produce `appspec.json`
 
@@ -395,7 +397,7 @@ If no secret credential is required:
 
 - Before creating or updating `.env`, read `references/env.md` and follow all
   of its instructions and linked MoveApps documentation.
-- Start from the current MoveApps the [Template `.env`](https://github.com/movestore/Template_R_Function_App/blob/master/.env).
+- Start from the current MoveApps [Template `.env`](https://github.com/movestore/Template_R_Function_App/blob/master/.env).
 - Do not rename any `.env` setting.
 - If `appspec.json` contains a setting of type `SECRET`, read and follow
   `references/Dealing_with_secret_credentials.md` and apply any required
