@@ -187,8 +187,15 @@ Read through the source and identify:
 
 ### Step 6. Check for existing Apps with the same or overlapping purpose
 
-- Check the current MoveApps App list at
-  `https://www.moveapps.org/api/v1/apps/repositories`.
+- Download the current MoveApps App list from
+  `https://www.moveapps.org/api/v1/apps/repositories` as a file
+  (for example with `curl` or R), and read the `title` and `description`
+  fields with code. Do not rely only on reading the page as text, because
+  long pages can be cut off.
+- Check that the downloaded list is complete (for example, that it contains
+  App titles from A to Z). If the list cannot be downloaded or looks
+  incomplete, tell the user.
+- Download the list only once per conversation and reuse it in later steps.
 
 - Compare the proposed App against existing Apps using the `title` and
   `description` fields.
@@ -234,8 +241,7 @@ Read through the source and identify:
    - Check the proposed name for:
      - **Suitability**: Does it accurately describe the App's functionality,
        or is it too generic, unclear, or misleading?
-     - **Name collision**: Check the current MoveApps App list at
-       `https://www.moveapps.org/api/v1/apps/repositories` and compare the
+     - **Name collision**: Use the MoveApps App list downloaded in Step "Check for existing Apps with the same or overlapping purpose" and compare the
        proposed name against the values in the `title` field. Avoid names that
        are identical or very similar to existing App titles.
    - If the name is unsuitable or conflicts with an existing App title,
