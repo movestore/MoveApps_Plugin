@@ -187,15 +187,25 @@ Read through the source and identify:
 
 ### Step 6. Check for existing Apps with the same or overlapping purpose
 
-- Download the current MoveApps App list from
-  `https://www.moveapps.org/api/v1/apps/repositories` as a file
-  (for example with `curl` or R), and read the `title` and `description`
-  fields with code. Do not rely only on reading the page as text, because
-  long pages can be cut off.
-- Check that the downloaded list is complete (for example, that it contains
-  App titles from A to Z). If the list cannot be downloaded or looks
-  incomplete, tell the user.
-- Download the list only once per conversation and reuse it in later steps.
+- Download the complete current MoveApps App list from
+  `https://www.moveapps.org/api/v1/apps/repositories` as raw data (for example
+  with `curl`, R, or another method that can read the full API response), and
+  parse the records with code. Do not rely only on a rendered page or text
+  preview, because long responses may be truncated.
+
+- Verify that the complete API response has been retrieved before comparing
+  Apps. Check for pagination, total-count information, `next` links/cursors, or
+  other pagination metadata when present, and follow all pages until no
+  additional records remain. Count the retrieved App records after loading the
+  complete list.
+
+- If the response is truncated, cannot be parsed completely, or the complete
+  list cannot otherwise be verified, tell the user that the existing-App check
+  is incomplete. Do not claim that no matching or overlapping App exists based
+  on a partial list.
+
+- Retrieve the complete list only once per conversation and reuse the same list
+  in later steps, including the App-name collision check.
 
 - Compare the proposed App against existing Apps using the `title` and
   `description` fields.
