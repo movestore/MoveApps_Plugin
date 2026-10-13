@@ -31,7 +31,10 @@ Then follow the corresponding section below.
              5- Save the prepared object as an `.rds` file under `data/raw/`.  
              6- Update `SOURCE_FILE` in `.env` to point to that `.rds` file.  
 
-    - If the input IO type is not `move2::move2_loc`: ??????
+   - If the input IO type is not `move2::move2_loc`:
+     - Do not invent a conversion workflow.
+     - Tell the user that preparation of user-provided CSV data for this IO type is not yet defined in the current Skill.
+     - Wait for further guidance before proceeding.
  
 
 ## 2. User wants to use data from Movebank
