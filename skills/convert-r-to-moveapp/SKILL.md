@@ -14,7 +14,7 @@ Read each reference file at the workflow step where it is required.
 ## Introduction
 
 **Scope: five primary deliverables, plus conditional guidance for `sdk.R` and
-`.gitignore` when secret credentials are required.**
+`.gitignore` when required by secret-credential or auxiliary-file handling.**
 
 This skill only produces the content of the files below. Generate the deliverables in this order:
 
@@ -405,6 +405,8 @@ If no secret credential is required:
 - Never place a real secret credential in the generated `.env`; use only the
   placeholder or mechanism required by the MoveApps documentation.
 - Adjust `SOURCE_FILE` according to the dataset selected for local testing.
+- If the user wants to test with their own CSV data or additional Movebank data,
+  read and follow `references/local-testing-data.md`.
 - Handle `USER_APP_FILE_HOME_DIR` according to `references/env.md` when the
   App uses auxiliary files.
 - Do not change unrelated `.env` values unless required by the current
