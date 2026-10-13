@@ -76,7 +76,9 @@ Use current authoritative sources when determining package status and migration 
 - NCmisc::list.functions.in.file("RFunction.R") may be used as an aid, but do not rely on it as the sole method of dependency detection.
 - Also inspect explicit package::function() calls, imported functions, dynamically referenced functions, and relevant helper files.
 - Do not load an entire package solely for one or a few functions when explicit package::function() calls are clearer and appropriate.
-- Do not add base or recommended R packages to dependencies.R unless the current MoveApps specification explicitly requires them.
+- Do not add base or recommended R packages to the `dependencies` section of
+  `appspec.json` unless the current MoveApps specification explicitly requires them.
 - Check for function masking and namespace conflicts.
 - Prefer explicit package::function() calls when ambiguity or masking is possible.
-- Ensure that the packages listed in dependencies.R match the packages actually required by the App.
+- Ensure that the packages listed under `dependencies` in `appspec.json` match
+  the packages actually required by the App.
