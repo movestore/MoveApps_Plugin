@@ -37,6 +37,13 @@ Before generating the MoveApps files, it:
 9. determines the appropriate MoveApps input and output types;
 10. prepares an App design and asks the user to confirm it before generation;
 11. generates and cross-checks the required MoveApps deliverables.
+12. determines whether secret credentials are required;
+13. generates the five primary MoveApps deliverables;
+14. prepares local-testing configuration and test-data guidance;
+15. determines appropriate MoveApps categories;
+16. provides conditional `sdk.R` or `.gitignore` guidance when required;
+17. performs a final cross-file consistency check.
+
 
 If the original R code contains several distinct responsibilities, the Skill
 may recommend splitting it into multiple MoveApps Apps. Only one selected App
@@ -44,18 +51,23 @@ is converted in a single conversion workflow.
 
 ### Deliverables
 
-The Skill produces exactly four deliverables, in this order:
+The Skill produces five primary deliverables, in this order:
 
 1. `RFunction.R`
 2. `appspec.json`
 3. `app-configuration.json`
-4. `README.md`
+4. `.env`
+5. `README.md`
 
 The files may be requested incrementally across several messages, but the order
 is preserved.
 
-`README.md` is always generated last so that it documents the finalized App
-implementation and configuration.
+`README.md` is generated after the implementation and configuration files so
+that it accurately documents the finalized App.
+
+When required for secret-credential handling or auxiliary-file handling, the
+Skill may also provide conditional guidance or code changes for `sdk.R` and
+`.gitignore`. These are not primary deliverables.
 
 ### Output Mode
 
@@ -72,10 +84,14 @@ Direct file writing may be considered later after the text-based workflow has
 been validated with real R projects.
 
 ### Scope
-The Skill only produces the four deliverable files listed above. 
-It does not create or modify other MoveApps template or SDK files,
-including `.env`, `tests/`, `src/app/`, `Dockerfile`, `sdk.R`, and `renv.lock`.
-Those files remain outside the scope of the current Skill.
+
+The Skill produces the five primary deliverables listed above.
+
+It does not create or modify other MoveApps template or SDK files such as
+`tests/`, `src/app/`, `Dockerfile`, or `renv.lock`.
+
+When required, the Skill may provide guidance or required changes for `sdk.R`
+and `.gitignore`, for example for secret-credential or auxiliary-file handling.
 
 ### Local testing, when requested
 
@@ -86,7 +102,9 @@ If the user asks to test the generated App with one or more datasets:
 - use `.env` only if the current SDK workflow requires it;
 - do not hard-code dataset paths into `RFunction.R`, `appspec.json`, or
   `app-configuration.json`;
-- ask the user which dataset or datasets should be used if none were provided.
+- ask the user which dataset or datasets should be used if none were provided.  
+- If the user wants to test with their own CSV data or additional Movebank data,
+the Skill follows `references/local-testing-data.md`.
 
 Note: To get the new data set to test the app localy, user can use [Movebank Example Datasets](https://github.com/movestore/Movebank_Example_Datasets/blob/main/README.md).
 There they can get the resource in cases such as deployments, multiple sensor types, milliseconds, identifiers, non-location data, duplicates, outliers, and partial data access.
@@ -135,6 +153,15 @@ Potentially significant migrations, such as `move` → `move2` or `sp` → `sf`,
 are not applied automatically when they may change classes, arguments, outputs,
 or workflow behavior.
 
+### `env.md`
+Defines `.env` preparation for local testing.
+
+### `local-testing-data.md`
+Defines how user-provided CSV files and additional Movebank data are prepared for testing.
+
+### `Dealing_with_secret_credentials.md`
+Defines safe handling of passwords, API keys, tokens, and other secret credentials.
+
 ### `README_guide.md`
 
 Defines how the final MoveApps `README.md` is created from the completed App
@@ -156,10 +183,11 @@ In particular, the user is asked to confirm:
 - the App conversion plan;
 - settings and setting IDs;
 - App categories;
-- metadata that cannot be inferred safely.
-
-The Skill does not silently change the scientific or statistical meaning of the
-original analysis.
+- metadata that cannot be inferred safely;
+- which compatible dataset should be used for the current local test when
+  several testing datasets are available;
+- required column mappings or other conversion information when user-provided
+  CSV data cannot be interpreted safely.
 
 ### Safety
 
