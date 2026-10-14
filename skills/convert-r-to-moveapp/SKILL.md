@@ -325,15 +325,12 @@ Before generating any of the MoveApps deliverables, summarize the agreed App des
 - Distinguish implementation-only changes from behavioral/scientific changes.
 - Require user confirmation before applying a behavioral change that is not
   directly equivalent to the original source code.
-- Before generating a deliverable file, first identify all information required
-  for that file.
-- Ask the user for all missing required information in one grouped request.
-- Do not generate a partial file with placeholders if required information is
-  still missing.
-- Generate the file only after the required information has been resolved.
+  
 Before proceeding, resolve the settings needed by the selected App and their
 IDs. Do not invent or rename setting IDs later when generating `RFunction.R`
 or `appspec.json`.
+- If an explicit design question is still unanswered, resolve that question
+  before generating the file that depends on it.
 
 Present the plan to the user and ask them to confirm or correct it before
 generating `RFunction.R`, `appspec.json`, `app-configuration.json`, `.env` or
@@ -365,8 +362,6 @@ If no secret credential is required:
 - Skip the "Change `sdk.R` and `.gitignore`" step.
 
 
-
-
 ### Step 12. Before generating any deliverable file
 
 - Before generating a deliverable file, first identify all information required
@@ -387,6 +382,10 @@ If no secret credential is required:
 - Only `RFunction.R` and the directories listed in `appspec.json` under
   `providedAppFiles` are bundled into the final MoveApps App. Do not rely on
   any other project files being available at runtime.
+- After `RFunction.R` is finalized, re-check the functions and packages actually
+  used in the final code.
+- Update the package decisions and later `appspec.json` dependencies if the
+  implementation added or removed package usage compared with Step 8.
 
 ### Step 14. Check large fixed or fallback auxiliary files, if applicable
 
