@@ -57,7 +57,7 @@ for the full list. The guidance below only applies when the App's input type is 
      }
 ```
 
-### 9. Helper functions
+9. **Helper functions**
 
 - Helper functions can be defined above `rFunction` in the same `RFunction.R`
   file.
@@ -90,9 +90,11 @@ for the full list. The guidance below only applies when the App's input type is 
     - MoveApps allows creating and saving different files directly through the R function. The result of the function must be defined as a return value at the end of the function code. Read more details here: [App Output](https://docs.moveapps.org/#/copilot-r-sdk?id=app-output).
     - If the App produces an artifact, read this link for a valid artifact path: [Producing artifacts](https://docs.moveapps.org/#/copilot-r-sdk?id=producing-artifacts), and this example: [Example](https://docs.moveapps.org/#/copilot-r-sdk?id=example-4).
     - Only files are permitted as a MoveApps App artifact — if the App produces a directory, it has to be bundled (e.g. zipped) first. At the moment the App finishes, `APP_ARTIFACTS_DIR` must contain only files, no folders. Example for zipping: [Example for zipping](https://docs.moveapps.org/#/copilot-r-sdk?id=example-for-zipping).
-    - If processing results in no records, do not invent a fallback output. Preserve the App's intended behavior and output contract.
+    - If processing legitimately leaves no output records, do not return the original unprocessed input as a fallback.
+    - Log a clear message explaining that no data remain.
+    - Return `NULL` when this is the established MoveApps pattern for a no-data result; otherwise preserve the App's intended output contract.
+    - Do not describe `NULL` as a normal output object of the declared IO type.
     - Before returning the result, verify that it matches the App's expected output type and has not lost required `move2` structure or metadata.
-   
 
 ### Final check
 Before finishing `RFunction.R`, verify that:
