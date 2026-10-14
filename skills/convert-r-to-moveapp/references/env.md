@@ -15,6 +15,21 @@ The values most relevant here are:
 
 #### 1. `SOURCE_FILE`
 
+- Before selecting a template dataset, determine which source of test data the
+  user wants to use.
+
+- If the user has not already specified a source, ask them to choose:
+  1. a MoveApps template dataset;
+  2. their own CSV file; or
+  3. data from Movebank.
+
+- Only continue with the template-dataset selection below if the user chooses
+  the MoveApps template option.
+
+- If the user chooses their own CSV or Movebank data, read and follow
+  `references/local-testing-data.md` instead and do not ask which template
+  dataset they want to use.
+
 - The default template value is:
 
   `SOURCE_FILE=./data/raw/input4_move2loc_LatLon.rds`
