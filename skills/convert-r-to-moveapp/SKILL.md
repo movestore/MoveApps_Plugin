@@ -319,6 +319,12 @@ Before generating any of the MoveApps deliverables, summarize the agreed App des
   auxiliary-file, and secret-credential rules;
 - any source-code changes that must be made before or during conversion.
 
+- Clearly flag any change that alters which observations are kept, removed,
+  transformed, grouped, or summarized.
+- Distinguish implementation-only changes from behavioral/scientific changes.
+- Require user confirmation before applying a behavioral change that is not
+  directly equivalent to the original source code.
+
 Before proceeding, resolve the settings needed by the selected App and their
 IDs. Do not invent or rename setting IDs later when generating `RFunction.R`
 or `appspec.json`.
