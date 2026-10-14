@@ -98,6 +98,8 @@ If the App developer can/wants to provide either fixed or fallback auxiliary fil
   - Verify each reference from an authoritative source before adding it to `appspec.json`.
   - Do not invent citation details.
   - If a reference cannot be verified, do not finalize it.
+  - If the App is based mainly on a single library, to acknowledge them add it as a [refrence](https://docs.moveapps.org/#/best_practices_coding?id=acknowledgements-and-references).
+  - For an R package reference, prefer the package's official citation information rather than reconstructing the citation manually.
 
 #### Validation
 - After generating appspec.json, verify that it follows the current official MoveApps specification and template.
