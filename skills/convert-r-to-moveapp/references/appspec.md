@@ -4,6 +4,9 @@ The appspec.json file is used to define the specifications of an App within Move
 - Read and follow the official [App Specification](https://docs.moveapps.org/#/appspec?id=appspecjson)
 - Fetch the current [Template_R_Function_App/appspec.json](https://github.com/movestore/Template_R_Function_App/blob/master/appspec.json) as the structural template.
 - Use the template only for the structure and field names. Do not copy its example values (settings, dependencies, providedAppFiles, keywords, people, funding, references) into the App.
+- Do not invent or infer fields that are not explicitly supported by the current MoveApps App Specification or the current verified template.
+- Before adding any field to `appspec.json`, verify that the field exists in one of those current sources.
+- If a field cannot be verified, omit it rather than guessing.
 - For `version`, use the value or format required by the current live in [Template_R_Function_App/appspec.json](https://github.com/movestore/Template_R_Function_App/blob/master/appspec.json). Do not invent it.
   
 Currently, the following specifications can/need to be added:
@@ -92,6 +95,7 @@ If the App developer can/wants to provide either fixed or fallback auxiliary fil
   - Add references that are directly relevant to the App.
   - If the App is based mainly on a single library, to acknowledge them add it as a [refrence](https://docs.moveapps.org/#/best_practices_coding?id=acknowledgements-and-references).
 
-## Validation
+#### Validation
 - After generating appspec.json, verify that it follows the current official MoveApps specification and template.
+- Check every top-level field and nested field against the current official specification or verified template before finalizing `appspec.json`.
 - The user can additionally validate the result with the MoveApps [Settings Editor ](https://www.moveapps.org/apps/settingseditor).
