@@ -26,8 +26,14 @@ Use current authoritative sources when determining package status and migration 
    
 3. **Function call** :
 
-   One function from the deprecated package per row. If a package has several deprecated calls in the source code, give it one row per call, with the package name repeated down column 1 for each. A non-deprecated package gets a single row with this column left blank.
+- List the package functions actually used by the selected source code.
+- For packages with `change needed = No`, list the used functions in this column
+  in a single row, separated by commas.
+- For packages with `change needed = Yes`, use one row per relevant function call
+  so that each replacement can be evaluated separately.
+- Do not leave this column blank when functions from the package are used.
 
+  
 4. **Replacement package** :
 
    The current replacement, verified against authoritative docs (CRAN, the package's own site, or a migration guide).
