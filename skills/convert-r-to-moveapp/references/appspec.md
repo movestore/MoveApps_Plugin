@@ -94,6 +94,10 @@ If the App developer can/wants to provide either fixed or fallback auxiliary fil
   - Follow the official [example](https://docs.moveapps.org/#/appspec/current/references_appspec?id=examples) and the Note after that.
   - Add references that are directly relevant to the App.
   - If the App is based mainly on a single library, to acknowledge them add it as a [refrence](https://docs.moveapps.org/#/best_practices_coding?id=acknowledgements-and-references).
+  - Do not write reference details from memory.
+  - Verify each reference from an authoritative source before adding it to `appspec.json`.
+  - Do not invent citation details.
+  - If a reference cannot be verified, do not finalize it.
 
 #### Validation
 - After generating appspec.json, verify that it follows the current official MoveApps specification and template.
