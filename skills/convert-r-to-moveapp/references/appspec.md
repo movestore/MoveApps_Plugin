@@ -38,8 +38,8 @@ Follow the current documentation for that type:
   - Do not include any base library in the appspecs.json file.
   - For a CRAN package, just use `{"name": "pkgname"}`, if required the version can also be specified in the argument "version". For a package that comes from somewhere else (GitHub, GitLab, etc.), use the functions provided by the library  [`"remotes"`](https://remotes.r-lib.org/reference/index.html).
   - Follow the official [Examples](https://docs.moveapps.org/#/appspec/current/dependencies_appspec?id=example).
-  - Do not list the MoveApps SDK package `moveapps` in the dependencies. MoveApps provides it in every R App, even though `RFunction.R` loads it with `library("moveapps")`.
-
+  - Do not list the MoveApps SDK package `moveapps` in the dependencies. MoveApps provides the SDK functionality in every R App.
+    
 3-Provided App Files:
 
 If the App developer can/wants to provide either fixed or fallback auxiliary files, these files must be defined as providedAppFiles. This category of the appspec.json defines the ID by which the auxiliary file can be addressed and its location in the App file bundle.
