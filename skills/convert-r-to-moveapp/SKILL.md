@@ -183,6 +183,8 @@ Read through the source and identify:
 - Hard-coded values that may need to become user-configurable settings.
 - Helper functions that are logically separate from the main entry point.
 - External R packages the code depends on.
+- Do not turn assumptions inferred from file or folder names into App input requirements.
+- Treat file/folder names only as clues. Confirm the requirement from the source code, documentation, or with the user before adding it to the App or README.
 
 
 ### Step 6. Check for existing Apps with the same or overlapping purpose
@@ -454,18 +456,34 @@ If no secret credential is required:
 
 - Read the official MoveApps documentation for
   [App Categories](https://docs.moveapps.org/#/IO_types?id=app-categories).
+
 - Check the current
   [MoveApps App Browser](https://www.moveapps.org/apps/browser)
-  to identify the available App Categories.
+  and any other current official MoveApps source available to identify the
+  supported App Categories.
+
+- Do not ask the user for the Category list until the available official sources
+  have been checked.
+
 - Based on the App's actual purpose and functionality, suggest one or more
   suitable Categories.
+
+- Suggest only Categories that can be verified as currently supported.
+
 - Show the proposed Category or Categories to the user and ask them to confirm
   or correct the selection.
+
 - Do not invent a Category that does not currently exist.
+
+- If the available Categories cannot be verified from the official sources,
+  tell the user and ask them to provide the Category list shown during App
+  submission.
+
 - If none of the existing MoveApps Categories suitably describes the App,
   tell the user that a new Category can be requested during App submission,
   following the official
   [App Categories documentation](https://docs.moveapps.org/#/IO_types?id=app-categories).
+
 - Treat App Categories as submission metadata unless the current MoveApps
   specification explicitly requires them in one of the generated App files.
 
