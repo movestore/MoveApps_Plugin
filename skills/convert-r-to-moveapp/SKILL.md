@@ -185,6 +185,7 @@ Read through the source and identify:
 - External R packages the code depends on.
 - Do not turn assumptions inferred from file or folder names into App input requirements.
 - Treat file/folder names only as clues. Confirm the requirement from the source code, documentation, or with the user before adding it to the App or README.
+- Treat source-code comments as useful context, but do not assume they are always technically correct. Verify important assumptions when they affect the App's behavior.
 
 
 ### Step 6. Check for existing Apps with the same or overlapping purpose
@@ -324,7 +325,12 @@ Before generating any of the MoveApps deliverables, summarize the agreed App des
 - Distinguish implementation-only changes from behavioral/scientific changes.
 - Require user confirmation before applying a behavioral change that is not
   directly equivalent to the original source code.
-
+- Before generating a deliverable file, first identify all information required
+  for that file.
+- Ask the user for all missing required information in one grouped request.
+- Do not generate a partial file with placeholders if required information is
+  still missing.
+- Generate the file only after the required information has been resolved.
 Before proceeding, resolve the settings needed by the selected App and their
 IDs. Do not invent or rename setting IDs later when generating `RFunction.R`
 or `appspec.json`.
@@ -358,7 +364,20 @@ If no secret credential is required:
 
 - Skip the "Change `sdk.R` and `.gitignore`" step.
 
-### Step 12. Produce `RFunction.R`
+
+
+
+### Step 12. Before generating any deliverable file
+
+- Before generating a deliverable file, first identify all information required
+  for that file.
+- Ask the user for all missing required information in one grouped request.
+- Do not generate a partial file with placeholders if required information is
+  still missing.
+- Generate the file only after the required information has been resolved.
+
+
+### Step 13. Produce `RFunction.R`
 
 - Generate the App logic in `RFunction.R`.
 - Before writing or modifying this file, read `references/R_Function.md` and
@@ -369,7 +388,7 @@ If no secret credential is required:
   `providedAppFiles` are bundled into the final MoveApps App. Do not rely on
   any other project files being available at runtime.
 
-### Step 13. Check large fixed or fallback auxiliary files, if applicable
+### Step 14. Check large fixed or fallback auxiliary files, if applicable
 
 - If the App uses fixed or fallback auxiliary input files, ask the user
   whether any of those files are larger than 100 MB.
@@ -380,7 +399,7 @@ If no secret credential is required:
   [Adding large fixed or fallback files to an App](https://docs.moveapps.org/#/auxiliary?id=adding-large-fixed-or-fallback-files-to-an-app)
 
   
-### Step 14. Produce `appspec.json`
+### Step 15. Produce `appspec.json`
 
 - Before creating `appspec.json`, read `references/appspec.md` and follow all
   of its instructions and linked official MoveApps documentation.
@@ -397,7 +416,7 @@ If no secret credential is required:
   `references/Dealing_with_secret_credentials.md` when defining that setting.
 
   
-### Step 15. Produce `app-configuration.json`
+### Step 16. Produce `app-configuration.json`
 
 - Before creating `app-configuration.json`, read
   `references/app-configuration.md` and follow all of its instructions and
@@ -417,7 +436,7 @@ If no secret credential is required:
 - Ensure the final result is valid JSON and contains no configuration entries
   that are not defined in `appspec.json`.
 
-### Step 16. Produce `.env`
+### Step 17. Produce `.env`
 
 - Before creating or updating `.env`, read `references/env.md` and follow all
   of its instructions and linked MoveApps documentation.
@@ -438,7 +457,7 @@ If no secret credential is required:
 
 
 
-### Step 17. Produce `README.md`
+### Step 18. Produce `README.md`
 
 - Produce `README.md` only after `RFunction.R`, `appspec.json`,
   `app-configuration.json`, and `.env` have been completed.
@@ -458,7 +477,7 @@ If no secret credential is required:
 - Verify the final README against the current MoveApps template before
   presenting it to the user.
 
-### Step 18. Determine App Categories
+### Step 19. Determine App Categories
 
 - Read the official MoveApps documentation for
   [App Categories](https://docs.moveapps.org/#/IO_types?id=app-categories).
@@ -493,7 +512,7 @@ If no secret credential is required:
 - Treat App Categories as submission metadata unless the current MoveApps
   specification explicitly requires them in one of the generated App files.
 
-### Step 19. Change `sdk.R` and `.gitignore`, if required
+### Step 20. Change `sdk.R` and `.gitignore`, if required
 
 - Apply this step only if the "Determine whether the App needs secret credentials"
   step determined that the App requires a secret credential.
@@ -508,7 +527,7 @@ If no secret credential is required:
 - If no secret credential is required, skip this step.
 
   
-### Step 20. Final check
+### Step 21. Final check
 
 Before finishing, verify the generated deliverable or deliverables against the
 agreed App design and any previously generated deliverables.
