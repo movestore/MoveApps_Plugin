@@ -22,7 +22,7 @@ Use current authoritative sources when determining package status and migration 
    - Use **Yes** or **No**
    - Mark **Yes** when the package is: deprecated, superseded, archived, retired, or no longer appropriate for current MoveApps development.
    - In particular, treat `move` and `sp` as **Yes**
-   - For the packages that does not need changes, keep this column as **No** and other next columns empty.
+   - For packages with `change needed = No`, keep this column as `No`, list the functions actually used in the `Function call` column, and leave only the replacement-related columns empty.
    
 3. **Function call** :
 
@@ -69,7 +69,7 @@ Use current authoritative sources when determining package status and migration 
 |---|---|---|---|---|---|
 | move | Yes | `timeLag()` | move2 | `verify current equivalent` | Review |
 | sp | Yes | `spTransform()` | sf | `sf::st_transform()` | Review |
-| lubridate | No | | | | |
+| lubridate | No | `ymd()` | | | |
 
 
 - The example is illustrative only. Do not copy mappings from the example without independently verifying them.
