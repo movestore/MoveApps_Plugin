@@ -3,7 +3,7 @@
 - Create the `README.md` based on the official MoveApps [Template](https://github.com/movestore/Template_R_Function_App/blob/master/README.md).
 - Follow the template strictly. Read and use the instructional text under each section as guidance for what content to provide, but do not copy the template's instructional text or example text into the final README.
 - **Name of App:** Use the App name chosen in the workflow step that determines the App's display name. Use the same display title in the README and preserve the required **Title Case without hyphens** convention.
-- if no App name has been provided or determined yet, do not invent one. Use TODO: verify for the title and inform the user that the App name still needs to be provided.
+-- If the App name has not been provided or determined yet, ask the user for it before generating `README.md`. Do not use a placeholder for the App title.
 - **Github repository:**
   1. If the user has provided the repository URL in the conversation or workflow context, include it.
   2. If no repository URL has been provided, remove the template placeholder and leave nothing after `Github repository:`.
@@ -12,7 +12,9 @@
 - Complete the README using verifiable information from the actual App files, especially `appspec.json`, the R source code, tests, and other generated App files where relevant.
 - Ensure that the documented application scope, required data properties, input/output types, artefacts, settings, changes in output data, error/null handling, and technical details accurately reflect the implementation.
 - Do not invent functionality, settings, data requirements, output fields, artefacts, repository information, or runtime behaviour.
-- If information required by the template cannot be verified from the project files or workflow context, mark it as `TODO: verify`.
+- If required README information cannot be verified from the project files or workflow context, ask the user for it before generating `README.md`.
+- Do not use placeholders for required README information.
+- Optional information may be omitted when the template and MoveApps guidance allow it.
 - Omit the optional screenshot block unless the user provides a suitable screenshot.
 - Include the optional **Technical details** section when sufficient implementation information is available.
 - The final output must be a clean, App-specific, publication-ready `README.md` that follows the current MoveApps README template.
