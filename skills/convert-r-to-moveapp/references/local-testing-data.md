@@ -1,34 +1,8 @@
 ## Local testing with additional user data
+Use this reference only when the user has selected either:
+- their own CSV file; or
+- data from Movebank.
 
-Use this reference only when the user wants to test the App with data other than
-the datasets already provided in the MoveApps template.
-
-### First decide the testing-data source
-
-Before asking about any specific dataset, ask the user:
-
-**Which data would you like to use for local testing?**
-
-1. A dataset already provided in the MoveApps template
-2. My own CSV file
-3. Data from Movebank
-
-Then follow only the selected path.
-
-- If the user selects **1**, stop using this reference and follow
-  `references/env.md` for the template-dataset workflow.
-- If the user selects **2**, continue with **User already has a CSV file** below.
-- If the user selects **3**, continue with **User wants to use data from Movebank**
-  below.
-
-Do not first ask the user which template dataset they want to use and then ask
-whether they have their own data.
-
-Do not explain the template datasets unless the user selected the template-data
-option.
-
-Do not show the Movebank Example Datasets link unless the user selected Movebank
-data and wants help choosing a study.
 
 #### 1. User already has a CSV file
 
