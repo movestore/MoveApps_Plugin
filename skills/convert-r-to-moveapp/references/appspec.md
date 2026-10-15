@@ -8,12 +8,6 @@ The appspec.json file is used to define the specifications of an App within Move
 - Before adding any field to `appspec.json`, verify that the field exists in one of those current sources.
 - If a field cannot be verified, omit it rather than guessing.
 - For `version`, use the value or format required by the current live in [Template_R_Function_App/appspec.json](https://github.com/movestore/Template_R_Function_App/blob/master/appspec.json). Do not invent it.
-- When asking the user to choose among a small set of known options, present
-  them as a single-choice selection, similar to radio buttons.
-- Include an `Other` option with a free-text field when an alternative answer
-  may be valid.
-- Use open-ended questions only when the answer cannot reasonably be limited
-  to known options.
   
 Currently, the following specifications can/need to be added:
 
@@ -104,7 +98,6 @@ If the App developer can/wants to provide either fixed or fallback auxiliary fil
   - Verify each reference from an authoritative source before adding it to `appspec.json`.
   - Do not invent citation details.
   - If a reference cannot be verified, do not finalize it.
-  - If the App is based mainly on a single library, to acknowledge them add it as a [refrence](https://docs.moveapps.org/#/best_practices_coding?id=acknowledgements-and-references).
   - For an R package reference, prefer the package's official citation information rather than reconstructing the citation manually.
 
 #### Validation
