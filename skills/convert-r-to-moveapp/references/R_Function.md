@@ -4,7 +4,9 @@
 
 - The file must be named `RFunction.R`.
 - See the [verified real template](https://github.com/movestore/Template_R_Function_App/blob/master/RFunction.R) for the real file structure.
-- Get the list of libraries from `Check the required packages` in `SKILL.md` and put them at the top of `RFunction.R`.
+- - Use the final package-loading decisions from `Check the required packages` in `SKILL.md`.
+- Do not automatically add `library()` for every dependency.
+- Use explicit `package::function()` calls when they are clearer, safer, or help avoid function masking or namespace conflicts.
 - When loading libraries, watch for function-name masking/conflicts between packages. Prefer explicit namespace calls such as `package::function()` when needed.
 - Do not install packages inside `RFunction.R`; only load the required libraries/packages defined for the App environment.
 - Do not use setwd(), <<-, or modify .GlobalEnv inside RFunction.R.
