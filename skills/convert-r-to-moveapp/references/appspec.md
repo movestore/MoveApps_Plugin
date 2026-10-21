@@ -103,4 +103,5 @@ If the App developer can/wants to provide either fixed or fallback auxiliary fil
 #### Validation
 - After generating appspec.json, verify that it follows the current official MoveApps specification and template.
 - Check every top-level field and nested field against the current official specification or verified template before finalizing `appspec.json`.
-- The user can additionally validate the result with the MoveApps [Settings Editor ](https://www.moveapps.org/apps/settingseditor).
+- After presenting the final `appspec.json`, tell the user they can validate it
+  with the MoveApps [Settings Editor ](https://www.moveapps.org/apps/settingseditor).
