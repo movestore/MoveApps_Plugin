@@ -302,7 +302,7 @@ Read through the source and identify:
   the user's confirmation.
 - After package decisions are resolved, make a final list of the packages
   required by the App and identify which libraries need to be loaded in
-  `RFunction.R`.
+  `RFunction.R`. Do not add `library(moveapps)` to `RFunction.R`.
 
 ### Step 9. Determine the IO type
 
