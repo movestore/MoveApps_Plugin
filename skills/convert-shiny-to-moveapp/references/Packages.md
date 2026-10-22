@@ -1,14 +1,13 @@
 ## Packages Table
-Inspect the packages and package functions actually used by the App 
-Use current authoritative sources when determining package status and migration paths. Prefer:
+Inspect the packages and package functions actually used by the App
 
-   1- CRAN package documentation
-
-   2- The package's official website or repository
-
-   3-  Official migration guides
-
-   4-  MoveApps documentation or maintained MoveApps ecosystem repositories
+- First of all, add the "shiny" package and ?? "[shinydashboard](https://cran.r-project.org/package=shinydashboard)" (if needed) packages.
+  
+- Use current authoritative sources when determining package status and migration paths. Prefer:  
+   1- CRAN package documentation  
+   2- The package's official website or repository  
+   3-  Official migration guides  
+   4-  MoveApps documentation or maintained MoveApps ecosystem repositories  
 
 - Do not rely only on whether a package is archived on CRAN. A package may still be available on CRAN but no longer be recommended for new MoveApps development.
 - Inspect the packages and package functions actually used by the App and create a complete call-by-call table named **Packages Table**  with the following columns:
@@ -78,11 +77,11 @@ Use current authoritative sources when determining package status and migration 
 ## Package usage rules:
 
 - Keep library() calls to the minimum needed for readable and safe code.
-- Identify the package functions actually used in RFunction.R and any other relevant R source files.
-- NCmisc::list.functions.in.file("RFunction.R") may be used as an aid, but do not rely on it as the sole method of dependency detection.
+- Identify the package functions actually used in `ShinyModule.R`.
+- NCmisc::list.functions.in.file("ShinyModule.R") may be used as an aid, but do not rely on it as the sole method of dependency detection.
 - Also inspect explicit package::function() calls, imported functions, dynamically referenced functions, and relevant helper files.
 - Do not load an entire package solely for one or a few functions when explicit package::function() calls are clearer and appropriate.
-- Do not add base or recommended R packages to the `dependencies` section of
+- Do not add base or recommended packages to the `dependencies` section of
   `appspec.json` unless the current MoveApps specification explicitly requires them.
 - Check for function masking and namespace conflicts.
 - Prefer explicit package::function() calls when ambiguity or masking is possible.
