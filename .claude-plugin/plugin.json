@@ -1,7 +1,7 @@
 {
-  "name": "moveapps-r-converter",
+  "name": "moveapps-rshiny-converter",
   "version": "0.1.0",
-  "description": "Convert existing R analysis code into a MoveApps App",
+  "description": "Convert existing R code into a RShiny MoveApps App",
   "author": {
     "name": "Nafiseh Tavakol"
   }
