@@ -101,18 +101,18 @@ for the full list. The guidance below only applies when the App's input type is 
     - Return `NULL` when this is the established MoveApps pattern for a no-data result; otherwise preserve the App's intended output contract.
     - Do not describe `NULL` as a normal output object of the declared IO type.
     - Before returning the result, verify that it matches the App's expected output type and has not lost required `move2` structure or metadata.
-14. **Shiny Components**
-    - For adding the component to the `ShinyModule.R` read the [Shiny website](https://shiny.posit.co/r/components/). It contains Input and Output components. some of them are below. Read all the links:
-    1- Inputs:
+14. **Shiny Components**  
+    - For adding the component to the `ShinyModule.R` read the [Shiny website](https://shiny.posit.co/r/components/). It contains Input and Output components. some of them are below. Read all the links:  
+    1- Inputs:  
          [Action Button](https://shiny.posit.co/r/components/inputs/action-button/) , [Action Link](https://shiny.posit.co/r/components/inputs/action-link/), [Checkbox](https://shiny.posit.co/r/components/inputs/checkbox/),
       [Checkbox Group](https://shiny.posit.co/r/components/inputs/checkbox-group/), [Dark Mode Switch](https://shiny.posit.co/r/components/inputs/dark-mode-switch/),
       [Date Range Selector](https://shiny.posit.co/r/components/inputs/date-range-selector/), [Date Selector](https://shiny.posit.co/r/components/inputs/date-selector/),
       [Download Button](https://shiny.posit.co/r/components/inputs/download-button/), [Download Link](https://shiny.posit.co/r/components/inputs/download-link/), [File Input](https://shiny.posit.co/r/components/inputs/file-input/), [Numeric Input](https://shiny.posit.co/r/components/inputs/numeric-input/), [Password Field](https://shiny.posit.co/r/components/inputs/password-field/), [Plot](https://shiny.posit.co/r/components/inputs/plot/), [Radio Buttons](https://shiny.posit.co/r/components/inputs/radio-buttons/), [Select (Single)](https://shiny.posit.co/r/components/inputs/select-single/), [Select (Multiple)](https://shiny.posit.co/r/components/inputs/select-multiple/),
-      [Selectize (Single)](https://shiny.posit.co/r/components/inputs/selectize-single/), [Selectize (Multiple)](https://shiny.posit.co/r/components/inputs/selectize-multiple/), [Slider](https://shiny.posit.co/r/components/inputs/slider/), [Slider Range](https://shiny.posit.co/r/components/inputs/slider-range/), [Submit Button](https://shiny.posit.co/r/components/inputs/submit-button/), [Switch](https://shiny.posit.co/r/components/inputs/switch/), [Task Button](https://shiny.posit.co/r/components/inputs/task-button/), [Text Area](https://shiny.posit.co/r/components/inputs/text-area/), [Text Box](https://shiny.posit.co/r/components/inputs/text-box/)
-    2- Outputs:
-         DataTable, Image, Map (leaflet), Plot (ggplot2), Plot (plotly), Table, Table (gt), Table (reactable), Text, UI, Value Box, Verbatim Text
-    3- Display Messages:
-         Modal, Notifications, Popovers, Progress Bar,Tooltips
+      [Selectize (Single)](https://shiny.posit.co/r/components/inputs/selectize-single/), [Selectize (Multiple)](https://shiny.posit.co/r/components/inputs/selectize-multiple/), [Slider](https://shiny.posit.co/r/components/inputs/slider/), [Slider Range](https://shiny.posit.co/r/components/inputs/slider-range/), [Submit Button](https://shiny.posit.co/r/components/inputs/submit-button/), [Switch](https://shiny.posit.co/r/components/inputs/switch/), [Task Button](https://shiny.posit.co/r/components/inputs/task-button/), [Text Area](https://shiny.posit.co/r/components/inputs/text-area/), [Text Box](https://shiny.posit.co/r/components/inputs/text-box/)  
+    2- Outputs:  
+         [DataTable](https://shiny.posit.co/r/components/outputs/datatable/), [Image](https://shiny.posit.co/r/components/outputs/image/), [Map (leaflet)](https://shiny.posit.co/r/components/outputs/map-leaflet/), [Plot (ggplot2)](https://shiny.posit.co/r/components/outputs/plot-ggplot2/), [Plot (plotly)](https://shiny.posit.co/r/components/outputs/plot-plotly/), [Table](https://shiny.posit.co/r/components/outputs/table/), [Table (gt)](https://shiny.posit.co/r/components/outputs/table-gt/), [Table (reactable)](https://shiny.posit.co/r/components/outputs/table-reactable/), [Text](https://shiny.posit.co/r/components/outputs/text/), [UI](https://shiny.posit.co/r/components/outputs/ui/), [Value Box](https://shiny.posit.co/r/components/outputs/value-box/), [Verbatim Text](https://shiny.posit.co/r/components/outputs/verbatim-text/)    
+    3- Display Messages:  
+         [Modal](https://shiny.posit.co/r/components/display-messages/modal/), [Notifications](https://shiny.posit.co/r/components/display-messages/notifications/), [Popovers](https://shiny.posit.co/r/components/display-messages/popovers/), [Progress Bar](https://shiny.posit.co/r/components/display-messages/progress-bar/), [Tooltips](https://shiny.posit.co/r/components/display-messages/tooltips/)  
 
     
     
