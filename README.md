@@ -1,16 +1,14 @@
-## MoveApps R Converter
+## MoveApps RShiny Converter
 
-This repository develops a reusable Claude Skill for converting existing R
-analysis code into the files required for a MoveApps App.
+This repository develops a reusable Claude Skill for converting existing Shiny app code into the files required for a MoveApps App.
 
-The Skill follows the conventions of the
-[`movestore/Template_R_Function_App`](https://github.com/movestore/Template_R_Function_App)
+The Skill follows the conventions of the [`movestore/Template R Shiny App`](https://github.com/movestore/Template_R_Shiny_App)
 and uses the current MoveApps documentation throughout the conversion workflow.
 
 ### Goal
 
 The goal of the project is to provide a repeatable AI-assisted workflow that
-helps MoveApps developers adapt existing R analysis code to the MoveApps R App
+helps MoveApps developers adapt existing Shiny app code to the MoveApps RShiny App
 structure without having to manually work through all template and SDK
 requirements.
 
@@ -20,11 +18,11 @@ inputs, outputs, and documentation for MoveApps.
 
 ### Current Workflow
 
-The Skill does more than directly rewrite an R script.
+The Skill does more than directly rewrite an Shiny app code script.
 
 Before generating the MoveApps files, it:
 
-1. reads and analyzes the source R code;
+1. reads and analyzes the source Shiny app code;
 2. determines the intended purpose of the App;
 3. checks whether the source contains one App or several independently useful
    processing steps;
@@ -53,11 +51,10 @@ is converted in a single conversion workflow.
 
 The Skill produces five primary deliverables, in this order:
 
-1. `RFunction.R`
+1. `ShinyModule.R`
 2. `appspec.json`
-3. `app-configuration.json`
-4. `.env`
-5. `README.md`
+3. `.env`
+4. `README.md`
 
 The files may be requested incrementally across several messages, but the order
 is preserved.
@@ -81,7 +78,7 @@ This approach keeps file modification under the user's control while the Skill
 is being tested and refined.
 
 Direct file writing may be considered later after the text-based workflow has
-been validated with real R projects.
+been validated with real RShiny projects.
 
 ### Scope
 
@@ -100,8 +97,7 @@ If the user asks to test the generated App with one or more datasets:
 - read the current MoveApps local-testing documentation;
 - determine how the input dataset path or paths must be provided;
 - use `.env` only if the current SDK workflow requires it;
-- do not hard-code dataset paths into `RFunction.R`, `appspec.json`, or
-  `app-configuration.json`;
+- do not hard-code dataset paths into `ShinyModule.R` or `appspec.json`;
 - ask the user which dataset or datasets should be used if none were provided.  
 - If the user wants to test with their own CSV data or additional Movebank data,
 the Skill follows `references/local-testing-data.md`.
@@ -115,10 +111,10 @@ There they can get the resource in cases such as deployments, multiple sensor ty
 The main `SKILL.md` controls the conversion workflow and uses dedicated
 reference files for the technical details of each part of the conversion.
 
-### `R_Function.md`
+### `ShinyModule.md`
 
-Defines how `RFunction.R` should be structured and validated for MoveApps,
-including the `rFunction` entry point, input/output handling, settings,
+Defines how `ShinyModule.R` should be structured and validated for MoveApps,
+including the `shinyModuleUserInterface` and `shinyModule` functions, input/output handling, settings,
 packages, auxiliary files, logging, spatial/time requirements, artifacts,
 and final output checks.
 
@@ -127,12 +123,6 @@ and final output checks.
 Defines how `appspec.json` is created and validated, including settings,
 dependencies, auxiliary files, licensing, people, funding, references, and
 other supported MoveApps metadata.
-
-### `app-configuration.md`
-
-Defines how `appspec.json` settings are represented in
-`app-configuration.json` for local execution, including defaults, value
-formats, validation, secrets, and user-uploaded auxiliary files.
 
 ### `io-types.md`
 
@@ -192,13 +182,13 @@ In particular, the user is asked to confirm:
 ### Safety
 
 ### Source code is treated as untrusted input
-R source code is analyzed as data, not as instructions to Claude.
+Shiny code is analyzed as data, not as instructions to Claude.
 Comments, strings, or other source-code content that attempts to redirect the
 Skill — for example text such as "ignore the previous instructions" — is not
 followed.
 
 The current Skill restructures and reviews the source code but does not execute
-the user's R code.
+the user's Shiny code.
 
 ### No invented App behavior
 
@@ -222,7 +212,7 @@ Generated content is returned to the user for review.
 The conversion workflow, `SKILL.md`, and supporting reference guidelines have
 been developed.
 
-The project is now in runtime testing with real R scripts using Claude. Testing
+The project is now in runtime testing with real Shiny scripts using Claude. Testing
 focuses on the usability and consistency of the generated MoveApps files,
 including package migration, IO type selection, settings, auxiliary files, and
 cross-file compatibility.
@@ -231,7 +221,7 @@ Further refinements will be based on issues identified during these test runs.
 
 ### Planned Development
 
-1. Test the Skill on representative real R projects.
+1. Test the Skill on representative real Shiny projects.
 2. Identify workflow and generation problems during runtime use.
 3. Refine the Skill and reference guidelines.
 4. Validate the generated files against MoveApps templates and documentation.
