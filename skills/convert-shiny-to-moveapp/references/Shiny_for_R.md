@@ -1,6 +1,10 @@
+- Use this online version of [Mastering Shiny (by Hadley Wickham, published by O’Reilly Media in April 2021)](https://mastering-shiny.org/) as a refrence.
+- Check this [shiny link](https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/) for details.
+
 1. **Shiny Components**  
-    - For adding the component to the `ShinyModule.R` read the [Shiny website](https://shiny.posit.co/r/components/). It contains Input and Output components. some of them are below. Read all the links:  
-    1- Inputs:  
+   For adding the component to the `ShinyModule.R` read the [Shiny website](https://shiny.posit.co/r/components/). It contains Input and Output components. some of them are below. Read all the links:  
+    1- Inputs:
+      [Add control widgets](https://shiny.posit.co/r/getstarted/shiny-basics/lesson3/): 
          [Action Button](https://shiny.posit.co/r/components/inputs/action-button/) , [Action Link](https://shiny.posit.co/r/components/inputs/action-link/), [Checkbox](https://shiny.posit.co/r/components/inputs/checkbox/),
       [Checkbox Group](https://shiny.posit.co/r/components/inputs/checkbox-group/), [Dark Mode Switch](https://shiny.posit.co/r/components/inputs/dark-mode-switch/),
       [Date Range Selector](https://shiny.posit.co/r/components/inputs/date-range-selector/), [Date Selector](https://shiny.posit.co/r/components/inputs/date-selector/),
@@ -11,8 +15,8 @@
     3- Display Messages:  
          [Modal](https://shiny.posit.co/r/components/display-messages/modal/), [Notifications](https://shiny.posit.co/r/components/display-messages/notifications/), [Popovers](https://shiny.posit.co/r/components/display-messages/popovers/), [Progress Bar](https://shiny.posit.co/r/components/display-messages/progress-bar/), [Tooltips](https://shiny.posit.co/r/components/display-messages/tooltips/)  
 
-2. **Shiny Layouts**  
-     - Layouts allow the simplest or most complicated app to be useable and scalable. Below is some of the layout types:  
+3. **Shiny Layouts**  
+   Layouts allow the simplest or most complicated app to be useable and scalable. Below is some of the layout types:  
        1- [Navbar](https://shiny.posit.co/r/layouts/navbars/) : [Navbar at Top](https://shiny.posit.co/r/layouts/navbars/#navbar-at-top) , [Navbar at Bottom](https://shiny.posit.co/r/layouts/navbars/#navbar-at-bottom)  
        2- [Sidebars](https://shiny.posit.co/r/layouts/sidebars/): [Sidebar on the Left](https://shiny.posit.co/r/layouts/sidebars/#sidebar-on-the-left), [Sidebar on the Right](https://shiny.posit.co/r/layouts/sidebars/#sidebar-on-the-right), [Sidebar Within a Card](https://shiny.posit.co/r/layouts/sidebars/#sidebar-within-a-card), [Collapsed Sidebar](https://shiny.posit.co/r/layouts/sidebars/#collapsed-sidebar)  
        3- [Tabs](https://shiny.posit.co/r/layouts/tabs/): [Tabset with pill navigation](https://shiny.posit.co/r/layouts/tabs/#tabset-with-pill-navigation),  [Tabset with pill list navigation](https://shiny.posit.co/r/layouts/tabs/#tabset-with-pill-list-navigation),  [Tabset with tab navigation](https://shiny.posit.co/r/layouts/tabs/#tabset-with-tab-navigation), [Card with a tabbed tabset](https://shiny.posit.co/r/layouts/tabs/#card-with-a-tabbed-tabset), [Card with a pill tabset](https://shiny.posit.co/r/layouts/tabs/#card-with-a-pill-tabset), [Vertically collapsing accordion panels](https://shiny.posit.co/r/layouts/tabs/#vertically-collapsing-accordion-panels)  
