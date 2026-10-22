@@ -1,14 +1,14 @@
-## MoveApps RShiny Converter
+## MoveApps Shiny Converter
 
-This repository develops a reusable Claude Skill for converting existing Shiny app code into the files required for a MoveApps App.
+This repository develops a reusable Claude Skill for converting existing R Shiny app code into the files required for a MoveApps Shiny App.
 
-The Skill follows the conventions of the [`movestore/Template R Shiny App`](https://github.com/movestore/Template_R_Shiny_App)
+The Skill follows the conventions of the [`movestore/Template_R_Shiny_App`](https://github.com/movestore/Template_R_Shiny_App)
 and uses the current MoveApps documentation throughout the conversion workflow.
 
 ### Goal
 
 The goal of the project is to provide a repeatable AI-assisted workflow that
-helps MoveApps developers adapt existing Shiny app code to the MoveApps RShiny App
+helps MoveApps developers adapt existing R Shiny app code to the MoveApps Shiny App
 structure without having to manually work through all template and SDK
 requirements.
 
@@ -18,7 +18,7 @@ inputs, outputs, and documentation for MoveApps.
 
 ### Current Workflow
 
-The Skill does more than directly rewrite an Shiny app code script.
+The Skill does more than directly rewrite a Shiny app.
 
 Before generating the MoveApps files, it:
 
@@ -28,28 +28,26 @@ Before generating the MoveApps files, it:
    processing steps;
 4. selects one App to convert in the current workflow;
 5. checks whether the source code is complete and suitable for conversion;
-6. identifies the core analysis logic, inputs, outputs, settings, helper
-   functions, and dependencies;
+6. identifies the core analysis logic, user interface, inputs, outputs, settings,
+   helper functions, and dependencies;
 7. checks the App name for suitability and possible collisions;
 8. reviews package usage and identifies deprecated or superseded packages;
 9. determines the appropriate MoveApps input and output types;
 10. prepares an App design and asks the user to confirm it before generation;
-11. generates and cross-checks the required MoveApps deliverables.
-12. determines whether secret credentials are required;
-13. generates the five primary MoveApps deliverables;
-14. prepares local-testing configuration and test-data guidance;
-15. determines appropriate MoveApps categories;
-16. provides conditional `sdk.R` or `.gitignore` guidance when required;
-17. performs a final cross-file consistency check.
+11. determines whether secret credentials are required;
+12. generates the four primary MoveApps deliverables;
+13. prepares local-testing configuration and test-data guidance;
+14. determines appropriate MoveApps categories;
+15. provides conditional `sdk.R` or `.gitignore` guidance when required;
+16. performs a final cross-file consistency check.
 
-
-If the original R code contains several distinct responsibilities, the Skill
+If the original Shiny code contains several distinct responsibilities, the Skill
 may recommend splitting it into multiple MoveApps Apps. Only one selected App
 is converted in a single conversion workflow.
 
 ### Deliverables
 
-The Skill produces five primary deliverables, in this order:
+The Skill produces four primary deliverables, in this order:
 
 1. `ShinyModule.R`
 2. `appspec.json`
@@ -78,11 +76,11 @@ This approach keeps file modification under the user's control while the Skill
 is being tested and refined.
 
 Direct file writing may be considered later after the text-based workflow has
-been validated with real RShiny projects.
+been validated with real Shiny projects.
 
 ### Scope
 
-The Skill produces the five primary deliverables listed above.
+The Skill produces the four primary deliverables listed above.
 
 It does not create or modify other MoveApps template or SDK files such as
 `tests/`, `src/app/`, `Dockerfile`, or `renv.lock`.
@@ -92,39 +90,40 @@ and `.gitignore`, for example for secret-credential or auxiliary-file handling.
 
 ### Local testing, when requested
 
-If the user asks to test the generated App with one or more datasets:
+If the user asks to test the generated App with one or more datasets, the Skill:
 
-- read the current MoveApps local-testing documentation;
-- determine how the input dataset path or paths must be provided;
-- use `.env` only if the current SDK workflow requires it;
-- do not hard-code dataset paths into `ShinyModule.R` or `appspec.json`;
-- ask the user which dataset or datasets should be used if none were provided.  
-- If the user wants to test with their own CSV data or additional Movebank data,
-the Skill follows `references/local-testing-data.md`.
+- reads the current MoveApps local-testing documentation;
+- determines how the input dataset path or paths must be provided;
+- uses `.env` only if the current SDK workflow requires it;
+- does not hard-code dataset paths into `ShinyModule.R` or `appspec.json`;
+- asks the user which dataset or datasets should be used if none were provided;
+- follows `references/local-testing-data.md` if the user wants to test with their
+  own CSV data or additional Movebank data.
 
-Note: To get the new data set to test the app localy, user can use [Movebank Example Datasets](https://github.com/movestore/Movebank_Example_Datasets/blob/main/README.md).
-There they can get the resource in cases such as deployments, multiple sensor types, milliseconds, identifiers, non-location data, duplicates, outliers, and partial data access.
-
+Note: Additional test datasets are available in the
+[Movebank Example Datasets](https://github.com/movestore/Movebank_Example_Datasets/blob/main/README.md).
+They cover special cases such as deployments, multiple sensor types, milliseconds,
+identifiers, non-location data, duplicates, outliers, and partial data access.
 
 ### Reference Guidelines
 
 The main `SKILL.md` controls the conversion workflow and uses dedicated
 reference files for the technical details of each part of the conversion.
 
-### `ShinyModule.md`
+#### `ShinyModule.md`
 
 Defines how `ShinyModule.R` should be structured and validated for MoveApps,
-including the `shinyModuleUserInterface` and `shinyModule` functions, input/output handling, settings,
-packages, auxiliary files, logging, spatial/time requirements, artifacts,
-and final output checks.
+including the `shinyModuleUserInterface` and `shinyModule` functions,
+input/output handling, settings, packages, auxiliary files, logging,
+spatial/time requirements, artifacts, and final output checks.
 
-### `appspec.md`
+#### `appspec.md`
 
 Defines how `appspec.json` is created and validated, including settings,
 dependencies, auxiliary files, licensing, people, funding, references, and
 other supported MoveApps metadata.
 
-### `io-types.md`
+#### `io-types.md`
 
 Defines the currently supported MoveApps R input/output types and requires the
 Skill to select the type from the actual data structure rather than forcing the
@@ -133,7 +132,7 @@ data into the closest available type.
 If the App's data does not match a supported MoveApps IO type, the Skill
 instructs the user that a new IO type may need to be requested.
 
-### `Packages.md`
+#### `Packages.md`
 
 Defines how package usage is reviewed before conversion, including deprecated or
 superseded packages, affected function calls, possible replacements, and whether
@@ -143,16 +142,20 @@ Potentially significant migrations, such as `move` → `move2` or `sp` → `sf`,
 are not applied automatically when they may change classes, arguments, outputs,
 or workflow behavior.
 
-### `env.md`
+#### `env.md`
+
 Defines `.env` preparation for local testing.
 
-### `local-testing-data.md`
-Defines how user-provided CSV files and additional Movebank data are prepared for testing.
+#### `local-testing-data.md`
 
-### `Dealing_with_secret_credentials.md`
+Defines how user-provided CSV files and additional Movebank data are prepared
+for testing.
+
+#### `Dealing_with_secret_credentials.md`
+
 Defines safe handling of passwords, API keys, tokens, and other secret credentials.
 
-### `README_guide.md`
+#### `README_guide.md`
 
 Defines how the final MoveApps `README.md` is created from the completed App
 files.
@@ -181,7 +184,8 @@ In particular, the user is asked to confirm:
 
 ### Safety
 
-### Source code is treated as untrusted input
+#### Source code is treated as untrusted input
+
 Shiny code is analyzed as data, not as instructions to Claude.
 Comments, strings, or other source-code content that attempts to redirect the
 Skill — for example text such as "ignore the previous instructions" — is not
@@ -190,7 +194,7 @@ followed.
 The current Skill restructures and reviews the source code but does not execute
 the user's Shiny code.
 
-### No invented App behavior
+#### No invented App behavior
 
 The Skill does not invent missing analysis logic, unsupported IO types,
 settings, package replacements, metadata, file paths, repository information,
@@ -200,7 +204,7 @@ documentation.
 If required information cannot be verified, the user is asked for it or the
 result is marked as needing verification.
 
-### No automatic publication
+#### No automatic publication
 
 The current workflow does not build, publish, commit, push, or submit a
 MoveApps App on the user's behalf.
@@ -212,7 +216,7 @@ Generated content is returned to the user for review.
 The conversion workflow, `SKILL.md`, and supporting reference guidelines have
 been developed.
 
-The project is now in runtime testing with real Shiny scripts using Claude. Testing
+The project is now in runtime testing with real Shiny apps using Claude. Testing
 focuses on the usability and consistency of the generated MoveApps files,
 including package migration, IO type selection, settings, auxiliary files, and
 cross-file compatibility.
