@@ -1,4 +1,4 @@
-14. **Shiny Components**  
+1. **Shiny Components**  
     - For adding the component to the `ShinyModule.R` read the [Shiny website](https://shiny.posit.co/r/components/). It contains Input and Output components. some of them are below. Read all the links:  
     1- Inputs:  
          [Action Button](https://shiny.posit.co/r/components/inputs/action-button/) , [Action Link](https://shiny.posit.co/r/components/inputs/action-link/), [Checkbox](https://shiny.posit.co/r/components/inputs/checkbox/),
@@ -10,3 +10,13 @@
          [DataTable](https://shiny.posit.co/r/components/outputs/datatable/), [Image](https://shiny.posit.co/r/components/outputs/image/), [Map (leaflet)](https://shiny.posit.co/r/components/outputs/map-leaflet/), [Plot (ggplot2)](https://shiny.posit.co/r/components/outputs/plot-ggplot2/), [Plot (plotly)](https://shiny.posit.co/r/components/outputs/plot-plotly/), [Table](https://shiny.posit.co/r/components/outputs/table/), [Table (gt)](https://shiny.posit.co/r/components/outputs/table-gt/), [Table (reactable)](https://shiny.posit.co/r/components/outputs/table-reactable/), [Text](https://shiny.posit.co/r/components/outputs/text/), [UI](https://shiny.posit.co/r/components/outputs/ui/), [Value Box](https://shiny.posit.co/r/components/outputs/value-box/), [Verbatim Text](https://shiny.posit.co/r/components/outputs/verbatim-text/)    
     3- Display Messages:  
          [Modal](https://shiny.posit.co/r/components/display-messages/modal/), [Notifications](https://shiny.posit.co/r/components/display-messages/notifications/), [Popovers](https://shiny.posit.co/r/components/display-messages/popovers/), [Progress Bar](https://shiny.posit.co/r/components/display-messages/progress-bar/), [Tooltips](https://shiny.posit.co/r/components/display-messages/tooltips/)  
+
+2. **Shiny Layouts**  
+     - Layouts allow the simplest or most complicated app to be useable and scalable. Below is some of the layout types:  
+       1- [Navbar](https://shiny.posit.co/r/layouts/navbars/) : [Navbar at Top](https://shiny.posit.co/r/layouts/navbars/#navbar-at-top) , [Navbar at Bottom](https://shiny.posit.co/r/layouts/navbars/#navbar-at-bottom)  
+       2- [Sidebars](https://shiny.posit.co/r/layouts/sidebars/): [Sidebar on the Left](https://shiny.posit.co/r/layouts/sidebars/#sidebar-on-the-left), [Sidebar on the Right](https://shiny.posit.co/r/layouts/sidebars/#sidebar-on-the-right), [Sidebar Within a Card](https://shiny.posit.co/r/layouts/sidebars/#sidebar-within-a-card), [Collapsed Sidebar](https://shiny.posit.co/r/layouts/sidebars/#collapsed-sidebar)  
+       3- [Tabs](https://shiny.posit.co/r/layouts/tabs/): [Tabset with pill navigation](https://shiny.posit.co/r/layouts/tabs/#tabset-with-pill-navigation),  [Tabset with pill list navigation](https://shiny.posit.co/r/layouts/tabs/#tabset-with-pill-list-navigation),  [Tabset with tab navigation](https://shiny.posit.co/r/layouts/tabs/#tabset-with-tab-navigation), [Card with a tabbed tabset](https://shiny.posit.co/r/layouts/tabs/#card-with-a-tabbed-tabset), [Card with a pill tabset](https://shiny.posit.co/r/layouts/tabs/#card-with-a-pill-tabset), [Vertically collapsing accordion panels](https://shiny.posit.co/r/layouts/tabs/#vertically-collapsing-accordion-panels)  
+       4- [Panels & Cards](https://shiny.posit.co/r/layouts/panels-cards): [Floating panel](https://shiny.posit.co/r/layouts/panels-cards/#main-image-with-panel-floating-above), [Content in cards](https://shiny.posit.co/r/layouts/panels-cards/#content-divided-by-cards)  
+       5- [Arrange Elements](https://shiny.posit.co/r/layouts/arrange): [Grid Layouts](https://shiny.posit.co/r/layouts/arrange/#grid-layouts), [Column nesting](https://shiny.posit.co/r/layouts/arrange/#column-nesting), [Control for page size](https://shiny.posit.co/r/layouts/arrange/#controlling-for-page-width-and-height)  
+       
+   
