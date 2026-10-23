@@ -46,10 +46,7 @@ for the full list. The guidance below only applies when the App's input type is 
 6. **Scope: single `ShinyModule.R`**
    - This skill always keeps everything in one `ShinyModule.R` — it does not
      split code into separate files under `src/app/`, even if the original
-     source is organized that way. Splitting a finished App into multiple
-     files afterward is a manual step outside this skill's output; see
-     [Source additional R scripts](https://docs.moveapps.org/#/copilot-r-sdk?id=source-aditional-r-scripts).
-
+     source is organized that way.
 7. **Parallel computing within MoveApps**
    - It's possible to write Apps so that suitable tasks run in parallel on MoveApps. Read this: [Parallel computing in R Apps](https://docs.moveapps.org/#/parallelcomp?id=parallel-computing-in-r-apps).
    - For a worked example, see Bruno Caneco's test App: [dmpstats/moveapps-check-parallel](https://github.com/dmpstats/moveapps-check-parallel).
