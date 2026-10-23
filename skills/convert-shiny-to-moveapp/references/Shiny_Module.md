@@ -9,11 +9,11 @@ Read references/io-types.md and follow the requirements of the specific IO type 
 - Use the final package-loading decisions from `Check the required packages` in `SKILL.md`.
 - Do not automatically add `library()` for every dependency.
 - Add the `library("shiny")` for all the R-Shiny modules.
-- Add the `library("shinydashboard")` when 
+- Add the `library("shinydashboard")` when using shiny dashboard is a good idea.
 - Use explicit `package::function()` calls when they are clearer, safer, or help avoid function masking or namespace conflicts.
 - When loading libraries, watch for function-name masking/conflicts between packages. Prefer explicit namespace calls such as `package::function()` when needed.
-- Do not install packages inside `RFunction.R`; only load the required libraries/packages defined for the App environment.
-- Do not use setwd(), <<-, or modify .GlobalEnv inside RFunction.R.
+- Do not install packages inside `ShinyModule.R`; only load the required libraries/packages defined for the App environment.
+- Do not use setwd(), <<-, or modify .GlobalEnv inside ShinyModule.R.
 - Do not assume the input and output types are the same. Use the App's declared input and output types and preserve that contract.
 
 
@@ -43,8 +43,8 @@ for the full list. The guidance below only applies when the App's input type is 
 5. **Time zones**
    - All tracking data comes in with timestamps in `UTC` — if the App converts to a local time zone for interpretation, convert it back to `UTC` before passing data on as output. Read this: [Time zones](https://docs.moveapps.org/#/best_practices_coding?id=time-zones).
 
-6. **Scope: single `RFunction.R`**
-   - This skill always keeps everything in one `RFunction.R` — it does not
+6. **Scope: single `ShinyModule.R`**
+   - This skill always keeps everything in one `ShinyModule.R` — it does not
      split code into separate files under `src/app/`, even if the original
      source is organized that way. Splitting a finished App into multiple
      files afterward is a manual step outside this skill's output; see
@@ -55,9 +55,15 @@ for the full list. The guidance below only applies when the App's input type is 
    - For a worked example, see Bruno Caneco's test App: [dmpstats/moveapps-check-parallel](https://github.com/dmpstats/moveapps-check-parallel).
 
 8. **Creating the function**
-   - name the Function `rFunction` with this structure:
+   - In order to develop Shiny Modules for MoveApps, at least the two functions `shinyModuleUserInterface` and `shinyModule` must be provided.
+   - These functions must be stored in a file called `ShinyModule.R`.
+     
 ```r
-     rFunction = function(data, setting_id_1, setting_id_2, ...) {
+    shinyModuleUserInterface <- function(id, label) {
+       ...
+     }
+
+    shinyModule <- function(input, output, session, data) {
        ...
        return(result)
      }
@@ -65,12 +71,12 @@ for the full list. The guidance below only applies when the App's input type is 
 
 9. **Helper functions**
 
-- Helper functions can be defined above `rFunction` in the same `RFunction.R`
+- Helper functions can be defined above `shinyModuleUserInterface` in the same `ShinyModule.R`
   file.
 - Pass required data and settings to helper functions through their arguments
   rather than relying on global variables.
 - If the App is later reorganized manually into multiple R files after this
-  Skill has finished, additional scripts can be sourced into `RFunction.R`.
+  Skill has finished, additional scripts can be sourced into `ShinyModule.R`.
   See: [Source additional R scripts](https://docs.moveapps.org/#/copilot-r-sdk?id=source-aditional-r-scripts).
 - Creating or splitting code into additional R files is outside the scope of
   this Skill.
@@ -117,7 +123,7 @@ for the full list. The guidance below only applies when the App's input type is 
     
     
 ### Final check
-Before finishing `RFunction.R`, verify that:
+Before finishing `ShinyModule.R`, verify that:
 - the function signature matches the App settings and input contract;
 - the returned object matches the expected output type;
 - if the IO type is `move2`, the structure/metadata of the object are preserved;
