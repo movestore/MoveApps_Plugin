@@ -102,10 +102,8 @@ for the full list. The guidance below only applies when the App's input type is 
     - Note: Only files are permitted to act as MoveApps App artifact! If your app produces a directory as an App artifact you have to bundle it eg. by zipping it. In other words: at the moment your App completes its work there must be only files (i.e. no folders) present in APP_ARTIFACTS_DIR. Read [Example for zipping](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-for-zipping).
 
 14. **Bookmark restoration for dynamic inputs**
-
-Do not overwrite bookmarked/restored values when rebuilding or updating dynamic inputs such as `checkboxGroupInput()`, `selectInput()`, or `selectizeInput()`.
-
-Keep the full list of available choices separate from the user's selected values, preserve `input$...` when it contains a valid restored value, and use the default only when no restored value exists. Never reset `selected` unconditionally.
+- Do not overwrite bookmarked/restored values when rebuilding or updating dynamic inputs such as `checkboxGroupInput()`, `selectInput()`, or `selectizeInput()`.
+- Keep the full list of available choices separate from the user's selected values, preserve `input$...` when it contains a valid restored value, and use the default only when no restored value exists. Never reset `selected` unconditionally.
 
 
 ### Final check
