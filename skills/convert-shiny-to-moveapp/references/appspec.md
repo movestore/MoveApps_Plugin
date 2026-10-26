@@ -7,34 +7,18 @@ The appspec.json file is used to define the specifications of an App within Move
 - Do not invent or infer fields that are not explicitly supported by the current MoveApps App Specification or the current verified template.
 - Before adding any field to `appspec.json`, verify that the field exists in one of those current sources.
 - If a field cannot be verified, omit it rather than guessing.
-- For `version`, use the value or format required by the current live in [Template_R_Function_App/appspec.json](https://github.com/movestore/Template_R_Shiny_App/blob/master/appspec.json). Do not invent it.
+- For `version`, use the value or format required by the current live in [Template_R_Shiny_App/appspec.json](https://github.com/movestore/Template_R_Shiny_App/blob/master/appspec.json). Do not invent it.
   
 Currently, the following specifications can/need to be added:
-
 1- Settings:
-- Read and follow the official MoveApps specification for [Settings](https://docs.moveapps.org/#/appspec/current/settings/README).
-- Follow the official [example](https://docs.moveapps.org/#/appspec/current/settings/README?id=example).
-- Every setting needs `id`, `name`, `description`, and `type`.
-- Whether `defaultValue` is required or allowed depends on the setting type.
-  
-Follow the current documentation for that type:
-  - [Text](https://docs.moveapps.org/#/appspec/current/settings/string) and [Example](https://docs.moveapps.org/#/appspec/current/settings/string?id=example).
-  - [Integer numbers](https://docs.moveapps.org/#/appspec/current/settings/integer) and [Example](https://docs.moveapps.org/#/appspec/current/settings/integer?id=example).
-  - [Real numbers](https://docs.moveapps.org/#/appspec/current/settings/double) and [Example](https://docs.moveapps.org/#/appspec/current/settings/double?id=example).
-  - [Date selection](https://docs.moveapps.org/#/appspec/current/settings/timestamp) and [Example](https://docs.moveapps.org/#/appspec/current/settings/timestamp?id=example).
-  - [Radiobuttons](https://docs.moveapps.org/#/appspec/current/settings/radiobuttons) and [Example](https://docs.moveapps.org/#/appspec/current/settings/radiobuttons?id=example).
-  - [Checkboxes](https://docs.moveapps.org/#/appspec/current/settings/checkbox) and [Example](https://docs.moveapps.org/#/appspec/current/settings/checkbox?id=example).
-  - [Dropdown](https://docs.moveapps.org/#/appspec/current/settings/dropdown) and [Example](https://docs.moveapps.org/#/appspec/current/settings/dropdown?id=example).
-  - [Passwords](https://docs.moveapps.org/#/appspec/current/settings/secret) and [Example](https://docs.moveapps.org/#/appspec/current/settings/secret?id=example).
-  - [Auxiliary/user files](https://docs.moveapps.org/#/appspec/current/settings/user_file).
-    
-- Determine the appropriate setting type from the App's R function arguments and behavior. Follow the current documentation rather than hard-coded rules in this file.
-- For `SECRET` settings, do not ask for, store, expose, or hard-code the real
-  credential in `appspec.json`. Follow
-  `references/Dealing_with_secret_credentials.md` for secret-specific handling.
+    - For ordinary interactive Shiny controls, keep them as Shiny UI inputs rather than defining them as standard `appspec.json` settings.
+    - Use `"settings": []` when the App does not require any platform-level settings.
+    - Do not force `"settings": []` if the App requires a supported MoveApps setting, such as a `USER_FILE` auxiliary-file setting. In that case, define only the required setting according to the current MoveApps specification and Shiny template.
+   - Do not duplicate the same user option both as a Shiny input and as an `appspec.json` setting unless the MoveApps documentation explicitly requires it.
 2- Dependencies:
   - Read and follow the official MoveApps specification for [Dependencies](https://docs.moveapps.org/#/appspec/current/dependencies_appspec) 
   - All libraries on which the App needs for its construction and/or runtime.
+  - Include the "shiny" in dependencies.
   - Do not include any base library in the appspecs.json file.
   - For a CRAN package, just use `{"name": "pkgname"}`, if required the version can also be specified in the argument "version". For a package that comes from somewhere else (GitHub, GitLab, etc.), use the functions provided by the library  [`"remotes"`](https://remotes.r-lib.org/reference/index.html).
   - Follow the official [Examples](https://docs.moveapps.org/#/appspec/current/dependencies_appspec?id=example).
@@ -72,6 +56,7 @@ If the App developer can/wants to provide either fixed or fallback auxiliary fil
 6- Keywords:
   - Read and follow the official MoveApps specification for [Keywords](https://docs.moveapps.org/#/appspec/current/keywords_appspec)
   - Follow the official [example](https://docs.moveapps.org/#/appspec/current/keywords_appspec?id=example).
+  - Add `shiny` to the Keywords
   - Suggest appropriate keywords based on the App's purpose, methods, inputs, and outputs. Ask the user whether they want to add or remove any.
   
 7- People:
