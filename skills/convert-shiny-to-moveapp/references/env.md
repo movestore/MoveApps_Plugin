@@ -3,7 +3,7 @@
 `.env` is used for local testing.
 
 - Read and follow the [MoveApps local-testing documentation](https://docs.moveapps.org/#/run_app_locally?id=run-an-app-locally).
-- Read and use the [template `.env`](https://github.com/movestore/Template_R_Function_App/blob/master/.env).
+- Read and use the [Template_R_Shinydashboard_App/.env](https://github.com/movestore/Template_R_Shinydashboard_App/blob/master/.env).
 - Read the MoveApps documentation for [`.env`](https://docs.moveapps.org/#/run_app_locally?id=_2-fileenv).
 - The `.env` setting names are fixed and must not be renamed.
 
@@ -32,7 +32,7 @@ The values most relevant here are:
 
 - The default template value is:
 
-  `SOURCE_FILE=./data/raw/input4_move2loc_LatLon.rds`
+  `SOURCE_FILE=./data/raw/input1_move2loc_LatLon.rds`
 
 - The R template provides test datasets under `./data/raw/`.
 
@@ -74,5 +74,5 @@ The values most relevant here are:
 
 - Use this setting only when the App requires auxiliary files.
 - Follow the relevant MoveApps auxiliary-file rules and the corresponding
-  local-testing guidance in `references/R_Function.md`.
+  local-testing guidance in `references/Shiny_Module.md`.
 - Do not rename `USER_APP_FILE_HOME_DIR`.
