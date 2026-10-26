@@ -74,6 +74,8 @@ for the full list. The guidance below only applies when the App's input type is 
       - one of the parameters of the `shinyModule` must be named `data` — don't reuse that name for anything else, it's reserved for the input passed on from the previous App.   
       - Read this link: [Input from previous App](https://docs.moveapps.org/#/copilot-shiny-sdk?id=input-from-previous-app). See an [Example](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-3).  
       - Note that the data parameter, in turn, is not passed on to the shinyModuleUserInterface function.
+   
+        
    2- MoveApps parameters:     
          - `shinyModuleUserInterface` has two inputarguments: `id` and `label`. Just keep it in the line and ignore it. Don’t remove it. All IDs of UI functions need to be wrapped in ns().  
          - Read about the two buttons `OPEN APP UI` and `Store settings` [here](https://docs.moveapps.org/#/copilot-shiny-sdk?id=moveapps-parameters).  
