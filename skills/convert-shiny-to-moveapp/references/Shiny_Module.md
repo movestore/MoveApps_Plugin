@@ -45,6 +45,7 @@ for the full list. The guidance below only applies when the App's input type is 
 
 6. **Scope: single `ShinyModule.R`**
    If user rather divide the code of your App into several files, use this [link](https://docs.moveapps.org/#/copilot-shiny-sdk?id=source-aditional-r-scripts).
+   
 7. **Source aditional R scripts**
    - It's possible to write Apps so that suitable tasks run in parallel on MoveApps. Read this: [Parallel computing in R Apps](https://docs.moveapps.org/#/parallelcomp?id=parallel-computing-in-r-apps).
    - For a worked example, see Bruno Caneco's test App: [dmpstats/moveapps-check-parallel](https://github.com/dmpstats/moveapps-check-parallel).
@@ -74,7 +75,7 @@ for the full list. The guidance below only applies when the App's input type is 
       - Read this link: [Input from previous App](https://docs.moveapps.org/#/copilot-shiny-sdk?id=input-from-previous-app). See an [Example](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-3).
       - Note that the data parameter, in turn, is not passed on to the shinyModuleUserInterface function.
   2. MoveApps parameters:  
-   - `shinyModuleUserInterface` has two input: `id` and `label`. Just keep it in the line and ignore it. Don’t remove it. All IDs of UI functions need to be wrapped in ns().
+   - `shinyModuleUserInterface` has two inputarguments: `id` and `label`. Just keep it in the line and ignore it. Don’t remove it. All IDs of UI functions need to be wrapped in ns().
    - Read about the two buttons `OPEN APP UI` and `Store settings` [here](https://docs.moveapps.org/#/copilot-shiny-sdk?id=moveapps-parameters).
    - Only user inputs that are part of the Shiny UI are stored by the bookmarking mechanism; the workflow data object itself is not stored as a setting.
    - Find and read [the Example from Simple Map](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-from-simple-map).
@@ -96,38 +97,20 @@ for the full list. The guidance below only applies when the App's input type is 
     - If the Shiny App is not modifying the input data (e.g. only visualisation), then the input data must be passed on unmodified to the next App. To do this, the shinyModule function must return the data object as reactive output. See the [Example](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-5).
     - Producing artifacts: MoveApps allows the creation and saving of different files directly through the shinyModule function (e.g. csv, pdf, png), so called artifacts. Read the details [here](https://docs.moveapps.org/#/copilot-shiny-sdk?id=producing-artifacts) and the [Example](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-6).
     - Note: Only files are permitted to act as MoveApps App artifact! If your app produces a directory as an App artifact you have to bundle it eg. by zipping it. In other words: at the moment your App completes its work there must be only files (i.e. no folders) present in APP_ARTIFACTS_DIR. Read [Example for zipping](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-for-zipping).
-   
-    
+
+14. **Bookmark restoration for dynamic inputs**
+
+For dynamic Shiny inputs such as `checkboxGroupInput()`, `selectInput()`, and `selectizeInput()`, do not rebuild or update the input in a way that overwrites bookmarked/restored selections. Keep the full list of available choices separate from the user's selected values, preserve `input$...` when it contains a valid restored value, and use the default only when no restored value exists. Never reset `selected` unconditionally.
+
+
 ### Final check
 Before finishing `ShinyModule.R`, verify that:
-
-- the file defines exactly these two functions with these signatures:
-  `shinyModuleUserInterface <- function(id, label)` and
-  `shinyModule <- function(input, output, session, data)`;
-- `ns <- NS(id)` is used in `shinyModuleUserInterface()` and `ns <- session$ns`
-  in `shinyModule()`, and every input/output ID created in the UI or in
-  `renderUI()` is wrapped in `ns()`;
-- the workflow input `data` is used only inside `shinyModule()`; UI elements
-  that depend on it are created with `uiOutput()` + `renderUI()`;
-- the name `data` is not reused for any other object or setting;
-- reactive values, inputs, outputs and observers are used correctly;
-- `shinyModule()` always returns the data as a reactive
-  (e.g. `return(reactive({ current() }))`), unchanged if the App only
-  visualizes, and the returned object matches the declared output IO type;
+- module namespacing is correct (`NS(id)`, `session$ns`, and `ns()` for UI/output IDs);
+- workflow `data` is only handled in `shinyModule()` and is not reused as another variable or setting;
+- `shinyModule()` returns the workflow data as a reactive and the returned object matches the declared output IO type;
 - if the IO type is `move2`, its structure and metadata are preserved;
-- settings meant to be saved with "Store settings" are real Shiny inputs;
-  inputs created with `renderUI()` use the restored value when present;
-  no `fileInput()` is excluded with `setBookmarkExclude()`; any
-  `fileInput(multiple = TRUE)` is flagged to the user as not restorable;
+- bookmarked/restored dynamic inputs are not overwritten during initialization or updates, and available choices are kept separate from restored selections;
 - the App does not add its own Store/Restore buttons;
-- artifacts are written with `appArtifactPath()` and folders are zipped;
-- auxiliary files are read with `getAuxiliaryFilePath()` using the setting
-  `id` from `appspec.json`;
-- scripts in `src/app/` are sourced with paths starting from `./`;
-- no hard-coded paths, package installation, or global-state dependencies;
-- package masking/conflicts are handled;
-- logging, CRS and time-zone handling follow the linked MoveApps documentation
-  (times are returned in UTC).
-
-After finishing, tell the user to test the App locally with `sdk.R`,
-including "Store settings" and "Restore default settings".
+- artifacts and auxiliary files use `appArtifactPath()` and `getAuxiliaryFilePath()` correctly;
+- no hard-coded paths, package installation, or hidden global-state dependencies are introduced;
+- logging, CRS, and time-zone handling follow the linked MoveApps documentation.
