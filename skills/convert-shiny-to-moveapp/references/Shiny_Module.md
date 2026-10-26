@@ -9,7 +9,7 @@ Read references/io-types.md and follow the requirements of the specific IO type 
 - Use the final package-loading decisions from `Check the required packages` in `SKILL.md`.
 - Do not automatically add `library()` for every dependency.
 - Add the `library("shiny")` for all the R-Shiny modules.
-- Add the `library("shinydashboard")` when using shiny dashboard is a good idea.
+
 - Use explicit `package::function()` calls when they are clearer, safer, or help avoid function masking or namespace conflicts.
 - When loading libraries, watch for function-name masking/conflicts between packages. Prefer explicit namespace calls such as `package::function()` when needed.
 - Do not install packages inside `ShinyModule.R`; only load the required libraries/packages defined for the App environment.
@@ -44,10 +44,8 @@ for the full list. The guidance below only applies when the App's input type is 
    - All tracking data comes in with timestamps in `UTC` — if the App converts to a local time zone for interpretation, convert it back to `UTC` before passing data on as output. Read this: [Time zones](https://docs.moveapps.org/#/best_practices_coding?id=time-zones).
 
 6. **Scope: single `ShinyModule.R`**
-   - This skill always keeps everything in one `ShinyModule.R` — it does not
-     split code into separate files under `src/app/`, even if the original
-     source is organized that way.
-7. **Parallel computing within MoveApps**
+   If user rather divide the code of your App into several files, use this [link](https://docs.moveapps.org/#/copilot-shiny-sdk?id=source-aditional-r-scripts).
+7. **Source aditional R scripts**
    - It's possible to write Apps so that suitable tasks run in parallel on MoveApps. Read this: [Parallel computing in R Apps](https://docs.moveapps.org/#/parallelcomp?id=parallel-computing-in-r-apps).
    - For a worked example, see Bruno Caneco's test App: [dmpstats/moveapps-check-parallel](https://github.com/dmpstats/moveapps-check-parallel).
 
@@ -65,20 +63,22 @@ for the full list. The guidance below only applies when the App's input type is 
        return(result)
      }
 ```
+- Read the [Shiny User Interface (UI) ](https://docs.moveapps.org/#/copilot-shiny-sdk?id=shinymoduleuserinterface-defining-the-user-interface) and the [Example](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-1) and the the [module server functions](https://docs.moveapps.org/#/copilot-shiny-sdk?id=shinymodule-defining-the-module-server-functions) and the [Example](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-2).
 
 9. **Helper functions**
-
 - Helper functions can be defined above `shinyModuleUserInterface` in the same `ShinyModule.R` file.
-- Pass required data and settings to helper functions through their arguments rather than relying on global variables.
-- If the App is later reorganized manually into multiple R files after this
-  Skill has finished, additional scripts can be sourced into `ShinyModule.R`.
-  See: [Source additional R scripts](https://docs.moveapps.org/#/copilot-r-sdk?id=source-aditional-r-scripts).
-- Creating or splitting code into additional R files is outside the scope of this Skill.
 
-  
 10. **App Input**
-   1. Input from previous App: one of the parameters of the `shinyModule` must be named `data` — don't reuse that name for anything else, it's reserved for the input passed on from the previous App. Read this link: [Input from previous App](https://docs.moveapps.org/#/copilot-r-sdk?id=input-from-previous-app). Other 
-   2. `shinyModuleUserInterface` has two input: `id` and `label`. Just keep it in the line and ignore it. Don’t remove it. All IDs of UI functions need to be wrapped in ns().  
+   1. Input from previous App:    
+      - one of the parameters of the `shinyModule` must be named `data` — don't reuse that name for anything else, it's reserved for the input passed on from the previous App. 
+      - Read this link: [Input from previous App](https://docs.moveapps.org/#/copilot-shiny-sdk?id=input-from-previous-app). See an [Example](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-3).
+      - Note that the data parameter, in turn, is not passed on to the shinyModuleUserInterface function.
+  2. MoveApps parameters:  
+   - `shinyModuleUserInterface` has two input: `id` and `label`. Just keep it in the line and ignore it. Don’t remove it. All IDs of UI functions need to be wrapped in ns().
+   - Read about the two buttons `OPEN APP UI` and `Store settings` [here](https://docs.moveapps.org/#/copilot-shiny-sdk?id=moveapps-parameters).
+   - 
+
+
    4. Auxiliary input files: if the App requires auxiliary files as input, read this link: [Auxiliary files for analysis with tracks in an App](https://docs.moveapps.org/#/auxiliary?id=auxiliary-files-for-analysis-with-tracks-in-an-app). There are three types:
       - Fixed auxiliary file: [guide](https://docs.moveapps.org/#/auxiliary?id=_1-fixed-auxiliary-files), [local testing](https://docs.moveapps.org/#/auxiliary?id=local-testing), [example](https://docs.moveapps.org/#/auxiliary?id=example).
       - Local upload auxiliary file: [guide](https://docs.moveapps.org/#/auxiliary?id=_2-local-upload-auxiliary-files), [local testing](https://docs.moveapps.org/#/auxiliary?id=local-testing-1), [example](https://docs.moveapps.org/#/auxiliary?id=example-1).
