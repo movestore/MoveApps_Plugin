@@ -100,7 +100,9 @@ for the full list. The guidance below only applies when the App's input type is 
 
 14. **Bookmark restoration for dynamic inputs**
 
-For dynamic Shiny inputs such as `checkboxGroupInput()`, `selectInput()`, and `selectizeInput()`, do not rebuild or update the input in a way that overwrites bookmarked/restored selections. Keep the full list of available choices separate from the user's selected values, preserve `input$...` when it contains a valid restored value, and use the default only when no restored value exists. Never reset `selected` unconditionally.
+Do not overwrite bookmarked/restored values when rebuilding or updating dynamic inputs such as `checkboxGroupInput()`, `selectInput()`, or `selectizeInput()`.
+
+Keep the full list of available choices separate from the user's selected values, preserve `input$...` when it contains a valid restored value, and use the default only when no restored value exists. Never reset `selected` unconditionally.
 
 
 ### Final check
