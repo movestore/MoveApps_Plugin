@@ -76,15 +76,15 @@ for the full list. The guidance below only applies when the App's input type is 
       - Note that the data parameter, in turn, is not passed on to the shinyModuleUserInterface function.
    
         
- 2- MoveApps parameters:     
-      - `shinyModuleUserInterface` has two inputarguments: `id` and `label`. Just keep it in the line and ignore it. Don’t remove it. All IDs of UI functions need to be wrapped in ns().  
-      - Read about the two buttons `OPEN APP UI` and `Store settings` [here](https://docs.moveapps.org/#/copilot-shiny-sdk?id=moveapps-parameters).  
-      - Only user inputs that are part of the Shiny UI are stored by the bookmarking mechanism; the workflow data object itself is not stored as a setting.  
-      - Find and read [the Example from Simple Map](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-from-simple-map).
+    2- MoveApps parameters:     
+         - `shinyModuleUserInterface` has two inputarguments: `id` and `label`. Just keep it in the line and ignore it. Don’t remove it. All IDs of UI functions need to be wrapped in ns().  
+         - Read about the two buttons `OPEN APP UI` and `Store settings` [here](https://docs.moveapps.org/#/copilot-shiny-sdk?id=moveapps-parameters).  
+         - Only user inputs that are part of the Shiny UI are stored by the bookmarking mechanism; the workflow data object itself is not stored as a setting.  
+         - Find and read [the Example from Simple Map](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-from-simple-map).
 
      
-3- Auxiliary input files:   
-      - It is possible to design Apps that require auxiliary files as input, There are three types: "Fixed auxiliary file", "Local upload auxiliary files" and "Local upload auxiliary files with fixed fallback files". Read this link: [Auxiliary input files](https://docs.moveapps.org/#/copilot-shiny-sdk?id=auxiliary-input-files). For more details and to integrate the full functionality into an App see the [detailed description](https://docs.moveapps.org/#/auxiliary).
+   3- Auxiliary input files:   
+         - It is possible to design Apps that require auxiliary files as input, There are three types: "Fixed auxiliary file", "Local upload auxiliary files" and "Local upload auxiliary files with fixed fallback files". Read this link: [Auxiliary input files](https://docs.moveapps.org/#/copilot-shiny-sdk?id=auxiliary-input-files). For more details and to integrate the full functionality into an App see the [detailed description](https://docs.moveapps.org/#/auxiliary).
       
 11. **Logging and error handling**
     - Replace `print()`/`message()`/`cat()` with `logger.info()`/`logger.warn()`/etc.
@@ -92,18 +92,18 @@ for the full list. The guidance below only applies when the App's input type is 
     - see the real exported functions here: [link](https://github.com/movestore/moveapps-sdk-r-package/blob/main/R/logger.R).
 
 12. **OpenStreetMap access (Overpass API)**
-    - If the source code queries OpenStreetMap/Overpass, read this link: [Internal Open Street Map mirror](https://docs.moveapps.org/#/OSMmirror?id=internal-open-street-map-mirror).
+      - If the source code queries OpenStreetMap/Overpass, read this link: [Internal Open Street Map mirror](https://docs.moveapps.org/#/OSMmirror?id=internal-open-street-map-mirror).
 
 13. **App Output**
-    - Read this link for more details about the [App Output](https://docs.moveapps.org/#/copilot-shiny-sdk?id=app-output).
-    - Shiny Apps can be integrated into an Workflows and the newly calculated data object passed on to subsequent Apps. To do this, the shinyModule function must return the data object as reactive output. See the [Example](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-4).
-    - If the Shiny App is not modifying the input data (e.g. only visualisation), then the input data must be passed on unmodified to the next App. To do this, the shinyModule function must return the data object as reactive output. See the [Example](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-5).
-    - Producing artifacts: MoveApps allows the creation and saving of different files directly through the shinyModule function (e.g. csv, pdf, png), so called artifacts. Read the details [here](https://docs.moveapps.org/#/copilot-shiny-sdk?id=producing-artifacts) and the [Example](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-6).
+       - Read this link for more details about the [App Output](https://docs.moveapps.org/#/copilot-shiny-sdk?id=app-output).
+       - Shiny Apps can be integrated into an Workflows and the newly calculated data object passed on to subsequent Apps. To do this, the shinyModule function must return the data object as reactive output. See the [Example](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-4).
+       - If the Shiny App is not modifying the input data (e.g. only visualisation), then the input data must be passed on unmodified to the next App. To do this, the shinyModule function must return the data object as reactive output. See the [Example](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-5).
+       - Producing artifacts: MoveApps allows the creation and saving of different files directly through the shinyModule function (e.g. csv, pdf, png), so called artifacts. Read the details [here](https://docs.moveapps.org/#/copilot-shiny-sdk?id=producing-artifacts) and the [Example](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-6).
     - Note: Only files are permitted to act as MoveApps App artifact! If your app produces a directory as an App artifact you have to bundle it eg. by zipping it. In other words: at the moment your App completes its work there must be only files (i.e. no folders) present in APP_ARTIFACTS_DIR. Read [Example for zipping](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-for-zipping).
 
 14. **Bookmark restoration for dynamic inputs**
-  - Do not overwrite bookmarked/restored values when rebuilding or updating dynamic inputs such as `checkboxGroupInput()`, `selectInput()`, or `selectizeInput()`.
-  - Keep the full list of available choices separate from the user's selected values, preserve `input$...` when it contains a valid restored value, and use the default only when no restored value exists. Never reset `selected` unconditionally.
+     - Do not overwrite bookmarked/restored values when rebuilding or updating dynamic inputs such as `checkboxGroupInput()`, `selectInput()`, or `selectizeInput()`.
+     - Keep the full list of available choices separate from the user's selected values, preserve `input$...` when it contains a valid restored value, and use the default only when no restored value exists. Never reset `selected` unconditionally.
 
 
 ### Final check
