@@ -74,16 +74,15 @@ for the full list. The guidance below only applies when the App's input type is 
       - one of the parameters of the `shinyModule` must be named `data` — don't reuse that name for anything else, it's reserved for the input passed on from the previous App.   
       - Read this link: [Input from previous App](https://docs.moveapps.org/#/copilot-shiny-sdk?id=input-from-previous-app). See an [Example](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-3).  
       - Note that the data parameter, in turn, is not passed on to the shinyModuleUserInterface function.
-   
- 2- MoveApps parameters:     
-      - `shinyModuleUserInterface` has two inputarguments: `id` and `label`. Just keep it in the line and ignore it. Don’t remove it. All IDs of UI functions need to be wrapped in ns().  
-     - Read about the two buttons `OPEN APP UI` and `Store settings` [here](https://docs.moveapps.org/#/copilot-shiny-sdk?id=moveapps-parameters).  
-     - Only user inputs that are part of the Shiny UI are stored by the bookmarking mechanism; the workflow data object itself is not stored as a setting.  
-     - Find and read [the Example from Simple Map](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-from-simple-map).
+   2- MoveApps parameters:     
+         - `shinyModuleUserInterface` has two inputarguments: `id` and `label`. Just keep it in the line and ignore it. Don’t remove it. All IDs of UI functions need to be wrapped in ns().  
+         - Read about the two buttons `OPEN APP UI` and `Store settings` [here](https://docs.moveapps.org/#/copilot-shiny-sdk?id=moveapps-parameters).  
+         - Only user inputs that are part of the Shiny UI are stored by the bookmarking mechanism; the workflow data object itself is not stored as a setting.  
+         - Find and read [the Example from Simple Map](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-from-simple-map).
 
      
- 3- Auxiliary input files:   
-    - It is possible to design Apps that require auxiliary files as input, There are three types: "Fixed auxiliary file", "Local upload auxiliary files" and "Local upload auxiliary files with fixed fallback files". Read this link: [Auxiliary input files](https://docs.moveapps.org/#/copilot-shiny-sdk?id=auxiliary-input-files). For more details and to integrate the full functionality into an App see the [detailed description](https://docs.moveapps.org/#/auxiliary).
+  3- Auxiliary input files:   
+       - It is possible to design Apps that require auxiliary files as input, There are three types: "Fixed auxiliary file", "Local upload auxiliary files" and "Local upload auxiliary files with fixed fallback files". Read this link: [Auxiliary input files](https://docs.moveapps.org/#/copilot-shiny-sdk?id=auxiliary-input-files). For more details and to integrate the full functionality into an App see the [detailed description](https://docs.moveapps.org/#/auxiliary).
       
 11. **Logging and error handling**
     - Replace `print()`/`message()`/`cat()` with `logger.info()`/`logger.warn()`/etc.
