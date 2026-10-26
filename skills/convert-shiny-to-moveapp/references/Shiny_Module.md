@@ -76,14 +76,12 @@ for the full list. The guidance below only applies when the App's input type is 
   2. MoveApps parameters:  
    - `shinyModuleUserInterface` has two input: `id` and `label`. Just keep it in the line and ignore it. Don’t remove it. All IDs of UI functions need to be wrapped in ns().
    - Read about the two buttons `OPEN APP UI` and `Store settings` [here](https://docs.moveapps.org/#/copilot-shiny-sdk?id=moveapps-parameters).
-   - 
+   - Only user inputs that are part of the Shiny UI are stored by the bookmarking mechanism; the workflow data object itself is not stored as a setting.
+   - Find and read [the Example from Simple Map](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-from-simple-map).
 
-
-   4. Auxiliary input files: if the App requires auxiliary files as input, read this link: [Auxiliary files for analysis with tracks in an App](https://docs.moveapps.org/#/auxiliary?id=auxiliary-files-for-analysis-with-tracks-in-an-app). There are three types:
-      - Fixed auxiliary file: [guide](https://docs.moveapps.org/#/auxiliary?id=_1-fixed-auxiliary-files), [local testing](https://docs.moveapps.org/#/auxiliary?id=local-testing), [example](https://docs.moveapps.org/#/auxiliary?id=example).
-      - Local upload auxiliary file: [guide](https://docs.moveapps.org/#/auxiliary?id=_2-local-upload-auxiliary-files), [local testing](https://docs.moveapps.org/#/auxiliary?id=local-testing-1), [example](https://docs.moveapps.org/#/auxiliary?id=example-1).
-      - Local upload auxiliary file with fixed fallback file: [guide](https://docs.moveapps.org/#/auxiliary?id=_3-local-upload-auxiliary-files-with-fixed-fallback-files), [local testing](https://docs.moveapps.org/#/auxiliary?id=local-testing-2), [example](https://docs.moveapps.org/#/auxiliary?id=example-2).
-
+   3. Auxiliary input files: 
+      - It is possible to design Apps that require auxiliary files as input, There are three types: "Fixed auxiliary file", "Local upload auxiliary files" and "Local upload auxiliary files with fixed fallback files". Read this link: [Auxiliary input files](https://docs.moveapps.org/#/copilot-shiny-sdk?id=auxiliary-input-files). For more details and to integrate the full functionality into an App see the [detailed description](https://docs.moveapps.org/#/auxiliary).
+      
 11. **Logging and error handling**
     - Replace `print()`/`message()`/`cat()` with `logger.info()`/`logger.warn()`/etc.
     - Do not suppress unexpected errors with broad `tryCatch()` blocks; handle only expected/recoverable conditions explicitly.
@@ -93,35 +91,43 @@ for the full list. The guidance below only applies when the App's input type is 
     - If the source code queries OpenStreetMap/Overpass, read this link: [Internal Open Street Map mirror](https://docs.moveapps.org/#/OSMmirror?id=internal-open-street-map-mirror).
 
 13. **App Output**
-    - MoveApps allows creating and saving different files directly through the R function. The result of the function must be defined as a return value at the end of the function code. Read more details here: [App Output](https://docs.moveapps.org/#/copilot-r-sdk?id=app-output).
-    - If the App produces an artifact, read this link for a valid artifact path: [Producing artifacts](https://docs.moveapps.org/#/copilot-r-sdk?id=producing-artifacts), and this example: [Example](https://docs.moveapps.org/#/copilot-r-sdk?id=example-4).
-    - Only files are permitted as a MoveApps App artifact — if the App produces a directory, it has to be bundled (e.g. zipped) first. At the moment the App finishes, `APP_ARTIFACTS_DIR` must contain only files, no folders. Example for zipping: [Example for zipping](https://docs.moveapps.org/#/copilot-r-sdk?id=example-for-zipping).
-    - If processing legitimately leaves no output records, do not return the original unprocessed input as a fallback.
-    - Log a clear message explaining that no data remain.
-    - Return `NULL` when this is the established MoveApps pattern for a no-data result; otherwise preserve the App's intended output contract.
-    - Do not describe `NULL` as a normal output object of the declared IO type.
-    - Before returning the result, verify that it matches the App's expected output type and has not lost required `move2` structure or metadata.
-14. **Shiny Components**  
-    - For adding the component to the `ShinyModule.R` read the [Shiny website](https://shiny.posit.co/r/components/). It contains Input and Output components. some of them are below. Read all the links:  
-    1- Inputs:  
-         [Action Button](https://shiny.posit.co/r/components/inputs/action-button/) , [Action Link](https://shiny.posit.co/r/components/inputs/action-link/), [Checkbox](https://shiny.posit.co/r/components/inputs/checkbox/),
-      [Checkbox Group](https://shiny.posit.co/r/components/inputs/checkbox-group/), [Dark Mode Switch](https://shiny.posit.co/r/components/inputs/dark-mode-switch/),
-      [Date Range Selector](https://shiny.posit.co/r/components/inputs/date-range-selector/), [Date Selector](https://shiny.posit.co/r/components/inputs/date-selector/),
-      [Download Button](https://shiny.posit.co/r/components/inputs/download-button/), [Download Link](https://shiny.posit.co/r/components/inputs/download-link/), [File Input](https://shiny.posit.co/r/components/inputs/file-input/), [Numeric Input](https://shiny.posit.co/r/components/inputs/numeric-input/), [Password Field](https://shiny.posit.co/r/components/inputs/password-field/), [Plot](https://shiny.posit.co/r/components/inputs/plot/), [Radio Buttons](https://shiny.posit.co/r/components/inputs/radio-buttons/), [Select (Single)](https://shiny.posit.co/r/components/inputs/select-single/), [Select (Multiple)](https://shiny.posit.co/r/components/inputs/select-multiple/),
-      [Selectize (Single)](https://shiny.posit.co/r/components/inputs/selectize-single/), [Selectize (Multiple)](https://shiny.posit.co/r/components/inputs/selectize-multiple/), [Slider](https://shiny.posit.co/r/components/inputs/slider/), [Slider Range](https://shiny.posit.co/r/components/inputs/slider-range/), [Submit Button](https://shiny.posit.co/r/components/inputs/submit-button/), [Switch](https://shiny.posit.co/r/components/inputs/switch/), [Task Button](https://shiny.posit.co/r/components/inputs/task-button/), [Text Area](https://shiny.posit.co/r/components/inputs/text-area/), [Text Box](https://shiny.posit.co/r/components/inputs/text-box/)  
-    2- Outputs:  
-         [DataTable](https://shiny.posit.co/r/components/outputs/datatable/), [Image](https://shiny.posit.co/r/components/outputs/image/), [Map (leaflet)](https://shiny.posit.co/r/components/outputs/map-leaflet/), [Plot (ggplot2)](https://shiny.posit.co/r/components/outputs/plot-ggplot2/), [Plot (plotly)](https://shiny.posit.co/r/components/outputs/plot-plotly/), [Table](https://shiny.posit.co/r/components/outputs/table/), [Table (gt)](https://shiny.posit.co/r/components/outputs/table-gt/), [Table (reactable)](https://shiny.posit.co/r/components/outputs/table-reactable/), [Text](https://shiny.posit.co/r/components/outputs/text/), [UI](https://shiny.posit.co/r/components/outputs/ui/), [Value Box](https://shiny.posit.co/r/components/outputs/value-box/), [Verbatim Text](https://shiny.posit.co/r/components/outputs/verbatim-text/)    
-    3- Display Messages:  
-         [Modal](https://shiny.posit.co/r/components/display-messages/modal/), [Notifications](https://shiny.posit.co/r/components/display-messages/notifications/), [Popovers](https://shiny.posit.co/r/components/display-messages/popovers/), [Progress Bar](https://shiny.posit.co/r/components/display-messages/progress-bar/), [Tooltips](https://shiny.posit.co/r/components/display-messages/tooltips/)  
-
-    
+    - Read this link for more details about the [App Output](https://docs.moveapps.org/#/copilot-shiny-sdk?id=app-output).
+    - Shiny Apps can be integrated into an Workflows and the newly calculated data object passed on to subsequent Apps. To do this, the shinyModule function must return the data object as reactive output. See the [Example](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-4).
+    - If the Shiny App is not modifying the input data (e.g. only visualisation), then the input data must be passed on unmodified to the next App. To do this, the shinyModule function must return the data object as reactive output. See the [Example](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-5).
+    - Producing artifacts: MoveApps allows the creation and saving of different files directly through the shinyModule function (e.g. csv, pdf, png), so called artifacts. Read the details [here](https://docs.moveapps.org/#/copilot-shiny-sdk?id=producing-artifacts) and the [Example](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-6).
+    - Note: Only files are permitted to act as MoveApps App artifact! If your app produces a directory as an App artifact you have to bundle it eg. by zipping it. In other words: at the moment your App completes its work there must be only files (i.e. no folders) present in APP_ARTIFACTS_DIR. Read [Example for zipping](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-for-zipping).
+   
     
 ### Final check
 Before finishing `ShinyModule.R`, verify that:
-- the function signature matches the App settings and input contract;
-- the returned object matches the expected output type;
-- if the IO type is `move2`, the structure/metadata of the object are preserved;
-- no hard-coded paths, unnecessary package installation, or hidden global-state dependencies were introduced;
-- package masking/conflicts are handled;
-- logging, auxiliary files, artifacts, CRS, and time-zone handling follow the linked MoveApps documentation where applicable.
 
+- the file defines exactly these two functions with these signatures:
+  `shinyModuleUserInterface <- function(id, label)` and
+  `shinyModule <- function(input, output, session, data)`;
+- `ns <- NS(id)` is used in `shinyModuleUserInterface()` and `ns <- session$ns`
+  in `shinyModule()`, and every input/output ID created in the UI or in
+  `renderUI()` is wrapped in `ns()`;
+- the workflow input `data` is used only inside `shinyModule()`; UI elements
+  that depend on it are created with `uiOutput()` + `renderUI()`;
+- the name `data` is not reused for any other object or setting;
+- reactive values, inputs, outputs and observers are used correctly;
+- `shinyModule()` always returns the data as a reactive
+  (e.g. `return(reactive({ current() }))`), unchanged if the App only
+  visualizes, and the returned object matches the declared output IO type;
+- if the IO type is `move2`, its structure and metadata are preserved;
+- settings meant to be saved with "Store settings" are real Shiny inputs;
+  inputs created with `renderUI()` use the restored value when present;
+  no `fileInput()` is excluded with `setBookmarkExclude()`; any
+  `fileInput(multiple = TRUE)` is flagged to the user as not restorable;
+- the App does not add its own Store/Restore buttons;
+- artifacts are written with `appArtifactPath()` and folders are zipped;
+- auxiliary files are read with `getAuxiliaryFilePath()` using the setting
+  `id` from `appspec.json`;
+- scripts in `src/app/` are sourced with paths starting from `./`;
+- no hard-coded paths, package installation, or global-state dependencies;
+- package masking/conflicts are handled;
+- logging, CRS and time-zone handling follow the linked MoveApps documentation
+  (times are returned in UTC).
+
+After finishing, tell the user to test the App locally with `sdk.R`,
+including "Store settings" and "Restore default settings".
