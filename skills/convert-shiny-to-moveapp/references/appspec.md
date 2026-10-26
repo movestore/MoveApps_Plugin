@@ -9,7 +9,7 @@ The appspec.json file is used to define the specifications of an App within Move
 - If a field cannot be verified, omit it rather than guessing.
 - For `version`, use the value or format required by the current live in [Template_R_Shiny_App/appspec.json](https://github.com/movestore/Template_R_Shiny_App/blob/master/appspec.json). Do not invent it.
   
-Currently, the following specifications can/need to be added:
+Currently, the following specifications can/need to be added:  
 1- Settings:
     - For ordinary interactive Shiny controls, keep them as Shiny UI inputs rather than defining them as standard `appspec.json` settings.
     - Use `"settings": []` when the App does not require any platform-level settings.
