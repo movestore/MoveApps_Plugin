@@ -446,7 +446,7 @@ before generating the file that depends on it.
 Present the plan to the user and ask them to confirm or correct it before
 generating `ShinyModule.R`, `appspec.json`, `.env`, or `README.md`.
 
-### Step 11. Determine whether the App needs secret credentials
+### Step 12. Determine whether the App needs secret credentials
 
 Determine whether the App requires sensitive authentication information such as a password, personal API key, access token, client secret, or other credential.
 
@@ -465,7 +465,7 @@ If a secret credential is required:
 If no secret credential is required, continue without credential-specific handling.
 
 
-### Step 12. Before generating any deliverable file
+### Step 13. Before generating any deliverable file
 
 - Before generating a deliverable file, first identify all information required
   for that file.
@@ -475,7 +475,7 @@ If no secret credential is required, continue without credential-specific handli
 - Generate the file only after the required information has been resolved.
 
 
-### Step 13. Produce `ShinyModule.R`
+### Step 14. Produce `ShinyModule.R`
 
 - Generate the App code in `ShinyModule.R`, with the two functions `shinyModuleUserInterface()` and `shinyModule()`.
 - Before writing or modifying this file, read `references/Shiny_Module.md` and follow its instructions and linked references for the required structure, coding rules, input/output handling, bookmarking, and MoveApps-specific expectations.
@@ -485,18 +485,17 @@ If no secret credential is required, continue without credential-specific handli
 - After `ShinyModule.R` is finalized, re-check the functions and packages actually used in the final code.
 - Update the package decisions and later `appspec.json` dependencies if the implementation added or removed package usage compared with **Check the required packages**.
 
-### Step 14. Check large fixed or fallback auxiliary files, if applicable
+### Step 15. Check large fixed or fallback auxiliary files, if applicable
 
 - If the App uses fixed or fallback auxiliary input files, ask the user
   whether any of those files are larger than 100 MB.
-- If any such file is larger than 100 MB, tell the user that handling this is
-  outside the scope of this skill and must be done manually.
-- Instruct the user to add: `data/auxiliary/user-files/provided-app-files/**`  to `.gitignore`.
-- Remind the user to follow the official MoveApps instructions:
-  [Adding large fixed or fallback files to an App](https://docs.moveapps.org/#/auxiliary?id=adding-large-fixed-or-fallback-files-to-an-app)
+- If any such file is larger than 100 MB:
+      - tell the user that the large-file upload/storage procedure must be handled manually outside this skill;
+      - instruct the user to add: `data/auxiliary/user-files/provided-app-files/**`  to `.gitignore`.
+      - remind the user to follow the official MoveApps instructions: [Adding large fixed or fallback files to an App](https://docs.moveapps.org/#/auxiliary?id=adding-large-fixed-or-fallback-files-to-an-app)
 
   
-### Step 15. Produce `appspec.json`
+### Step 16. Produce `appspec.json`
 
 - Before creating `appspec.json`, read `references/appspec.md` and follow all
   of its instructions and linked official MoveApps documentation.
@@ -512,69 +511,35 @@ If no secret credential is required, continue without credential-specific handli
 - If any setting has type `SECRET`, read and follow
   `references/Dealing_with_secret_credentials.md` when defining that setting.
 
-  
-### Step 16. Produce `app-configuration.json`
-
-- Before creating `app-configuration.json`, read
-  `references/app-configuration.md` and follow all of its instructions and
-  linked MoveApps documentation.
-- Build `app-configuration.json` only from the settings defined in the final
-  `appspec.json`.
-- Use each setting `id` exactly as defined in `appspec.json`.
-- Ask the user for configuration values where needed and validate them against
-  the corresponding setting definitions before writing them.
-- Follow the default-value, type-specific, and `USER_FILE` handling rules
-  defined in `references/app-configuration.md`.
-- If any setting in `appspec.json` has type `SECRET`, read and follow
-  `references/Dealing_with_secret_credentials.md`.
-- Never ask the user to paste real sensitive credentials into the conversation,
-  and never expose, store, or hard-code passwords, personal API keys, access
-  tokens, client secrets, or other authentication credentials.
-- Ensure the final result is valid JSON and contains no configuration entries
-  that are not defined in `appspec.json`.
-
 ### Step 17. Produce `.env`
 
-- Before creating or updating `.env`, read `references/env.md` and follow all
-  of its instructions and linked MoveApps documentation.
-- Start from the current MoveApps [Template `.env`](https://github.com/movestore/Template_R_Function_App/blob/master/.env).
-- Do not rename any `.env` setting.
-- If `appspec.json` contains a setting of type `SECRET`, read and follow
-  `references/Dealing_with_secret_credentials.md` and apply any required
-  `.env` handling according to the official MoveApps documentation.
-- Never place a real secret credential in the generated `.env`; use only the
-  placeholder or mechanism required by the MoveApps documentation.
+- Before creating or updating `.env`, read `references/env.md` and follow all of its instructions and linked MoveApps documentation.
+- * Start from the current MoveApps Shiny [Template `.env`](https://github.com/movestore/Template_R_Shiny_App/blob/master/.env).
+- Do not rename, remove, or add any `.env` setting.
+- In particular, do not add `CONFIGURATION`, `PRINT_CONFIGURATION`, or `LOG_LEVEL_SDK`; Shiny Apps do not use `app-configuration.json`.
 - Adjust `SOURCE_FILE` according to the dataset selected for local testing.
-- If the user wants to test with their own CSV data or additional Movebank data,
-  read and follow `references/local-testing-data.md`.
-- Handle `USER_APP_FILE_HOME_DIR` according to `references/env.md` when the
-  App uses auxiliary files.
-- Do not change unrelated `.env` values unless required by the current
-  MoveApps documentation or the App's local-testing requirements.
-
+- If the user wants to test with their own CSV data or additional Movebank data, read and follow `references/local-testing-data.md`.
+- Keep `USER_APP_FILE_HOME_DIR` with its template value, and change it only as described in `references/env.md`.
+- Credentials are entered in the App's UI, not in `.env`. Never place a real credential in the generated `.env`.
+- Do not change unrelated `.env` values unless required by the current MoveApps documentation or the App's local-testing requirements.
 
 
 ### Step 18. Produce `README.md`
 
-- Produce `README.md` only after `RFunction.R`, `appspec.json`,
-  `app-configuration.json`, and `.env` have been completed.
-- Before creating `README.md`, read `references/README_guide.md` and follow
-  all of its instructions and the linked official MoveApps README template.
-- Build the README from the final agreed App design and the completed App
-  files, especially `RFunction.R`, `appspec.json`, and
-  `app-configuration.json`.
-- Ensure the README accurately reflects the App's actual purpose, scope,
-  required data properties, input/output types, settings, artefacts, changes
-  in output data, error/null handling, and technical details.
+- Produce `README.md` only after `ShinyModule.R`, `appspec.json`, and `.env` have been completed.
+- Before creating `README.md`, read `references/README_guide.md` and follow all of its instructions and the linked official MoveApps Shiny README template.
+- Build the README from the final agreed App design and the completed App files, especially `ShinyModule.R` and `appspec.json`.
+- Ensure the README accurately reflects the App's actual purpose, scope, required data properties, input/output types, settings, artefacts, changes in output data, error/null handling, and technical details.
+- In the Settings section:
+  - describe each user-configurable Shiny input as the user sees it in the App UI, using the IDs agreed in **Prepare the conversion plan**;
+  - describe any actual `appspec.json` settings separately, if present;
+  - include the standard "Store settings" and "Restore default settings" lines from the current MoveApps Shiny README template.
 - Use the selected App display name consistently.
-- Do not invent repository information, functionality, settings, data
-  requirements, outputs, artefacts, or runtime behavior.
-- If required information cannot be verified, follow
-  `references/README_guide.md` for how to mark it.
-- Verify the final README against the current MoveApps template before
-  presenting it to the user.
+- Do not invent repository information, functionality, settings, data requirements, outputs, artefacts, or runtime behavior.
+- If required information cannot be verified, ask the user for it, as described in `references/README_guide.md`.
+- Verify the final README against the current MoveApps Shiny README template before presenting it to the user.
 
-### Step 19. Determine App Categories
+### Step 20. Determine App Categories
 
 - Read the official MoveApps documentation for
   [App Categories](https://docs.moveapps.org/#/IO_types?id=app-categories).
@@ -609,7 +574,7 @@ If no secret credential is required, continue without credential-specific handli
 - Treat App Categories as submission metadata unless the current MoveApps
   specification explicitly requires them in one of the generated App files.
 
-### Step 20. Change `sdk.R` and `.gitignore`, if required
+### Step 21. Change `sdk.R` and `.gitignore`, if required
 
 - Apply this step only if the "Determine whether the App needs secret credentials"
   step determined that the App requires a secret credential.
@@ -624,7 +589,7 @@ If no secret credential is required, continue without credential-specific handli
 - If no secret credential is required, skip this step.
 
   
-### Step 21. Final check
+### Final check
 
 Before finishing, verify the generated deliverable or deliverables against the
 agreed App design and any previously generated deliverables.
