@@ -252,7 +252,7 @@ workflow. The user can start a separate conversion for another proposed App
 afterward.
 
 
-### Step 4. Check whether the source code is ready
+### Step 5. Check whether the source code is ready
 
 Do not assume that incomplete, inconsistent, or partially working Shiny code is ready to become a MoveApps App.
 
@@ -278,7 +278,7 @@ Do not silently invent missing analysis logic or change the scientific meaning o
 After the App goal, scope, accepted improvements, and required source-code changes are agreed, continue with the next step.
 
 
-### Step 5. Understand the code before restructuring it
+### Step 6. Understand the code before restructuring it
 
 Read through the source and identify:
 
@@ -298,7 +298,7 @@ Rules:
 - Preserve the source App's intended behavior unless the user has approved a change or improvement.
 
 
-### Step 6. Check for existing Apps with the same or overlapping purpose
+### Step 7. Check for existing Apps with the same or overlapping purpose
 
 - Download the complete current MoveApps App list from
   `https://www.moveapps.org/api/v1/apps/repositories` as raw data (for example
@@ -356,7 +356,7 @@ Rules:
 
 - Do not continue with the conversion until the user confirms.
 
-### Step 7. Choose the App name
+### Step 8. Choose the App name
 
 1. If the user provides an App name:
    - Normalize the App's display title to **Title Case without hyphens** (e.g. `My New App`).
@@ -374,7 +374,7 @@ Rules:
 
 3. Treat the selected name as the App's canonical display name for the remainder of the workflow. Use it consistently wherever an App display name is required. Do not add it to files or fields that do not support or require an App name. If `ShinyModule.R` shows a title in the UI (e.g. with `titlePanel()`), use the selected App name or a title that matches it, never the template's example title.
   
-### Step 8. Check the required packages
+### Step 9. Check the required packages
 
 - Read `references/Packages.md`.
 - Inspect the packages and package functions used by the selected source code and by the improvements accepted in Step 3, and produce the **Packages Table** defined there.
@@ -386,7 +386,7 @@ Rules:
 - Include `shiny` for all MoveApps Shiny Apps. `shinydashboard` is not supported yet; if the source code uses it, follow the rule in the Introduction.
 - Do not add the MoveApps SDK package `moveapps` as an App dependency or load it with `library(moveapps)`.
 
-### Step 9. Determine the IO type
+### Step 10. Determine the IO type
 
 - Read `references/io-types.md` and follow it for the currently supported
   MoveApps R IO types and their requirements.
@@ -405,7 +405,7 @@ Rules:
   the data into an unsuitable existing type.
 - State the determined input and output IO types clearly before continuing.
 
-### Step 10. Prepare the conversion plan and get user confirmation
+### Step 11. Prepare the conversion plan and get user confirmation
 
 Before generating any of the MoveApps deliverables, summarize the agreed App
 design:
@@ -448,28 +448,21 @@ generating `ShinyModule.R`, `appspec.json`, `.env`, or `README.md`.
 
 ### Step 11. Determine whether the App needs secret credentials
 
-- Determine whether the App requires sensitive authentication information such as
-  a password, personal API key, access token, client secret, or other credential.
+Determine whether the App requires sensitive authentication information such as a password, personal API key, access token, client secret, or other credential.
 
 Treat secret credentials as required when any of the following applies:
 
-- the source code uses or contains a credential;
-- the App accesses an external API or service that requires authentication;
-- the user states that authentication credentials are required; or
-- the App requires a setting that should be defined as type `SECRET`.
+- the source code uses or expects a credential;
+- the App accesses an external API or service that requires authentication; or
+- the user states that authentication credentials are required.
 
 If a secret credential is required:
 
-- Read and follow
-  `references/Dealing_with_secret_credentials.md` and its linked official
-  MoveApps documentation.
-- Never ask the user to provide or paste the actual credential into the
-  conversation.
-- Apply the "Change `sdk.R` and `.gitignore`" step only when a secret credential is required.
-  
-If no secret credential is required:
+- Read and follow `references/Dealing_with_secret_credentials.md` and all official documentation linked there.
+- If the source code already contains a real credential, tell the user that it may already be exposed and should be removed and replaced/rotated.
+- Resolve any credential-related design decisions before preparing the conversion plan.
 
-- Skip the "Change `sdk.R` and `.gitignore`" step.
+If no secret credential is required, continue without credential-specific handling.
 
 
 ### Step 12. Before generating any deliverable file
@@ -482,20 +475,15 @@ If no secret credential is required:
 - Generate the file only after the required information has been resolved.
 
 
-### Step 13. Produce `RFunction.R`
+### Step 13. Produce `ShinyModule.R`
 
-- Generate the App logic in `RFunction.R`.
-- Before writing or modifying this file, read `references/R_Function.md` and
-  follow its instructions and linked references for the required structure,
-  coding rules, input/output handling, and MoveApps-specific expectations.
-- Keep all App R code in this file unless explicitly instructed otherwise.
-- Only `RFunction.R` and the directories listed in `appspec.json` under
-  `providedAppFiles` are bundled into the final MoveApps App. Do not rely on
-  any other project files being available at runtime.
-- After `RFunction.R` is finalized, re-check the functions and packages actually
-  used in the final code.
-- Update the package decisions and later `appspec.json` dependencies if the
-  implementation added or removed package usage compared with Step 8.
+- Generate the App code in `ShinyModule.R`, with the two functions `shinyModuleUserInterface()` and `shinyModule()`.
+- Before writing or modifying this file, read `references/Shiny_Module.md` and follow its instructions and linked references for the required structure, coding rules, input/output handling, bookmarking, and MoveApps-specific expectations.
+- Build the code from the plan confirmed in **Prepare the conversion plan**, including the accepted improvements. Use exactly the Shiny input IDs and `appspec.json` setting IDs agreed there.
+- Keep all App code in `ShinyModule.R`.
+- Do not rely on project files such as `global.R`, a `www/` folder, or local data files being available at runtime unless they are included through a supported MoveApps mechanism such as `src/app/` or `providedAppFiles`.
+- After `ShinyModule.R` is finalized, re-check the functions and packages actually used in the final code.
+- Update the package decisions and later `appspec.json` dependencies if the implementation added or removed package usage compared with **Check the required packages**.
 
 ### Step 14. Check large fixed or fallback auxiliary files, if applicable
 
