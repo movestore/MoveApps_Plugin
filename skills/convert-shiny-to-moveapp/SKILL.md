@@ -178,8 +178,44 @@ App to do.
   - **What is passed on**: whether the App only shows the data (return it
     unchanged) or changes it (e.g. filters, adds columns) and passes the
     changed data to the next App.
+
+
+### Step 3. Suggest improvements
+
+After the App's goal and current behavior are clear, identify a small number of useful optional improvements. Do not apply any improvement without the user's confirmation.
+
+The default goal is to preserve the existing App's behavior. Keep optional improvements separate from changes required for MoveApps compatibility.
+
+Consider improvements in three areas:
+
+1. **Performance**
+   - unnecessary or repeated calculations;
+   - inefficient processing;
+   - large or slow outputs that could be handled more efficiently.
+
+2. **Code quality and robustness**
+   - missing input validation or unclear errors;
+   - repeated or fragile code;
+   - missing feedback for long-running operations.
+
+3. **New features and UI**
+   - useful controls, outputs, summaries, downloads, or artefacts;
+   - clearer layout, navigation, or help text.
+
+Rules:
+
+- Suggest only the most valuable improvements, usually 3–8.
+- For each suggestion, briefly explain the benefit, whether it changes the App's results or only performance/appearance, and whether it requires a new package.
+- Do not change the scientific meaning of the App unless the user explicitly approves it.
+- New user-configurable options must be implemented as Shiny inputs.
+- Suggest only features compatible with MoveApps.
+- Present the suggestions as a numbered list and let the user choose all, some, or none.
+- Treat accepted suggestions as part of the agreed App design in later steps.
+- If the user chooses none, continue with the original App behavior.
+
+
     
-### Step 3. Decide whether the code should become one App or multiple Apps
+### Step 4. Decide whether the code should become one App or multiple Apps
 
 Do not assume that one R script should become one MoveApps App.
 
@@ -218,48 +254,48 @@ afterward.
 
 ### Step 4. Check whether the source code is ready
 
-Do not assume that incomplete, inconsistent, or partially working R code is
-ready to become a MoveApps App.
+Do not assume that incomplete, inconsistent, or partially working Shiny code is ready to become a MoveApps App.
 
-Before conversion, identify issues such as:
+Before conversion, identify important issues such as:
 
-- missing functions or objects;
-- undefined variables;
+- missing functions, objects, or variables, including dependencies from `global.R` or other files not shared in Step 1;
 - hard-coded local paths or files;
-- missing input assumptions;
-- unclear expected output;
-- code fragments that cannot run independently;
-- duplicated or conflicting logic;
+- unclear expected input or output;
+- duplicated, conflicting, or incomplete logic;
 - operations whose intended behavior cannot be determined;
-- dependencies on interactive/manual steps;
-- code whose behavior does not match the user's stated App goal.
+- dependencies on interactive or manual steps;
+- code whose behavior does not match the user's stated App goal;
+- UI and server logic that do not match, such as an `input$...` or `output$...` without a corresponding UI element;
+- code that loads or replaces its own workflow data where MoveApps will normally provide the input through `data`;
+- global state such as objects modified with `<<-`, or hard-coded IDs in JavaScript/CSS that may break when the code becomes a module.
 
-If important issues exist, explain them to the user before converting the
-code.
+If important issues exist, explain them to the user before converting the code. Recommend the changes needed and, when useful, show revised code snippets and explain what they do.
 
-Recommend the changes needed to make the source code suitable for the intended
-App. When useful, show proposed revised R code or code snippets and explain
-what the revised code would do.
+If an issue affects code that an improvement accepted in Step 3 also changes, tell the user and check whether that improvement still fits.
 
-Do not silently invent missing analysis logic or change the scientific meaning
-of the source code. If the intended behavior cannot be determined, ask the
-user.
+Do not silently invent missing analysis logic or change the scientific meaning of the source code. If the intended behavior cannot be determined, ask the user.
 
-After the App goal, scope, and required source-code changes are agreed, proceed
-with determining the App's IO types and creating the MoveApps deliverables.
+After the App goal, scope, accepted improvements, and required source-code changes are agreed, continue with the next step.
+
 
 ### Step 5. Understand the code before restructuring it
 
 Read through the source and identify:
 
-- The core analysis logic that will become the body of `rFunction()`.
-- What the code accepts as input and what it returns.
-- Hard-coded values that may need to become user-configurable settings.
-- Helper functions that are logically separate from the main entry point.
+- Which code belongs in `shinyModuleUserInterface()` (UI) and which belongs in `shinyModule()` (server logic).
+- What the App accepts as workflow input and what it returns or passes on.
+- Which values are user-configurable Shiny inputs and which are internal constants or derived values.
+- Inputs or UI elements that depend on workflow data and therefore need to be created or updated from the server side.
+- The main reactive dependencies between inputs, calculations, observers, and outputs.
+- Helper functions that are logically separate from the UI and server code.
 - External R packages the code depends on.
+
+Rules:
+
 - Do not turn assumptions inferred from file or folder names into App input requirements.
-- Treat file/folder names only as clues. Confirm the requirement from the source code, documentation, or with the user before adding it to the App or README.
+- Treat file/folder names only as clues. Confirm requirements from the source code, documentation, or with the user before adding them to the App or README.
 - Treat source-code comments as useful context, but do not assume they are always technically correct. Verify important assumptions when they affect the App's behavior.
+- Preserve the source App's intended behavior unless the user has approved a change or improvement.
 
 
 ### Step 6. Check for existing Apps with the same or overlapping purpose
