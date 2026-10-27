@@ -15,7 +15,7 @@ conventions.
 Read each reference file at the workflow step where it is required.
 
 If the source code is ordinary R code without Shiny, tell the user that this
-skill converts R Shiny code only, and suggest the `convert-shiny-to-moveapp` skill
+skill converts R Shiny code only, and suggest the `convert-r-to-moveapp` skill
 of the MoveApps Shiny Converter plugin instead.
 
 Apps built with `shinydashboard` are not fully supported yet. A
@@ -145,7 +145,7 @@ App to do.
 
 - Ask the user for the intended goal of the App unless that goal is already
   clear from their request.
-- Read the complete source code (all files selected in Step 1, including
+- Read the complete source code (all files selected in Step **Get the source code**, including
   `global.R` and helper/module files) and compare its actual behavior with
   the user's stated goal.
 - Identify the major logical tasks performed by the code, including:
@@ -217,7 +217,7 @@ Rules:
     
 ### Step 4. Decide whether the code should become one App or multiple Apps
 
-Do not assume that one R script should become one MoveApps App.
+Do not assume that one Shiny App should become one MoveApps App.
 
 If the source code contains multiple distinct responsibilities that would be
 better represented as separate reusable Workflow steps, explain this to the
@@ -235,7 +235,7 @@ For each proposed App, explain:
 - expected input;
 - expected output;
 - expected artefacts, if any;
-- likely user-configurable settings;
+- likely user-configurable Shiny inputs;
 - major package/dependency requirements;
 - how it relates to the other proposed Apps;
 - why separating it would improve the MoveApps Workflow.
@@ -246,6 +246,9 @@ If multiple Apps are recommended, ask the user to choose which single App they
 want to create in this conversion workflow.
 
 Continue next steps only for the selected App.
+Keep only the improvements accepted in **Suggest improvements** that apply
+  to the selected App. Discard accepted improvements that belong only to parts
+  of the source code assigned to other proposed Apps.
 
 Do not generate deliverables for more than one App in the same conversion
 workflow. The user can start a separate conversion for another proposed App
@@ -258,7 +261,7 @@ Do not assume that incomplete, inconsistent, or partially working Shiny code is 
 
 Before conversion, identify important issues such as:
 
-- missing functions, objects, or variables, including dependencies from `global.R` or other files not shared in Step 1;
+- missing functions, objects, or variables, including dependencies from `global.R` or other files not shared in Step **Get the source code**;
 - hard-coded local paths or files;
 - unclear expected input or output;
 - duplicated, conflicting, or incomplete logic;
@@ -271,7 +274,7 @@ Before conversion, identify important issues such as:
 
 If important issues exist, explain them to the user before converting the code. Recommend the changes needed and, when useful, show revised code snippets and explain what they do.
 
-If an issue affects code that an improvement accepted in Step 3 also changes, tell the user and check whether that improvement still fits.
+If an issue affects code that an improvement accepted in Step **Suggest improvements** also changes, tell the user and check whether that improvement still fits.
 
 Do not silently invent missing analysis logic or change the scientific meaning of the source code. If the intended behavior cannot be determined, ask the user.
 
@@ -377,7 +380,7 @@ Rules:
 ### Step 9. Check the required packages
 
 - Read `references/Packages.md`.
-- Inspect the packages and package functions used by the selected source code and by the improvements accepted in Step 3, and produce the **Packages Table** defined there.
+- Inspect the packages and package functions used by the selected source code and by the improvements accepted in Step **Suggest improvements**, and produce the **Packages Table** defined there.
 - If every row with `change needed = Yes` has `permission of replacement = Direct`, apply those replacements automatically and continue.
 - If any row with `change needed = Yes` has `permission of replacement = Review` or `No direct replacement`, show the **Packages Table** to the user and ask them to confirm how those rows should be handled before modifying the App code.
 - Do not apply any **Review** or **No direct replacement** migration without the user's confirmation.
@@ -392,12 +395,13 @@ Rules:
   MoveApps R IO types and their requirements.
 - Determine the App's input and output IO types from the actual data structure
   expected and produced by the App, taking into account the package decisions
-  from Step 8 and the improvements accepted in Step 3.
+  from step **Check the required packages** and the improvements accepted in step
+  **Suggest improvements**.
 - The output IO type is the type of the object returned as a reactive by
   `shinyModule()`. If the App only visualizes the data and passes it on
   unchanged, the output type is the same as the input type.
 - Do not assume that the input and output IO types are the same.
-- - Current MoveApps R SDK behavior converts input data of class `moveStack`
+- Current MoveApps R SDK behavior converts input data of class `moveStack`
   to `move2`. For new Shiny Apps, write the App code for `move2` rather than
   relying on `moveStack`.
 - If the App's data does not match any currently supported IO type, follow
@@ -405,7 +409,25 @@ Rules:
   the data into an unsuitable existing type.
 - State the determined input and output IO types clearly before continuing.
 
-### Step 11. Prepare the conversion plan and get user confirmation
+### Step 11. Determine whether the App needs secret credentials
+
+Determine whether the App requires sensitive authentication information such as a password, personal API key, access token, client secret, or other credential.
+
+Treat secret credentials as required when any of the following applies:
+
+- the source code uses or expects a credential;
+- the App accesses an external API or service that requires authentication; or
+- the user states that authentication credentials are required.
+
+If a secret credential is required:
+
+- Read and follow `references/Dealing_with_secret_credentials.md` and all official documentation linked there.
+- If the source code already contains a real credential, tell the user that it may already be exposed and should be removed and replaced/rotated.
+- Resolve any credential-related design decisions before preparing the conversion plan.
+
+If no secret credential is required, continue without credential-specific handling.
+
+### Step 12. Prepare the conversion plan and get user confirmation
 
 Before generating any of the MoveApps deliverables, summarize the agreed App
 design:
@@ -446,25 +468,6 @@ before generating the file that depends on it.
 Present the plan to the user and ask them to confirm or correct it before
 generating `ShinyModule.R`, `appspec.json`, `.env`, or `README.md`.
 
-### Step 12. Determine whether the App needs secret credentials
-
-Determine whether the App requires sensitive authentication information such as a password, personal API key, access token, client secret, or other credential.
-
-Treat secret credentials as required when any of the following applies:
-
-- the source code uses or expects a credential;
-- the App accesses an external API or service that requires authentication; or
-- the user states that authentication credentials are required.
-
-If a secret credential is required:
-
-- Read and follow `references/Dealing_with_secret_credentials.md` and all official documentation linked there.
-- If the source code already contains a real credential, tell the user that it may already be exposed and should be removed and replaced/rotated.
-- Resolve any credential-related design decisions before preparing the conversion plan.
-
-If no secret credential is required, continue without credential-specific handling.
-
-
 ### Step 13. Before generating any deliverable file
 
 - Before generating a deliverable file, first identify all information required
@@ -481,7 +484,11 @@ If no secret credential is required, continue without credential-specific handli
 - Before writing or modifying this file, read `references/Shiny_Module.md` and follow its instructions and linked references for the required structure, coding rules, input/output handling, bookmarking, and MoveApps-specific expectations.
 - Build the code from the plan confirmed in **Prepare the conversion plan**, including the accepted improvements. Use exactly the Shiny input IDs and `appspec.json` setting IDs agreed there.
 - Keep all App code in `ShinyModule.R`.
-- Do not rely on project files such as `global.R`, a `www/` folder, or local data files being available at runtime unless they are included through a supported MoveApps mechanism such as `src/app/` or `providedAppFiles`.
+- Do not rely on project files such as `global.R`, a `www/` folder, or local
+  data files being available at runtime. Move any required R code from
+  `global.R` into `ShinyModule.R`. Handle required non-R files using the
+  appropriate supported MoveApps mechanism, such as `providedAppFiles` for
+  fixed or fallback auxiliary files.
 - After `ShinyModule.R` is finalized, re-check the functions and packages actually used in the final code.
 - Update the package decisions and later `appspec.json` dependencies if the implementation added or removed package usage compared with **Check the required packages**.
 
@@ -499,22 +506,24 @@ If no secret credential is required, continue without credential-specific handli
 
 - Before creating `appspec.json`, read `references/appspec.md` and follow all
   of its instructions and linked official MoveApps documentation.
-- Build `appspec.json` from the final agreed App design, `RFunction.R`,
-  selected IO types, package decisions, settings, auxiliary files, and other
-  verified App metadata.
+- Build `appspec.json` from the plan confirmed in
+  **Prepare the conversion plan**, the final `ShinyModule.R`, the selected IO
+  types, package decisions, auxiliary files, and other verified App metadata.
+- Do not define ordinary Shiny inputs as `appspec.json` settings. Include only
+  the platform-level settings the App needs (e.g. `USER_FILE`).
+- Ensure that each `USER_FILE` setting `id` exactly matches the ID used in
+  `getAuxiliaryFilePath()` in `ShinyModule.R`.
+- Do not define credentials as `SECRET` settings; they are entered in the
+  App's UI as described in `references/Dealing_with_secret_credentials.md`.
 - Do not invent values that cannot be verified from the source code, prior
   workflow decisions, or information provided by the user.
-- Ensure that setting IDs exactly match the corresponding arguments used in
-  `RFunction.R`.
 - Validate the final `appspec.json` against the current MoveApps specification
-  and template before presenting it to the user.
-- If any setting has type `SECRET`, read and follow
-  `references/Dealing_with_secret_credentials.md` when defining that setting.
+  and Shiny template before presenting it to the user.
 
 ### Step 17. Produce `.env`
 
 - Before creating or updating `.env`, read `references/env.md` and follow all of its instructions and linked MoveApps documentation.
-- * Start from the current MoveApps Shiny [Template `.env`](https://github.com/movestore/Template_R_Shiny_App/blob/master/.env).
+- Start from the current MoveApps Shiny [Template `.env`](https://github.com/movestore/Template_R_Shiny_App/blob/master/.env).
 - Do not rename, remove, or add any `.env` setting.
 - In particular, do not add `CONFIGURATION`, `PRINT_CONFIGURATION`, or `LOG_LEVEL_SDK`; Shiny Apps do not use `app-configuration.json`.
 - Adjust `SOURCE_FILE` according to the dataset selected for local testing.
@@ -539,7 +548,7 @@ If no secret credential is required, continue without credential-specific handli
 - If required information cannot be verified, ask the user for it, as described in `references/README_guide.md`.
 - Verify the final README against the current MoveApps Shiny README template before presenting it to the user.
 
-### Step 20. Determine App Categories
+### Step 19. Determine App Categories
 
 - Read the official MoveApps documentation for
   [App Categories](https://docs.moveapps.org/#/IO_types?id=app-categories).
@@ -573,71 +582,36 @@ If no secret credential is required, continue without credential-specific handli
 
 - Treat App Categories as submission metadata unless the current MoveApps
   specification explicitly requires them in one of the generated App files.
-
-### Step 21. Change `sdk.R` and `.gitignore`, if required
-
-- Apply this step only if the "Determine whether the App needs secret credentials"
-  step determined that the App requires a secret credential.
-
-- Read and follow
-  `references/Dealing_with_secret_credentials.md` and the linked official
-  MoveApps documentation.
-
-- Make only the changes to `sdk.R` and `.gitignore` that are required for
-  secure local handling of the secret credential.
-
-- If no secret credential is required, skip this step.
-
   
 ### Final check
 
-Before finishing, verify the generated deliverable or deliverables against the
-agreed App design and any previously generated deliverables.
+Before finishing, verify the generated deliverable or deliverables against the agreed App design and any previously generated deliverables.
 
-If all five deliverables have been generated, verify that they are mutually
-consistent.
+If all four deliverables have been generated, verify that they are mutually consistent.
 
-If only some deliverables have been generated, check consistency only against
-the deliverables that already exist, and identify any constraints that future
-deliverables must follow.
+If only some deliverables have been generated, check consistency only against the deliverables that already exist, and identify any constraints that future deliverables must follow.
 
-Apply each check below only when the deliverable or deliverables referenced by
-that check have already been generated.
+Apply each check below only when the deliverable or deliverables referenced by that check have already been generated.
+
 Check that:
 
-- `RFunction.R` implements only the agreed App functionality and follows the
-  declared input/output contract.
-- The input and output IO types are consistent with the actual data structures
-  used by `RFunction.R`.
-- Every user-configurable `RFunction.R` argument has a corresponding setting
-  in `appspec.json`.
-- Setting IDs in `appspec.json` exactly match the corresponding `RFunction.R`
-  argument names.
-- `app-configuration.json` contains only settings defined in `appspec.json`
-  and follows the required value formats.
-- Handle `USER_FILE` according to `references/app-configuration.md` and
-  `SECRET` according to `references/Dealing_with_secret_credentials.md`.
-- No real `SECRET` credential is requested, exposed, stored, or hard-coded in
-  any generated deliverable.
-- Package dependencies in `appspec.json` match the packages actually required
-  by the final `RFunction.R`.
-- Auxiliary files and `providedAppFiles`, if used, are handled consistently
-  across `RFunction.R`, `appspec.json`,`.env`, and `README.md`.
-- The App name is used consistently wherever a display name is required.
-- `.env` follows `references/env.md`, uses the selected local test input, and
-  does not contain any real secret credentials.
-- `README.md` accurately documents the final App implementation and does not
-  describe functionality, settings, outputs, artefacts, or behavior that are
-  not present in the App.
-- No information has been invented where the source code, user confirmation,
-  or official MoveApps documentation does not support it.
+- `ShinyModule.R` implements only the agreed App functionality, including the accepted improvements, and passes the final check in `references/Shiny_Module.md`.
+- The input and output IO types are consistent with the actual data used and returned as a reactive by `shinyModule()`.
+- The Shiny input IDs in `ShinyModule.R` match the IDs agreed in **Prepare the conversion plan**.
+- `appspec.json` contains only the platform-level settings the App needs (e.g. `USER_FILE`); ordinary Shiny inputs are not duplicated there.
+- Each `USER_FILE` setting `id` in `appspec.json` matches the ID used in `getAuxiliaryFilePath()` in `ShinyModule.R`, and `providedAppFiles` are handled consistently across `ShinyModule.R`, `appspec.json`, `.env`, and `README.md`.
+- Package dependencies in `appspec.json` match the packages actually required by the final `ShinyModule.R`, including `shiny`.
+- Credentials, if any, are handled according to `references/Dealing_with_secret_credentials.md`; no real credential is requested, exposed, stored, or hard-coded in any generated deliverable.
+- The App name is used consistently wherever a display name is required, including any title shown in the UI.
+- `.env` follows `references/env.md`, uses the selected local test input, contains only the Shiny template settings, and contains no credentials.
+- `README.md` accurately documents the final App implementation; its Settings section describes the App's Shiny inputs and includes the standard "Store settings" and "Restore default settings" lines; it does not describe functionality, settings, outputs, artefacts, or behavior that are not present in the App.
+- No `app-configuration.json` has been created.
+- No information has been invented where the source code, user confirmation, or official MoveApps documentation does not support it.
 
-If an inconsistency affects the deliverable currently being generated, correct
-it before presenting the result.
+If an inconsistency affects the deliverable currently being generated, correct it before presenting the result.
 
-If resolving the inconsistency also requires changing an earlier deliverable,
-do not silently regenerate that deliverable unless the user requested it.
-Tell the user which earlier deliverable needs to be updated.
+If resolving the inconsistency also requires changing an earlier deliverable, do not silently regenerate that deliverable unless the user requested it. Tell the user which earlier deliverable needs to be updated.
 
-Finally, present only the deliverable or deliverables requested by the user,
-each in its own clearly labeled fenced code block.
+Finally, present only the deliverable or deliverables requested by the user, each in its own clearly labeled fenced code block.
+
+After all four deliverables are complete, tell the user to test the App locally with `sdk.R`, including its main UI interactions, workflow input/output, "Store settings", and "Restore default settings".
