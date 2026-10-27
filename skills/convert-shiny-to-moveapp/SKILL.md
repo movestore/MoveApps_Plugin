@@ -359,58 +359,47 @@ Rules:
 ### Step 7. Choose the App name
 
 1. If the user provides an App name:
-   - Normalize the App's display title to **Title Case without hyphens**
-     (e.g. `My New App`).
+   - Normalize the App's display title to **Title Case without hyphens** (e.g. `My New App`).
    - Check the proposed name for:
-     - **Suitability**: Does it accurately describe the App's functionality,
-       or is it too generic, unclear, or misleading?
-     - **Name collision**: Use the MoveApps App list downloaded in Step "Check for existing Apps with the same or overlapping purpose" and compare the
-       proposed name against the values in the `title` field. Avoid names that
-       are identical or very similar to existing App titles.
-   - If the name is unsuitable or conflicts with an existing App title,
-     explain the issue and suggest suitable alternatives.
+     - **Suitability**: Does it accurately describe the App's functionality, or is it too generic, unclear, or misleading?
+     - **Name collision**: Use the MoveApps App list downloaded in **Check for existing Apps with the same or overlapping purpose** and compare the proposed name against the values in the `title` field. Avoid names that are identical or very similar to existing App titles.
+   - If the name is unsuitable or conflicts with an existing App title, explain the issue and suggest suitable alternatives.
 
 2. If the user has not provided an App name:
-   - Based on the App's functionality, suggest **2–3** suitable names in
-     **Title Case without hyphens**.
-   - Check the current MoveApps App list at
-     `https://www.moveapps.org/api/v1/apps/repositories` and compare the
-     suggested names against the values in the `title` field.
-   - Do not suggest names that are identical or very similar to existing App
-     titles.
+   - Based on the App's functionality, suggest **2–3** suitable names in **Title Case without hyphens**.
+   - Use the MoveApps App list downloaded in **Check for existing Apps with the same or overlapping purpose** and compare the suggested names against the values in the `title` field.
+   - Do not suggest names that are identical or very similar to existing App titles.
+   - Do not add the word `Shiny` to a name only because the App is built with Shiny; the name should describe what the App does.
    - Let the user choose one of the proposed names.
 
-3. Treat the selected name as the App's canonical display name for the
-   remainder of the workflow. Use it consistently wherever an App display
-   name is required. Do not add it to files or fields that do not support
-   or require an App name.
-
+3. Treat the selected name as the App's canonical display name for the remainder of the workflow. Use it consistently wherever an App display name is required. Do not add it to files or fields that do not support or require an App name. If `ShinyModule.R` shows a title in the UI (e.g. with `titlePanel()`), use the selected App name or a title that matches it, never the template's example title.
   
 ### Step 8. Check the required packages
 
 - Read `references/Packages.md`.
-- Inspect the packages and package functions used by the selected source code
-  and produce the **Packages Table** defined there.
-- If every row with `change needed = Yes` has `permission of replacement =
-  Direct`, apply those replacements automatically and continue.
-- If any row with `change needed = Yes` has `permission of replacement =
-  Review` or `No direct replacement`, show the **Packages Table** to the user
-  and ask them to confirm how those rows should be handled before modifying
-  the App code.
-- Do not apply any **Review** or **No direct replacement** migration without
-  the user's confirmation.
-- After package decisions are resolved, make a final list of the packages
-  required by the App and identify which libraries need to be loaded in
-  `RFunction.R`. Do not add `library(moveapps)` to `RFunction.R`.
+- Inspect the packages and package functions used by the selected source code and by the improvements accepted in Step 3, and produce the **Packages Table** defined there.
+- If every row with `change needed = Yes` has `permission of replacement = Direct`, apply those replacements automatically and continue.
+- If any row with `change needed = Yes` has `permission of replacement = Review` or `No direct replacement`, show the **Packages Table** to the user and ask them to confirm how those rows should be handled before modifying the App code.
+- Do not apply any **Review** or **No direct replacement** migration without the user's confirmation.
+- Do not keep packages that were used only by code removed during conversion, for example code that loaded the App's own workflow data, which is now provided through `data`.
+- After package decisions are resolved, make a final list of the packages required by the App and identify which packages must be loaded or referenced in `ShinyModule.R`.
+- Include `shiny` for all MoveApps Shiny Apps. `shinydashboard` is not supported yet; if the source code uses it, follow the rule in the Introduction.
+- Do not add the MoveApps SDK package `moveapps` as an App dependency or load it with `library(moveapps)`.
 
 ### Step 9. Determine the IO type
 
 - Read `references/io-types.md` and follow it for the currently supported
   MoveApps R IO types and their requirements.
 - Determine the App's input and output IO types from the actual data structure
-  expected and produced by the App, taking into account any package/code
-  changes agreed in the previous step.
+  expected and produced by the App, taking into account the package decisions
+  from Step 8 and the improvements accepted in Step 3.
+- The output IO type is the type of the object returned as a reactive by
+  `shinyModule()`. If the App only visualizes the data and passes it on
+  unchanged, the output type is the same as the input type.
 - Do not assume that the input and output IO types are the same.
+- - Current MoveApps R SDK behavior converts input data of class `moveStack`
+  to `move2`. For new Shiny Apps, write the App code for `move2` rather than
+  relying on `moveStack`.
 - If the App's data does not match any currently supported IO type, follow
   `references/io-types.md` for requesting a new IO type rather than forcing
   the data into an unsuitable existing type.
@@ -418,16 +407,27 @@ Rules:
 
 ### Step 10. Prepare the conversion plan and get user confirmation
 
-Before generating any of the MoveApps deliverables, summarize the agreed App design:
+Before generating any of the MoveApps deliverables, summarize the agreed App
+design:
 
 - the App's purpose;
 - the part of the source code that will be included;
+- the improvements accepted in **Suggest improvements**;
 - the input IO type;
-- the output IO type;
-- the expected artifacts, if any;
-- the agreed user-configurable settings, including each setting `id` and how it
-  will be received by `RFunction.R`, following the setting-specific,
-  auxiliary-file, and secret-credential rules;
+- the output IO type, and whether the App passes the data on unchanged or
+  modified;
+- the UI layout: the main outputs (plots, maps, tables, text) and how they
+  are arranged (e.g. sidebar, tabs);
+- the user-configurable Shiny inputs: for each one, its ID, type, choices,
+  default value, and whether it depends on the workflow data (created or
+  updated from `shinyModule()`);
+- the `appspec.json` settings, if any (e.g. `USER_FILE` for auxiliary files),
+  with their IDs and corresponding auxiliary-file handling;
+- any credential inputs required by the App and how they will be handled
+  according to the Shiny secret-credential rules;
+- the expected artefacts, if any;
+- any important package replacements or newly added dependencies agreed
+  earlier;
 - any source-code changes that must be made before or during conversion.
 
 - Clearly flag any change that alters which observations are kept, removed,
@@ -435,16 +435,16 @@ Before generating any of the MoveApps deliverables, summarize the agreed App des
 - Distinguish implementation-only changes from behavioral/scientific changes.
 - Require user confirmation before applying a behavioral change that is not
   directly equivalent to the original source code.
-  
-Before proceeding, resolve the settings needed by the selected App and their
-IDs. Do not invent or rename setting IDs later when generating `RFunction.R`
-or `appspec.json`.
-- If an explicit design question is still unanswered, resolve that question
-  before generating the file that depends on it.
+
+Before proceeding, resolve all Shiny input IDs and `appspec.json` setting IDs.
+Do not invent or rename these IDs later when generating `ShinyModule.R`,
+`appspec.json`, or `README.md`.
+
+If an explicit design question is still unanswered, resolve that question
+before generating the file that depends on it.
 
 Present the plan to the user and ask them to confirm or correct it before
-generating `RFunction.R`, `appspec.json`, `app-configuration.json`, `.env` or
-`README.md`.
+generating `ShinyModule.R`, `appspec.json`, `.env`, or `README.md`.
 
 ### Step 11. Determine whether the App needs secret credentials
 
