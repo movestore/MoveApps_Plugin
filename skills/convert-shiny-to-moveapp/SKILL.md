@@ -391,7 +391,10 @@ Rules:
 - Do not apply any **Review** or **No direct replacement** migration without the user's confirmation.
 - Do not keep packages that were used only by code removed during conversion, for example code that loaded the App's own workflow data, which is now provided through `data`.
 - After package decisions are resolved, make a final list of the packages required by the App and identify which packages must be loaded or referenced in `ShinyModule.R`.
-- Include `shiny` for all MoveApps Shiny Apps. `shinydashboard` is not supported yet; if the source code uses it, follow the rule in the Introduction.
+- Include `shiny` for all MoveApps Shiny Apps.
+- If the final App uses `shinydashboard`, follow
+  `references/shinydashboard.md` and include `shinydashboard` as a required
+  dependency.
 - Do not add the MoveApps SDK package `moveapps` as an App dependency or load it with `library(moveapps)`.
 
 ### Step 10. Determine the IO types
@@ -443,8 +446,9 @@ design:
 - the input IO type;
 - the output IO type, and whether the App passes the data on unchanged or
   modified;
-- the UI layout: the main outputs (plots, maps, tables, text) and how they
-  are arranged (e.g. sidebar, tabs);
+- the UI layout: the main outputs (plots, maps, tables, text) and how they are arranged (e.g. sidebar, tabs);
+- - whether the final UI uses regular Shiny or `shinydashboard`; if it uses
+  `shinydashboard`, this must already have been agreed with the user;
 - the user-configurable Shiny inputs: for each one, its ID, type, choices,
   default value, and whether it depends on the workflow data (created or
   updated from `shinyModule()`);
@@ -487,6 +491,8 @@ generating `ShinyModule.R`, `appspec.json`, `.env`, or `README.md`.
 
 - Generate the App code in `ShinyModule.R`, with the two functions `shinyModuleUserInterface()` and `shinyModule()`.
 - Before writing or modifying this file, read `references/Shiny_Module.md` and follow its instructions and linked references for the required structure, coding rules, input/output handling, bookmarking, and MoveApps-specific expectations.
+- If the agreed App design uses `shinydashboard`, also read and follow `references/shinydashboard.md` and use the official
+  `Template_R_Shinydashboard_App` for dashboard-specific structure.
 - Build the code from the plan confirmed in **Prepare the conversion plan**, including the accepted improvements. Use exactly the Shiny input IDs and `appspec.json` setting IDs agreed there.
 - Keep all App code in `ShinyModule.R`.
 - Do not rely on project files such as `global.R`, a `www/` folder, or local
@@ -606,6 +612,9 @@ Check that:
 - `appspec.json` contains only the platform-level settings the App needs (e.g. `USER_FILE`); ordinary Shiny inputs are not duplicated there.
 - Each `USER_FILE` setting `id` in `appspec.json` matches the ID used in `getAuxiliaryFilePath()` in `ShinyModule.R`, and `providedAppFiles` are handled consistently across `ShinyModule.R`, `appspec.json`, `.env`, and `README.md`.
 - Package dependencies in `appspec.json` match the packages actually required by the final `ShinyModule.R`, including `shiny`.
+- If the App uses `shinydashboard`, `shinydashboard` is included in the
+  dependencies and `ShinyModule.R` follows the dashboard-specific rules in
+  `references/shinydashboard.md`.
 - Credentials, if any, are handled according to `references/Dealing_with_secret_credentials.md`; no real credential is requested, exposed, stored, or hard-coded in any generated deliverable.
 - The App name is used consistently wherever a display name is required, including any title shown in the UI.
 - `.env` follows `references/env.md`, uses the selected local test input, contains only the Shiny template settings, and contains no credentials.
