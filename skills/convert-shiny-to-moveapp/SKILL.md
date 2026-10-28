@@ -16,7 +16,7 @@ Read each reference file at the workflow step where it is required.
 
 If the source code is ordinary R code without Shiny, tell the user that this
 skill converts R Shiny code only, and suggest the `convert-r-to-moveapp` skill
-of the MoveApps Shiny Converter plugin instead.
+of the MoveApps R Converter plugin instead.
 
 Apps built with `shinydashboard` are not fully supported yet. A
 `references/shinydashboard.md` file exists for future support, but it is still
@@ -389,7 +389,7 @@ Rules:
 - Include `shiny` for all MoveApps Shiny Apps. `shinydashboard` is not supported yet; if the source code uses it, follow the rule in the Introduction.
 - Do not add the MoveApps SDK package `moveapps` as an App dependency or load it with `library(moveapps)`.
 
-### Step 10. Determine the IO type
+### Step 10. Determine the IO types
 
 - Read `references/io-types.md` and follow it for the currently supported
   MoveApps R IO types and their requirements.
