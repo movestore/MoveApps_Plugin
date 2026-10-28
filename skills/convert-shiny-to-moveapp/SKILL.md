@@ -9,21 +9,21 @@ description: >
 
 
 Convert existing R Shiny code into the content of a MoveApps R Shiny App that
-follows the
+follows the appropriate official MoveApps template:
 [`movestore/Template_R_Shiny_App`](https://github.com/movestore/Template_R_Shiny_App)
-conventions.
+for regular Shiny Apps, or
+[`movestore/Template_R_Shinydashboard_App`](https://github.com/movestore/Template_R_Shinydashboard_App)
+when the App uses `shinydashboard`.
 Read each reference file at the workflow step where it is required.
 
 If the source code is ordinary R code without Shiny, tell the user that this
 skill converts R Shiny code only, and suggest the `convert-r-to-moveapp` skill
 of the MoveApps R Converter plugin instead.
 
-Apps built with `shinydashboard` are not fully supported yet. A
-`references/shinydashboard.md` file exists for future support, but it is still
-incomplete and must not be treated as authoritative. If the source code uses
-`shinydashboard`, tell the user that support is not ready yet and do not
-continue with the conversion unless the user explicitly asks to work with the
-incomplete guidance.
+If the source App uses `shinydashboard`, or the user accepts a proposed
+Shinydashboard design, read `references/shinydashboard.md` and follow it
+together with the general Shiny rules. Use the official
+`Template_R_Shinydashboard_App` for dashboard-specific structure.
 
 ## Introduction
 
@@ -130,8 +130,8 @@ the supported MoveApps mechanisms for additional App files and auxiliary files.
 After reading the source, check that it is R Shiny code:
 - If it is ordinary R code without Shiny, follow the rule in the Introduction
   and suggest the `convert-r-to-moveapp` skill.
-- If it uses `shinydashboard`, follow the rule in the Introduction and ask the
-  user how they want to continue.
+- If it uses `shinydashboard`, note this and read
+  `references/shinydashboard.md` when applying the dashboard-specific rules.
 
 The user may send code incrementally across several messages — treat each
 new piece as additional source material for the same App, unless they say
@@ -201,6 +201,11 @@ Consider improvements in three areas:
 3. **New features and UI**
    - useful controls, outputs, summaries, downloads, or artefacts;
    - clearer layout, navigation, or help text.
+   - If a dashboard-style layout would meaningfully improve an App with several
+  views, sections, navigation elements, or related outputs, `shinydashboard`
+  may be suggested as an optional UI improvement. Do not apply it unless the
+  user accepts the suggestion. If accepted, follow
+  `references/shinydashboard.md`.
 
 Rules:
 
