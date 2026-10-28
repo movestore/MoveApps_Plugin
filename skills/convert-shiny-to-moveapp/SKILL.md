@@ -534,7 +534,8 @@ generating `ShinyModule.R`, `appspec.json`, `.env`, or `README.md`.
 ### Step 17. Produce `.env`
 
 - Before creating or updating `.env`, read `references/env.md` and follow all of its instructions and linked MoveApps documentation.
-- Start from the current MoveApps Shiny [Template `.env`](https://github.com/movestore/Template_R_Shiny_App/blob/master/.env).
+- Start from the current MoveApps  [`Shiny Template .env`](https://github.com/movestore/Template_R_Shiny_App/blob/master/.env) for regular Shiny or
+  [`Shinydashboard Template .env`](https://github.com/movestore/Template_R_Shinydashboard_App/blob/master/.env) for Shinydashboard.
 - Do not rename, remove, or add any `.env` setting.
 - In particular, do not add `CONFIGURATION`, `PRINT_CONFIGURATION`, or `LOG_LEVEL_SDK`; Shiny Apps do not use `app-configuration.json`.
 - Adjust `SOURCE_FILE` according to the dataset selected for local testing.
