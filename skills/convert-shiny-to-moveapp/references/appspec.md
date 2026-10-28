@@ -13,8 +13,9 @@ The appspec.json file is used to define the specifications of an App within Move
 - Do not invent or infer fields that are not explicitly supported by the current MoveApps App Specification or the current verified template.
 - Before adding any field to `appspec.json`, verify that the field exists in one of those current sources.
 - If a field cannot be verified, omit it rather than guessing.
-- For `version`, use the value or format required by the current live in [Template_R_Shiny_App/appspec.json](https://github.com/movestore/Template_R_Shiny_App/blob/master/appspec.json). Do not invent it.
-  
+- For `version`, use the value or format required by the current corresponding
+  official template: [`Template_R_Shiny_App/appspec.json`](https://github.com/movestore/Template_R_Shiny_App/blob/master/appspec.json)for regular Shiny or
+  [`Template_R_Shinydashboard_App`](https://github.com/movestore/Template_R_Shinydashboard_App/blob/master/.env) for Shinydashboard. Do not invent it.
 Currently, the following specifications can/need to be added:  
 
 1- Settings:
