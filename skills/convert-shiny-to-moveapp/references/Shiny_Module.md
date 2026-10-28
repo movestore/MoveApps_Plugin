@@ -4,7 +4,7 @@
 The function must accept and return the App's declared MoveApps input/output types. 
 Read references/io-types.md and follow the requirements of the specific IO type used by the App.
 
--- The file must be named `ShinyModule.R`.
+- The file must be named `ShinyModule.R`.
 - For a regular Shiny App, follow the
   [MoveApps ShinyModule template](https://github.com/movestore/Template_R_Shiny_App/blob/master/ShinyModule.R).
 - If the App uses `shinydashboard`, read
