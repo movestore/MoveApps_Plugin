@@ -4,11 +4,19 @@
 The function must accept and return the App's declared MoveApps input/output types. 
 Read references/io-types.md and follow the requirements of the specific IO type used by the App.
 
-- The file must be named `ShinyModule.R`.
-- See the [ShinyModule template](https://github.com/movestore/Template_R_Shiny_App/blob/master/ShinyModule.R) for the structure.
-- Use the final package-loading decisions from `Check the required packages` in `SKILL.md`.
+-- The file must be named `ShinyModule.R`.
+- For a regular Shiny App, follow the
+  [MoveApps ShinyModule template](https://github.com/movestore/Template_R_Shiny_App/blob/master/ShinyModule.R).
+- If the App uses `shinydashboard`, read
+  `references/shinydashboard.md` and follow the official
+  [MoveApps Shinydashboard template](https://github.com/movestore/Template_R_Shinydashboard_App/blob/master/ShinyModule.R)
+  for the dashboard-specific UI structure and rules.
+- The remaining rules in this file apply to both regular Shiny and
+  Shinydashboard Apps unless `references/shinydashboard.md` states otherwise.
+- Use the final package-loading decisions from **Check the required packages**
+  in `SKILL.md`.
 - Do not automatically add `library()` for every dependency.
-- Add the `library("shiny")` for all the R-Shiny modules.
+- Add `library("shiny")` for all R-Shiny Apps.
 
 - Use explicit `package::function()` calls when they are clearer, safer, or help avoid function masking or namespace conflicts.
 - When loading libraries, watch for function-name masking/conflicts between packages. Prefer explicit namespace calls such as `package::function()` when needed.
@@ -108,7 +116,10 @@ for the full list. The guidance below only applies when the App's input type is 
 
 ### Final check
 Before finishing `ShinyModule.R`, verify that:
-- module namespacing is correct (`NS(id)`, `session$ns`, and `ns()` for UI/output IDs);
+- module namespacing is correct (`NS(id)`, `session$ns`, and `ns()` for Shiny
+  input/output IDs); if the App uses `shinydashboard`, also verify the
+  dashboard-specific namespacing and `tabName` rules in
+  `references/shinydashboard.md`;
 - workflow `data` is only handled in `shinyModule()` and is not reused as another variable or setting;
 - `shinyModule()` returns the workflow data as a reactive and the returned object matches the declared output IO type;
 - if the IO type is `move2`, its structure and metadata are preserved;
