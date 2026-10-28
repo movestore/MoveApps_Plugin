@@ -1,6 +1,6 @@
 ## Using `shinydashboard`
 
-- Use `shinydashboard` when the source App already uses it, or when the agreed UI design requires a dashboard-style layout with elements such as a dashboard header, sidebar navigation, boxes, and tabbed dashboard content. In that case, follow the official MoveApps
+- When `shinydashboard` is used, follow the official MoveApps
   [Template R Shinydashboard App](https://github.com/movestore/Template_R_Shinydashboard_App).
 
 - Load `shinydashboard` in `ShinyModule.R` when its functions are used, and
@@ -16,8 +16,22 @@
   )
   ```
 
-- All dashboard input and output IDs must use the module namespace. This also
-  applies to IDs in dynamically generated dashboard elements such as
-  `dashboardSidebar()`, `sidebarMenu()`, `uiOutput()`, `plotOutput()`, and
-  dashboard tabs. Follow the official MoveApps
-  [example](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-1).
+- All Shiny input and output IDs must use the module namespace. This includes
+  IDs in dynamically generated dashboard UI such as `sidebarMenu()`,
+  `uiOutput()`, `plotOutput()`, and other input/output elements.
+
+- `tabName` values in `menuItem()` and `tabItem()` are not Shiny input/output
+  IDs. Do not automatically wrap them in `ns()`. Use exactly the same
+  `tabName` value in the corresponding `menuItem()` and `tabItem()`.
+
+- When `tabName` values are generated from workflow data, sanitize values that
+  contain spaces, punctuation, or other unsuitable characters before using
+  them as dashboard tab names, and preserve a mapping to the original data
+  values when that mapping is needed by the server logic.
+
+- In `dashboardHeader()`, use the selected App display name or a matching title.
+  Do not keep the example title from the MoveApps template.
+
+- Follow the official MoveApps
+  [example](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-1)
+  for the dashboard structure and module namespacing pattern.
