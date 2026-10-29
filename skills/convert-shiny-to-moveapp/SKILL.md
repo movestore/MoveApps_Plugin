@@ -72,9 +72,7 @@ one another. For example:
 - auxiliary-file setting IDs in `appspec.json` must match the IDs used by
   `getAuxiliaryFilePath()` in `ShinyModule.R`;
 - packages used by `ShinyModule.R` must match the `appspec.json` dependencies;
-- the Settings section of `README.md` must describe the user-configurable Shiny
-  inputs implemented in `ShinyModule.R`, and include the standard MoveApps Shiny
-  settings/bookmarking lines required by the current README template.
+- the Settings section of `README.md` must describe the user-configurable Shiny inputs implemented in `ShinyModule.R`, and the Artefacts section the files of its download buttons.
 
 If a later change makes a previously generated deliverable inconsistent, tell
 the user which earlier deliverable also needs to be updated. Producing all
@@ -556,7 +554,7 @@ generating `ShinyModule.R`, `appspec.json`, `.env`, or `README.md`.
 - In the Settings section:
   - describe each user-configurable Shiny input as the user sees it in the App UI, using the IDs agreed in **Prepare the conversion plan**;
   - describe any actual `appspec.json` settings separately, if present;
-  - include the standard "Store settings" and "Restore default settings" lines from the current MoveApps Shiny README template.
+  - do not describe “Store settings”, “Restore default settings” or download buttons; describe the download files in the Artefacts section.
 - Use the selected App display name consistently.
 - Do not invent repository information, functionality, settings, data requirements, outputs, artefacts, or runtime behavior.
 - If required information cannot be verified, ask the user for it, as described in `references/README_guide.md`.
@@ -621,7 +619,7 @@ Check that:
 - Credentials, if any, are handled according to `references/Dealing_with_secret_credentials.md`; no real credential is requested, exposed, stored, or hard-coded in any generated deliverable.
 - The App name is used consistently wherever a display name is required, including any title shown in the UI.
 - `.env` follows `references/env.md`, uses the selected local test input, contains only the Shiny template settings, and contains no credentials.
-- `README.md` accurately documents the final App implementation; its Settings section describes the App's Shiny inputs and includes the standard "Store settings" and "Restore default settings" lines; it does not describe functionality, settings, outputs, artefacts, or behavior that are not present in the App.
+- `README.md` accurately documents the final App implementation; its Settings section describes only the App’s own Shiny inputs and buttons, and its Artefacts section lists the files of all download buttons;; it does not describe functionality, settings, outputs, artefacts, or behavior that are not present in the App.
 - No `app-configuration.json` has been created.
 - No information has been invented where the source code, user confirmation, or official MoveApps documentation does not support it.
 
