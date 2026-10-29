@@ -1,8 +1,12 @@
 ## Packages Table
 Inspect the packages and package functions actually used by the App
 
-- First of all, add the "shiny" package and ?? "[shinydashboard](https://cran.r-project.org/package=shinydashboard)" (if needed) packages.
-  
+- Always include `shiny` for MoveApps Shiny Apps.
+- If the final App uses `shinydashboard`, also include `shinydashboard` and follow `references/shinydashboard.md`.
+- Include the packages used by the standard UI layout in
+  `references/UI_layout.md` (`shinycssloaders` for the loading spinner,
+  `shinybusy` for the download spinner), but only when the final App uses
+  them. 
 - Use current authoritative sources when determining package status and migration paths. Prefer:  
    1- CRAN package documentation  
    2- The package's official website or repository  
@@ -78,6 +82,9 @@ Inspect the packages and package functions actually used by the App
 
 - Keep library() calls to the minimum needed for readable and safe code.
 - Identify the package functions actually used in `ShinyModule.R`.
+- If the App uses `shinydashboard`, treat `shinydashboard` as a required
+  dependency when its functions are used, and ensure that this matches
+  `appspec.json`.
 - NCmisc::list.functions.in.file("ShinyModule.R") may be used as an aid, but do not rely on it as the sole method of dependency detection.
 - Also inspect explicit package::function() calls, imported functions, dynamically referenced functions, and relevant helper files.
 - Do not load an entire package solely for one or a few functions when explicit package::function() calls are clearer and appropriate.

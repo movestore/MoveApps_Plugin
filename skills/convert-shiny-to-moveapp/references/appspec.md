@@ -2,13 +2,20 @@
 
 The appspec.json file is used to define the specifications of an App within MoveApps.
 - Read and follow the official [App Specification](https://docs.moveapps.org/#/appspec?id=appspecjson)
-- Fetch the current [Template_R_Shiny_App/appspec.json](https://github.com/movestore/Template_R_Shiny_App/blob/master/appspec.json) as the structural template.
+- For a regular Shiny App, fetch the current
+  [Template_R_Shiny_App/appspec.json](https://github.com/movestore/Template_R_Shiny_App/blob/master/appspec.json)
+  as the structural template.
+- If the App uses `shinydashboard`, read `references/shinydashboard.md` and
+  fetch the current
+  [Template_R_Shinydashboard_App/appspec.json](https://github.com/movestore/Template_R_Shinydashboard_App/blob/master/appspec.json)
+  as the structural template.
 - Use the template only for the structure and field names. Do not copy its example values (settings, dependencies, providedAppFiles, keywords, people, funding, references) into the App.
 - Do not invent or infer fields that are not explicitly supported by the current MoveApps App Specification or the current verified template.
 - Before adding any field to `appspec.json`, verify that the field exists in one of those current sources.
 - If a field cannot be verified, omit it rather than guessing.
-- For `version`, use the value or format required by the current live in [Template_R_Shiny_App/appspec.json](https://github.com/movestore/Template_R_Shiny_App/blob/master/appspec.json). Do not invent it.
-  
+- For `version`, use the value or format required by the current corresponding
+  official template: [`Template_R_Shiny_App/appspec.json`](https://github.com/movestore/Template_R_Shiny_App/blob/master/appspec.json)for regular Shiny or
+  [`Template_R_Shinydashboard_App`](https://github.com/movestore/Template_R_Shinydashboard_App/blob/master/.env) for Shinydashboard. Do not invent it.
 Currently, the following specifications can/need to be added:  
 
 1- Settings:
@@ -20,6 +27,18 @@ Currently, the following specifications can/need to be added:
   - Read and follow the official MoveApps specification for [Dependencies](https://docs.moveapps.org/#/appspec/current/dependencies_appspec) 
   - All libraries on which the App needs for its construction and/or runtime.
   - Include the "shiny" in dependencies.
+  - If the App uses `shinydashboard`, also include `shinydashboard` in the dependencies.
+  - Include every package that `ShinyModule.R` calls, also when it is only
+    called with `package::function()` and not loaded with `library()`, for
+    example:
+  - `shinycssloaders` (loading spinner, `withSpinner()`) and `shinybusy`
+      (download spinner, `show_modal_spinner()`) from the standard UI layout
+      in `references/UI_layout.md`, when they are used;
+  - `leaflet` and `htmlwidgets` when the App shows or saves a leaflet map;
+    - `webshot2` when the App has a "Map (PNG)" download.
+  - Before finalizing, compare the dependencies with all `library()` calls and
+    all `package::` prefixes in the final `ShinyModule.R`: every package used
+    must be listed, and no package that is not used.
   - Do not include any base library in the appspecs.json file.
   - For a CRAN package, just use `{"name": "pkgname"}`, if required the version can also be specified in the argument "version". For a package that comes from somewhere else (GitHub, GitLab, etc.), use the functions provided by the library  [`"remotes"`](https://remotes.r-lib.org/reference/index.html).
   - Follow the official [Examples](https://docs.moveapps.org/#/appspec/current/dependencies_appspec?id=example).
@@ -87,7 +106,10 @@ If the App developer can/wants to provide either fixed or fallback auxiliary fil
   - For an R package reference, prefer the package's official citation information rather than reconstructing the citation manually.
 
 #### Validation
-- After generating appspec.json, verify that it follows the current official MoveApps specification and template.
+- After generating `appspec.json`, verify that it follows the current official
+  MoveApps specification and the corresponding template: the regular Shiny
+  template for a Shiny App, or the Shinydashboard template when the App uses
+  `shinydashboard`.
 - Check every top-level field and nested field against the current official specification or verified template before finalizing `appspec.json`.
 - After presenting the final `appspec.json`, tell the user they can validate it
   with the MoveApps [Settings Editor ](https://www.moveapps.org/apps/settingseditor).
