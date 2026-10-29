@@ -25,6 +25,10 @@
   they appear in the App UI. Describe any actual `appspec.json` settings
   separately, and include the standard MoveApps Shiny "Store settings" and
   "Restore default settings" lines from the corresponding template.
+- If the App has map downloads, describe both buttons: "Map (HTML)" for an
+    interactive map and "Map (PNG)" for an image of the map. Both contain only
+    the Esri base maps (TopoMap and Aerial); OpenStreetMap is available only in
+    the App, because its tiles are blocked in files opened from disk.
 
 - Do not invent functionality, settings, data requirements, output fields, artefacts, repository information, or runtime behaviour.
 - If required README information cannot be verified from the project files or workflow context, ask the user for it before generating `README.md`.
@@ -38,6 +42,8 @@
   - the App title is present and follows the **Title Case without hyphens** convention;
   - the `Github repository:` line is present and is either filled with the user-provided repository URL or correctly left blank, with no template placeholder remaining;
   - all required sections in template are present.
+  - if the App has map downloads, both "Map (HTML)" and "Map (PNG)" are
+    described, including that they contain only the Esri base maps.
   - if the App uses `shinydashboard`, the README has been checked against the
     current Shinydashboard README template rather than only the regular Shiny
     template;
