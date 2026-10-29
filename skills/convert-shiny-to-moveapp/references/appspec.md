@@ -27,8 +27,18 @@ Currently, the following specifications can/need to be added:
   - Read and follow the official MoveApps specification for [Dependencies](https://docs.moveapps.org/#/appspec/current/dependencies_appspec) 
   - All libraries on which the App needs for its construction and/or runtime.
   - Include the "shiny" in dependencies.
-  - If the App uses `shinydashboard`, also include `shinydashboard` in the
-  dependencies.
+  - If the App uses `shinydashboard`, also include `shinydashboard` in the dependencies.
+  - Include every package that `ShinyModule.R` calls, also when it is only
+    called with `package::function()` and not loaded with `library()`, for
+    example:
+  - `shinycssloaders` (loading spinner, `withSpinner()`) and `shinybusy`
+      (download spinner, `show_modal_spinner()`) from the standard UI layout
+      in `references/UI_layout.md`, when they are used;
+  - `leaflet` and `htmlwidgets` when the App shows or saves a leaflet map;
+    - `webshot2` when the App has a "Map (PNG)" download.
+  - Before finalizing, compare the dependencies with all `library()` calls and
+    all `package::` prefixes in the final `ShinyModule.R`: every package used
+    must be listed, and no package that is not used.
   - Do not include any base library in the appspecs.json file.
   - For a CRAN package, just use `{"name": "pkgname"}`, if required the version can also be specified in the argument "version". For a package that comes from somewhere else (GitHub, GitLab, etc.), use the functions provided by the library  [`"remotes"`](https://remotes.r-lib.org/reference/index.html).
   - Follow the official [Examples](https://docs.moveapps.org/#/appspec/current/dependencies_appspec?id=example).
