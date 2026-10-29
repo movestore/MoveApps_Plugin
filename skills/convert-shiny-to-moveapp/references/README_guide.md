@@ -21,10 +21,19 @@
   error/null handling, and technical details accurately reflect the
   implementation.
 
-- In the **Settings** section, describe the user-configurable Shiny inputs as
-  they appear in the App UI. Describe any actual `appspec.json` settings
-  separately, and include the standard MoveApps Shiny "Store settings" and
-  "Restore default settings" lines from the corresponding template.
+- In the **Settings** section, describe only the user-configurable inputs and
+  buttons defined in `ShinyModule.R`, as they appear in the App UI. Describe
+  any actual `appspec.json` settings separately. Do not describe the MoveApps
+  buttons "Store settings" and "Restore default settings", and do not list
+  download buttons; they are described in the Artefacts section.
+
+- In the **Artefacts** section, list files created by download buttons
+  (`downloadHandler()`) after "The following files can be downloaded optionally
+  (to disk):", each as `filename`: by clicking the `button label` button,
+  followed by one short sentence on the content. List files written with
+  `appArtifactPath()` separately, as artefacts saved with every Workflow run.
+  If there are neither, write `none`.
+  
 - If the App has map downloads, describe both buttons: "Map (HTML)" for an
     interactive map and "Map (PNG)" for an image of the map. Both contain only
     the Esri base maps (TopoMap and Aerial); OpenStreetMap is available only in
