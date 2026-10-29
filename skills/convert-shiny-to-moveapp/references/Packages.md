@@ -2,8 +2,11 @@
 Inspect the packages and package functions actually used by the App
 
 - Always include `shiny` for MoveApps Shiny Apps.
-- If the final App uses `shinydashboard`, also include `shinydashboard` and
-  follow `references/shinydashboard.md`.  
+- If the final App uses `shinydashboard`, also include `shinydashboard` and follow `references/shinydashboard.md`.
+- Include the packages used by the standard UI layout in
+  `references/UI_layout.md` (`shinycssloaders` for the loading spinner,
+  `shinybusy` for the download spinner), but only when the final App uses
+  them. 
 - Use current authoritative sources when determining package status and migration paths. Prefer:  
    1- CRAN package documentation  
    2- The package's official website or repository  
