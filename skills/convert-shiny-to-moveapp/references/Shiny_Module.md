@@ -128,3 +128,12 @@ Before finishing `ShinyModule.R`, verify that:
 - artifacts and auxiliary files use `appArtifactPath()` and `getAuxiliaryFilePath()` correctly;
 - no hard-coded paths, package installation, or hidden global-state dependencies are introduced;
 - logging, CRS, and time-zone handling follow the linked MoveApps documentation.
+- if the App shows a leaflet map: the content is built in `mapLayers()`
+  without tiles, base maps and layer control are added with `addBaseMaps()`
+  from `references/UI_layout.md`, and an Esri map is the first base group;
+- every saved map (HTML and PNG) is built with `osm = FALSE`; if there is an
+  HTML map download, there is also a "Map (PNG)" download built as described in
+  `references/UI_layout.md`, and `webshot2` is in the dependencies.
+- If the App has map downloads, describe both buttons: "Map (HTML)" for an
+  interactive map and "Map (PNG)" for an image of the map. Both show the Esri
+  base maps only.
