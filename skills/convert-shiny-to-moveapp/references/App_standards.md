@@ -47,7 +47,7 @@ layout.
 - An Esri map is always the first base group, because the first base group is
   the one shown when the map opens.
 - Do not use `addTiles()`, and do not add tiles inside `mapLayers()`.
-- Transform the data to `EPSG:4326` before adding it to the map.
+- Transform a copy of the data to `EPSG:4326` for the map. Never change the projection of the data that is passed on to the next App.
 
 ```r
 # add base maps and the layer control; osm = FALSE for maps that are saved,
@@ -72,76 +72,92 @@ output$map <- renderLeaflet({
 })
 ```
 
-Map saved as HTML (button "Map (HTML)" in the Download section):
+Map for saving (HTML and PNG): define it once in `shinyModule()`, so both
+downloads save exactly the same map:
 
 ```r
-output$saveMap <- downloadHandler(
-  filename = "Map.html",
-  content = function(file) {
-    shinybusy::show_modal_spinner(text = "Preparing map ...")
-    on.exit(shinybusy::remove_modal_spinner(), add = TRUE)
-    htmlwidgets::saveWidget(widget = addBaseMaps(mapLayers(), overlayGroups, osm = FALSE),
-                            file = file, selfcontained = TRUE)
-  }
-)
+build_export_map <- function() {
+  addBaseMaps(mapLayers(), overlayGroups, osm = FALSE)
+}
 ```
 
 - `overlayGroups` is the vector of the `group` names used in `mapLayers()`,
-  e.g. `c("lines", "points")`. Use the same vector in all three places.
+  e.g. `c("lines", "points")`. Use the same vector everywhere.
 - Add `leaflet` and `htmlwidgets` to the Packages Table and `appspec.json`
   only when they are used.
-  
+
 ### Downloads
 - If the App offers downloads, put the download buttons in a "Download"
   section at the bottom of the sidebar (`downloadButton()`, class `btn-sm`).
 - Show a spinner while a file is being prepared
   (`shinybusy::show_modal_spinner()` / `remove_modal_spinner()`).
 
-### Map as PNG
-When the App has a button to save a leaflet map as HTML, put a button to save
-the same map as PNG next to it. To do that, add:
-
-1. **The button**, directly after the HTML button in the Download section:
-   `downloadButton(ns("saveMapPng"), "Map (PNG)", class = "btn-sm")`.
-
-2. **The download handler**, after the HTML download handler. It saves the map
-   as HTML in the working directory and takes a screenshot of it with
-   `webshot2`:
+### Map as HTML and PNG
+When the App shows a leaflet map, add two buttons in the Download section:
 
 ```r
-output$saveMapPng <- downloadHandler(
-  filename = "Map.png",
+downloadButton(ns("save_html"), "Download as HTML", class = "btn-sm"),
+downloadButton(ns("save_png"),  "Save Map as PNG",  class = "btn-sm")
+```
+
+and these two download handlers. Replace only `<App_name>` with a short form
+of the App name without spaces (e.g. `Geofence_map`):
+
+```r
+#### map as HTML
+output$save_html <- downloadHandler(
+  filename = function() paste0("<App_name>_", Sys.Date(), ".html"),
   content = function(file) {
-    shinybusy::show_modal_spinner(text = "Preparing PNG ...")
+    shinybusy::show_modal_spinner(spin = "fading-circle", text = "Saving HTML ...")
     on.exit(shinybusy::remove_modal_spinner(), add = TRUE)
-    # save the map in the working directory, where the browser used by webshot2
-    # can open it; OpenStreetMap tiles are blocked from a local file
-    html_file <- "map_export.html"
-    on.exit(unlink(c(html_file, "map_export_files"), recursive = TRUE), add = TRUE)
-    htmlwidgets::saveWidget(widget = addBaseMaps(mapLayers(), overlayGroups, osm = FALSE),
-                            file = html_file, selfcontained = TRUE)
-    Sys.sleep(2)
-    webshot2::webshot(url = html_file, file = file, vwidth = 1000, vheight = 800, delay = 2)
+    htmlwidgets::saveWidget(build_export_map(), file = file, selfcontained = TRUE)
+  }
+)
+
+#### map as PNG
+output$save_png <- downloadHandler(
+  filename = function() paste0("<App_name>_", Sys.Date(), ".png"),
+  content = function(file) {
+    shinybusy::show_modal_spinner(spin = "fading-circle", text = "Saving PNG ...")
+    on.exit(shinybusy::remove_modal_spinner(), add = TRUE)
+    # save the map in the working directory, where the browser used by
+    # webshot2 can open it
+    html_file <- paste0("<App_name>_export_", session$token, ".html")
+    on.exit(unlink(c(html_file, sub("\\.html$", "_files", html_file)),
+                   recursive = TRUE), add = TRUE)
+    htmlwidgets::saveWidget(build_export_map(), file = html_file, selfcontained = TRUE)
+    webshot2::webshot(url = html_file, file = file,
+                      vwidth = 1000, vheight = 800, delay = 2)
   }
 )
 ```
 
-   - Save the HTML to a fixed file name in the working directory, not to
-     `tempfile()`. With `tempfile()` the browser cannot open the file and the
-     PNG shows the browser error page "Your file couldn't be accessed".
-   - Build the map with `osm = FALSE`, otherwise the PNG shows "403 Access
-     blocked" tiles.
-   - Delete the temporary HTML with `on.exit(unlink(...))`.
-   - Use the same map layers and overlay groups as the HTML download.
-
-3. **The package** `webshot2` to the Packages Table and to the `appspec.json`
-   dependencies. Call it as `webshot2::webshot()`; do not add `library("webshot2")`.
-
+- Save the temporary HTML for the PNG in the working directory, not with
+  `tempfile()`. With `tempfile()` the browser cannot open the file and the
+  PNG shows the browser error page "Your file couldn't be accessed".
+- Keep `session$token` in the temporary file name, so two users never write
+  the same file at the same time.
+- Always build the saved map with `build_export_map()` (`osm = FALSE`);
+  otherwise the saved map shows "403 Access blocked" tiles.
+- Delete the temporary files with `on.exit(unlink(...))`.
+- Add `webshot2` to the Packages Table and to the `appspec.json`
+  dependencies. Call it as `webshot2::webshot()`; do not add
+  `library("webshot2")`.
   
 
 ### Store settings
-- When building inputs with `renderUI()`, keep restored values:
-  use `isolate(input$<id>)` if it is valid, and the default only if not.
+- MoveApps adds the "Store settings" and "Restore default settings" buttons
+  automatically and stores all Shiny inputs. Do not add own Store/Restore
+  buttons or own code to save or restore settings.
+- Do not exclude inputs with `setBookmarkExclude()`, except a credential
+  input (see `references/Dealing_with_secret_credentials.md`).
+- Inputs built with `renderUI()` are restored automatically. Pass the normal
+  default with `selected =` / `value =`.
+- Never let an observer overwrite a restored input: do not call
+  `update*Input()` with `isolate(input$<id>)` or a default while the input
+  may still be `NULL` (e.g. right after the App starts).
+- With an "Apply Changes" button, let the result follow the current inputs
+  until the first Apply click, so restored values are shown.
 
 ### Packages
 - This layout uses `shinycssloaders` and `shinybusy`. Add them to the
