@@ -489,7 +489,7 @@ generating `ShinyModule.R`, `appspec.json`, `.env`, or `README.md`.
 
 - Generate the App code in `ShinyModule.R`, with the two functions `shinyModuleUserInterface()` and `shinyModule()`.
 - Before writing or modifying this file, read `references/Shiny_Module.md` and follow its instructions and linked references for the required structure, coding rules, input/output handling, bookmarking, and MoveApps-specific expectations.
-- Read `references/UI_layout.md` and always build the UI with the standard
+- Read `references/App_standards.md` and always build the UI with the standard
   layout, unless the user asks for a different layout.
 - If the agreed App design uses `shinydashboard`, also read and follow `references/shinydashboard.md` and use the official
   `Template_R_Shinydashboard_App` for dashboard-specific structure.
