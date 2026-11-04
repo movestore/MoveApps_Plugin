@@ -1,27 +1,33 @@
-## Standard UI layout
+## App standards
 
-Always use this layout for the App's UI, unless the user asks for a different
-layout.
+Follow these standards when building `ShinyModule.R`. Always use the layout
+below for the App's UI, unless the user asks for a different layout.
+
 
 ### Structure
 - Show the App name at the top with `titlePanel()` (never the template title).
 - Use `sidebarLayout()` with `sidebarPanel(width = 3)` for all controls and
   `mainPanel(width = 9)` for the results.
 - Group the sidebar controls into short sections, each with an `h4()` heading
-  (e.g. "Tracks", "Settings", "Download"), separated with `hr()` or `br()`.
+  (e.g. "Tracks", "Settings", "Download"), separated with `hr()` or `br()`.  
+- If the App uses `shinydashboard`, follow `references/shinydashboard.md`
+  for the structure instead of `sidebarLayout()`. All other standards in
+  this file still apply.
 
 ### Track selection (when the App works per track)
 - Create a `checkboxGroupInput()` of the track IDs with `uiOutput()` +
   `renderUI()`, all tracks selected by default.
 - Add "Select All" and "Unselect All" buttons side by side under it
   (`fluidRow()` with two `column(6, ...)`, class `btn-sm`), using
-  `updateCheckboxGroupInput()`.
+    `updateCheckboxGroupInput()` inside `observeEvent(..., ignoreInit = TRUE)`.
 
 ### Apply button
 - When a calculation or output is slow, or depends on several inputs, add an
   "Apply Changes" button (`class = "btn-primary btn-block"`) below the
-  settings. Results update only when it is clicked (`observeEvent()`), and the
-  first result is shown automatically when the App opens.
+  settings.
+- Until the user clicks Apply for the first time, the result follows the
+  current inputs (so stored settings are shown when the App opens). After
+  that, results update only when Apply is clicked (`observeEvent()`).
 - If the selection is not valid (e.g. no track selected), show a short red
   message under the button instead of an error, and log it with
   `logger.info()`.
@@ -83,8 +89,6 @@ build_export_map <- function() {
 
 - `overlayGroups` is the vector of the `group` names used in `mapLayers()`,
   e.g. `c("lines", "points")`. Use the same vector everywhere.
-- Add `leaflet` and `htmlwidgets` to the Packages Table and `appspec.json`
-  only when they are used.
 
 ### Downloads
 - If the App offers downloads, put the download buttons in a "Download"
@@ -140,10 +144,6 @@ output$save_png <- downloadHandler(
 - Always build the saved map with `build_export_map()` (`osm = FALSE`);
   otherwise the saved map shows "403 Access blocked" tiles.
 - Delete the temporary files with `on.exit(unlink(...))`.
-- Add `webshot2` to the Packages Table and to the `appspec.json`
-  dependencies. Call it as `webshot2::webshot()`; do not add
-  `library("webshot2")`.
-  
 
 ### Store settings
 - MoveApps adds the "Store settings" and "Restore default settings" buttons
@@ -156,9 +156,14 @@ output$save_png <- downloadHandler(
 - Never let an observer overwrite a restored input: do not call
   `update*Input()` with `isolate(input$<id>)` or a default while the input
   may still be `NULL` (e.g. right after the App starts).
-- With an "Apply Changes" button, let the result follow the current inputs
-  until the first Apply click, so restored values are shown.
 
 ### Packages
-- This layout uses `shinycssloaders` and `shinybusy`. Add them to the
-  Packages Table and to `appspec.json` only when they are used.
+Add a package to the Packages Table and to `appspec.json` only when the App
+uses the feature that needs it:
+- loading spinner in the main panel → `shinycssloaders`;
+- spinner while a file is being prepared → `shinybusy`;
+- a leaflet map → `leaflet` (load it with `library("leaflet")`, because the
+  helper and `%>%` use its functions directly);
+- map download as HTML → `htmlwidgets`;
+- map download as PNG → `htmlwidgets` and `webshot2`.
+- Call `htmlwidgets` and `webshot2` functions with `package::function()`.
