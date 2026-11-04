@@ -3,22 +3,17 @@ name: convert-shiny-to-moveapp
 description: >
   This skill should be used when the user asks to "convert this R Shiny code to a
   MoveApps Shiny App", "turn my R Shiny app into a MoveApps App", "convert an R
-  Shiny app to MoveApps", or otherwise adapt an existing R Shiny application or
-  Shiny module into a MoveApps Shiny App (`ShinyModule.R`).
+  Shiny app to MoveApps", "make a MoveApps Shiny App from my R script", "turn my R code into an interactive MoveApps App" or otherwise adapt existing R or R Shiny code application or Shiny module into a MoveApps Shiny App (`ShinyModule.R`).
 ---
 
 
-Convert existing R Shiny code into the content of a MoveApps R Shiny App that
+Convert existing R or R Shiny code into the content of a MoveApps R Shiny App that
 follows the appropriate official MoveApps template:
 [`movestore/Template_R_Shiny_App`](https://github.com/movestore/Template_R_Shiny_App)
 for regular Shiny Apps, or
 [`movestore/Template_R_Shinydashboard_App`](https://github.com/movestore/Template_R_Shinydashboard_App)
 when the App uses `shinydashboard`.
 Read each reference file at the workflow step where it is required.
-
-If the source code is ordinary R code without Shiny, tell the user that this
-skill converts R Shiny code only, and suggest the `convert-r-to-moveapp` skill
-of the MoveApps R Converter plugin instead.
 
 If the source App uses `shinydashboard`, or the user accepts a proposed
 Shinydashboard design, read `references/shinydashboard.md` and follow it
@@ -104,47 +99,96 @@ statically.
 
 Accept either form the user provides:
 
-- **Pasted code**: use it directly as the source. If several pieces are pasted
-  and it is unclear which part is the UI, the server, or a helper, ask the user.
+- **Pasted code**: use it directly as the source. If several pieces are
+  pasted and it is unclear how they belong together, ask the user.
 - **An R file**: read it directly as the source.
 - **A project or folder**: list the available `.R` files and show them to the
   user. Ask which file or files contain the code they want converted.
-  A Shiny App is often split across several files, for example:
-  - a single `app.R`;
-  - `ui.R` and `server.R`, often with `global.R`;
-  - modules or helper functions in an `R/` folder;
-  - a package-style App (e.g. built with `golem` or `rhino`).
-  Always check for `global.R`, because it often loads data or packages that
-  the App needs.
   If the user is unsure which file is relevant, briefly inspect the `.R`
   files and summarize their likely roles, then ask the user to confirm which
   one(s) should be used as the source.
 
-Also note any non-R files the App uses, such as a `www/` folder (images, CSS,
-JavaScript) or data files it reads (e.g. `.csv`, `.rds`, shapefiles). Do not
-convert them now; list them for the later steps so they can be checked against
-the supported MoveApps mechanisms for additional App files and auxiliary files.
-
-After reading the source, check that it is R Shiny code:
-- If it is ordinary R code without Shiny, follow the rule in the Introduction
-  and suggest the `convert-r-to-moveapp` skill.
-- If it uses `shinydashboard`, note this and read
-  `references/shinydashboard.md` when applying the dashboard-specific rules.
+Also note any data files the code reads (e.g. `.csv`, `.rds`, shapefiles).
+Do not convert them now; list them for the later steps so they can be checked
+against the supported MoveApps mechanisms for auxiliary files.
 
 The user may send code incrementally across several messages — treat each
 new piece as additional source material for the same App, unless they say
 otherwise. If no code has been shared yet, ask for it before proceeding and
 do not guess at code that hasn't been shown.
 
-### Step 2. Understand the App goal
+### Step 2. Check the kind of source code
+
+After reading the source, check which kind of code it is:
+
+- **R Shiny code** (e.g. it uses `shinyApp()`, `fluidPage()`, `ui`/`server`,
+  or `render*()` functions): continue with the next step. If the code
+  contains any Shiny UI or server code, treat it as R Shiny code.
+  If it uses `shinydashboard`, note this and read
+  `references/shinydashboard.md` when applying the dashboard-specific rules.
+
+- **Ordinary R code without Shiny**: help the user choose which kind of
+  MoveApps App to make. Briefly explain the two options:
+
+  **MoveApps Shiny App**
+  - Benefits: the user sees the results on an interactive screen (maps,
+    plots, tables) and can change settings and see the effect at once
+    (e.g. select tracks, change a threshold, zoom a map). Results can be
+    downloaded with buttons. Good for exploring and checking data.
+  - Limitations: the App screen is opened with "OPEN APP UI" after a
+    Workflow run and stays available for a limited time (currently 8 hours);
+    after that the Workflow must be run again. Settings changed on the
+    screen are used in later runs only if the user clicks "Store settings".
+    The code is longer and usually needs more packages, and slow
+    calculations make the screen slow.
+
+  **MoveApps R App**
+  - Benefits: simple and fully automatic. Settings are chosen in the
+    MoveApps settings menu before the run, so it works well as a processing
+    step in a Workflow and in scheduled runs. The code is shorter and easier
+    to maintain.
+  - Limitations: no interactive screen; to see results with other settings,
+    the user changes the settings and runs the Workflow again.
+
+  Then give a short recommendation based on the code:
+  - mostly visualization or data exploration → suggest a Shiny App;
+  - mostly data processing whose result is passed on to the next App
+    → suggest an R App.
+
+  Ask the user one question with two choices: "Which App do you want to
+  make: a MoveApps Shiny App or a MoveApps R App?"
+  - **MoveApps R App:** tell the user to use the `convert-r-to-moveapp` skill
+    of the MoveApps R Converter plugin instead, and stop.
+  - **MoveApps Shiny App:** read `references/R_to_Shiny.md`, follow it, and
+    then continue with **Understand the App goal** (skip
+    **Collect all Shiny App files**).
+
+### Step 3. Collect all Shiny App files (only for R Shiny code)
+
+A Shiny App is often split across several files, for example:
+- a single `app.R`;
+- `ui.R` and `server.R`, often with `global.R`;
+- modules or helper functions in an `R/` folder;
+- a package-style App (e.g. built with `golem` or `rhino`).
+
+- Always check for `global.R`, because it often loads data or packages that
+  the App needs.
+- If the user selected only part of the App (e.g. `ui.R` without
+  `server.R`), ask for the missing files.
+- If several pasted pieces are shared and it is unclear which part is the UI,
+  the server, or a helper, ask the user.
+- Also note a `www/` folder (images, CSS, JavaScript), and list it for the
+  later steps together with the data files from **Get the source code**.  
+
+### Step 4. Understand the App goal
 
 Before converting anything, determine what the user wants the MoveApps Shiny
 App to do.
 
 - Ask the user for the intended goal of the App unless that goal is already
   clear from their request.
-- Read the complete source code (all files selected in Step **Get the source code**, including
-  `global.R` and helper/module files) and compare its actual behavior with
+- Read the complete source code (all files selected in **Get the source code**
+  and **Collect all Shiny App files**) and compare its actual behavior with
   the user's stated goal.
 - Identify the major logical tasks performed by the code, including:
   - data preparation or filtering;
@@ -154,7 +198,7 @@ App to do.
   - file or artefact generation, including download buttons;
   - external data/API access;
   - other independent processing steps.
-- Because this is a Shiny App, also identify:
+- For R Shiny code, also identify:
   - **UI inputs**: every control the user can change (e.g. sliders,
     dropdowns, checkboxes, date ranges, file uploads), with its ID, type,
     choices, and default value. These are the App's user-configurable Shiny
@@ -176,9 +220,11 @@ App to do.
   - **What is passed on**: whether the App only shows the data (return it
     unchanged) or changes it (e.g. filters, adds columns) and passes the
     changed data to the next App.
+- For ordinary R code, use the UI designed with `references/R_to_Shiny.md`
+  instead of the list above.
 
 
-### Step 3. Suggest improvements
+### Step 5. Suggest improvements
 
 After the App's goal and current behavior are clear, identify a small number of useful optional improvements. Do not apply any improvement without the user's confirmation.
 
@@ -218,7 +264,7 @@ Rules:
 
 
     
-### Step 4. Decide whether the code should become one App or multiple Apps
+### Step 6. Decide whether the code should become one App or multiple Apps
 
 Do not assume that one Shiny App should become one MoveApps App.
 
@@ -258,7 +304,7 @@ workflow. The user can start a separate conversion for another proposed App
 afterward.
 
 
-### Step 5. Check whether the source code is ready
+### Step 7. Check whether the source code is ready
 
 Do not assume that incomplete, inconsistent, or partially working Shiny code is ready to become a MoveApps App.
 
@@ -271,9 +317,14 @@ Before conversion, identify important issues such as:
 - operations whose intended behavior cannot be determined;
 - dependencies on interactive or manual steps;
 - code whose behavior does not match the user's stated App goal;
-- UI and server logic that do not match, such as an `input$...` or `output$...` without a corresponding UI element;
-- code that loads or replaces its own workflow data where MoveApps will normally provide the input through `data`;
-- global state such as objects modified with `<<-`, or hard-coded IDs in JavaScript/CSS that may break when the code becomes a module.
+- only for R Shiny code:
+     - UI and server logic that do not match, such as an `input$...` or
+  `output$...` without a corresponding UI element (only for R Shiny code);
+     - code that loads or replaces its own workflow data where MoveApps will
+  normally provide the input through `data`;
+     - global state such as objects modified with `<<-`, or hard-coded IDs in
+  JavaScript/CSS that may break when the code becomes a module (only for
+  R Shiny code).
 
 If important issues exist, explain them to the user before converting the code. Recommend the changes needed and, when useful, show revised code snippets and explain what they do.
 
@@ -284,7 +335,7 @@ Do not silently invent missing analysis logic or change the scientific meaning o
 After the App goal, scope, accepted improvements, and required source-code changes are agreed, continue with the next step.
 
 
-### Step 6. Understand the code before restructuring it
+### Step 8. Understand the code before restructuring it
 
 Read through the source and identify:
 
@@ -304,7 +355,7 @@ Rules:
 - Preserve the source App's intended behavior unless the user has approved a change or improvement.
 
 
-### Step 7. Check for existing Apps with the same or overlapping purpose
+### Step 9. Check for existing Apps with the same or overlapping purpose
 
 - Download the complete current MoveApps App list from
   `https://www.moveapps.org/api/v1/apps/repositories` as raw data (for example
@@ -362,7 +413,7 @@ Rules:
 
 - Do not continue with the conversion until the user confirms.
 
-### Step 8. Choose the App name
+### Step 10. Choose the App name
 
 1. If the user provides an App name:
    - Normalize the App's display title to **Title Case without hyphens** (e.g. `My New App`).
@@ -380,7 +431,7 @@ Rules:
 
 3. Treat the selected name as the App's canonical display name for the remainder of the workflow. Use it consistently wherever an App display name is required. Do not add it to files or fields that do not support or require an App name. If `ShinyModule.R` shows a title in the UI (e.g. with `titlePanel()`), use the selected App name or a title that matches it, never the template's example title.
   
-### Step 9. Check the required packages
+### Step 11. Check the required packages
 
 - Read `references/Packages.md`.
 - Inspect the packages and package functions used by the selected source code and by the improvements accepted in Step **Suggest improvements**, and produce the **Packages Table** defined there.
@@ -395,7 +446,7 @@ Rules:
   dependency.
 - Do not add the MoveApps SDK package `moveapps` as an App dependency or load it with `library(moveapps)`.
 
-### Step 10. Determine the IO types
+### Step 12. Determine the IO types
 
 - Read `references/io-types.md` and follow it for the currently supported
   MoveApps R IO types and their requirements.
@@ -407,7 +458,7 @@ Rules:
   `shinyModule()`. If the App only visualizes the data and passes it on
   unchanged, the output type is the same as the input type.
 - Do not assume that the input and output IO types are the same.
-- Current MoveApps R SDK behavior converts input data of class `moveStack`
+- MoveApps Shiny SDK converts input data of class `moveStack`
   to `move2`. For new Shiny Apps, write the App code for `move2` rather than
   relying on `moveStack`.
 - If the App's data does not match any currently supported IO type, follow
@@ -415,7 +466,7 @@ Rules:
   the data into an unsuitable existing type.
 - State the determined input and output IO types clearly before continuing.
 
-### Step 11. Determine whether the App needs secret credentials
+### Step 13. Determine whether the App needs secret credentials
 
 Determine whether the App requires sensitive authentication information such as a password, personal API key, access token, client secret, or other credential.
 
@@ -445,7 +496,7 @@ design:
 - the output IO type, and whether the App passes the data on unchanged or
   modified;
 - the UI layout: the main outputs (plots, maps, tables, text) and how they are arranged (e.g. sidebar, tabs);
-- - whether the final UI uses regular Shiny or `shinydashboard`; if it uses
+- whether the final UI uses regular Shiny or `shinydashboard`; if it uses
   `shinydashboard`, this must already have been agreed with the user;
 - the user-configurable Shiny inputs: for each one, its ID, type, choices,
   default value, and whether it depends on the workflow data (created or
@@ -475,7 +526,7 @@ before generating the file that depends on it.
 Present the plan to the user and ask them to confirm or correct it before
 generating `ShinyModule.R`, `appspec.json`, `.env`, or `README.md`.
 
-### Step 13. Before generating any deliverable file
+### Step 14. Before generating any deliverable file
 
 - Before generating a deliverable file, first identify all information required
   for that file.
@@ -485,11 +536,11 @@ generating `ShinyModule.R`, `appspec.json`, `.env`, or `README.md`.
 - Generate the file only after the required information has been resolved.
 
 
-### Step 14. Produce `ShinyModule.R`
+### Step 15. Produce `ShinyModule.R`
 
 - Generate the App code in `ShinyModule.R`, with the two functions `shinyModuleUserInterface()` and `shinyModule()`.
 - Before writing or modifying this file, read `references/Shiny_Module.md` and follow its instructions and linked references for the required structure, coding rules, input/output handling, bookmarking, and MoveApps-specific expectations.
-- Read `references/UI_layout.md` and always build the UI with the standard
+- Read `references/App_standards.md` and always build the UI with the standard
   layout, unless the user asks for a different layout.
 - If the agreed App design uses `shinydashboard`, also read and follow `references/shinydashboard.md` and use the official
   `Template_R_Shinydashboard_App` for dashboard-specific structure.
@@ -503,7 +554,7 @@ generating `ShinyModule.R`, `appspec.json`, `.env`, or `README.md`.
 - After `ShinyModule.R` is finalized, re-check the functions and packages actually used in the final code.
 - Update the package decisions and later `appspec.json` dependencies if the implementation added or removed package usage compared with **Check the required packages**.
 
-### Step 15. Check large fixed or fallback auxiliary files, if applicable
+### Step 16. Check large fixed or fallback auxiliary files, if applicable
 
 - If the App uses fixed or fallback auxiliary input files, ask the user
   whether any of those files are larger than 100 MB.
@@ -513,7 +564,7 @@ generating `ShinyModule.R`, `appspec.json`, `.env`, or `README.md`.
       - remind the user to follow the official MoveApps instructions: [Adding large fixed or fallback files to an App](https://docs.moveapps.org/#/auxiliary?id=adding-large-fixed-or-fallback-files-to-an-app)
 
   
-### Step 16. Produce `appspec.json`
+### Step 17. Produce `appspec.json`
 
 - Before creating `appspec.json`, read `references/appspec.md` and follow all
   of its instructions and linked official MoveApps documentation.
@@ -531,7 +582,7 @@ generating `ShinyModule.R`, `appspec.json`, `.env`, or `README.md`.
 - Validate the final `appspec.json` against the current MoveApps specification
   and Shiny template before presenting it to the user.
 
-### Step 17. Produce `.env`
+### Step 18. Produce `.env`
 
 - Before creating or updating `.env`, read `references/env.md` and follow all of its instructions and linked MoveApps documentation.
 - Start from the current MoveApps  [`Shiny Template .env`](https://github.com/movestore/Template_R_Shiny_App/blob/master/.env) for regular Shiny or
@@ -545,7 +596,7 @@ generating `ShinyModule.R`, `appspec.json`, `.env`, or `README.md`.
 - Do not change unrelated `.env` values unless required by the current MoveApps documentation or the App's local-testing requirements.
 
 
-### Step 18. Produce `README.md`
+### Step 19. Produce `README.md`
 
 - Produce `README.md` only after `ShinyModule.R`, `appspec.json`, and `.env` have been completed.
 - Before creating `README.md`, read `references/README_guide.md` and follow all of its instructions and the linked official MoveApps Shiny README template.
@@ -560,7 +611,7 @@ generating `ShinyModule.R`, `appspec.json`, `.env`, or `README.md`.
 - If required information cannot be verified, ask the user for it, as described in `references/README_guide.md`.
 - Verify the final README against the current MoveApps Shiny README template before presenting it to the user.
 
-### Step 19. Determine App Categories
+### Step 20. Determine App Categories
 
 - Read the official MoveApps documentation for
   [App Categories](https://docs.moveapps.org/#/IO_types?id=app-categories).
@@ -619,7 +670,7 @@ Check that:
 - Credentials, if any, are handled according to `references/Dealing_with_secret_credentials.md`; no real credential is requested, exposed, stored, or hard-coded in any generated deliverable.
 - The App name is used consistently wherever a display name is required, including any title shown in the UI.
 - `.env` follows `references/env.md`, uses the selected local test input, contains only the Shiny template settings, and contains no credentials.
-- `README.md` accurately documents the final App implementation; its Settings section describes only the App’s own Shiny inputs and buttons, and its Artefacts section lists the files of all download buttons;; it does not describe functionality, settings, outputs, artefacts, or behavior that are not present in the App.
+- `README.md` accurately documents the final App implementation; its Settings section describes only the App’s own Shiny inputs and buttons, and its Artefacts section lists the files of all download buttons; it does not describe functionality, settings, outputs, artefacts, or behavior that are not present in the App.
 - No `app-configuration.json` has been created.
 - No information has been invented where the source code, user confirmation, or official MoveApps documentation does not support it.
 

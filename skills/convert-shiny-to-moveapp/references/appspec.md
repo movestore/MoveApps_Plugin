@@ -33,7 +33,7 @@ Currently, the following specifications can/need to be added:
     example:
   - `shinycssloaders` (loading spinner, `withSpinner()`) and `shinybusy`
       (download spinner, `show_modal_spinner()`) from the standard UI layout
-      in `references/UI_layout.md`, when they are used;
+      in `references/App_standards.md`, when they are used;
   - `leaflet` and `htmlwidgets` when the App shows or saves a leaflet map;
     - `webshot2` when the App has a "Map (PNG)" download.
   - Before finalizing, compare the dependencies with all `library()` calls and
