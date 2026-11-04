@@ -318,9 +318,13 @@ Before conversion, identify important issues such as:
 - dependencies on interactive or manual steps;
 - code whose behavior does not match the user's stated App goal;
 - only for R Shiny code:
-     - UI and server logic that do not match, such as an `input$...` or `output$...` without a corresponding UI element;
-     - code that loads or replaces its own workflow data where MoveApps will normally provide the input through `data`;
-     - global state such as objects modified with `<<-`, or hard-coded IDs in JavaScript/CSS that may break when the code becomes a module.
+     - UI and server logic that do not match, such as an `input$...` or
+  `output$...` without a corresponding UI element (only for R Shiny code);
+     - code that loads or replaces its own workflow data where MoveApps will
+  normally provide the input through `data`;
+     - global state such as objects modified with `<<-`, or hard-coded IDs in
+  JavaScript/CSS that may break when the code becomes a module (only for
+  R Shiny code).
 
 If important issues exist, explain them to the user before converting the code. Recommend the changes needed and, when useful, show revised code snippets and explain what they do.
 
