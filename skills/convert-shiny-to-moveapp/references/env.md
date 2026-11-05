@@ -57,7 +57,19 @@ The values most relevant here are:
   4. **Input 4:** LifeTrack Geese IG-RAS MPIAB ICARUS  
      `study_id: 9589196`
 
-- Ask which compatible dataset the user wants to use for the current run.
+- Ask for the dataset in two questions in the same question box, because a choice question can show at most 4 options:
+  1. **Which study?**
+     - Input 1: MPIAB Disaster alert Mt Etna 2021
+     - Input 2: LifeTrack White Stork SW Germany
+     - Input 3: MPIAB White Stork Prinzesschen
+     - Input 4: LifeTrack Geese IG-RAS MPIAB ICARUS
+  2. **Which projection?**
+     - LatLon (`EPSG:4326`)
+     - Mollweide (projected; tests that the App handles data not in lon/lat)
+- For a `ctmm::telemetry.list` App, ask only the study question with
+  Input 1 and Input 2; these are available only as `telemetrylist_aeqd`.
+- Then set `SOURCE_FILE` to the matching file, e.g.
+  `./data/raw/input3_move2loc_Mollweide.rds`.
 - Update only the `SOURCE_FILE` value in `.env` according to the selected file.
 - Do not rename `SOURCE_FILE` or change unrelated `.env` settings.
 
