@@ -20,8 +20,11 @@ of these it is:
   `ui <-`, `server <- function(input, output`, `moduleServer(`, `NS(`,
   `renderPlot(`, `renderLeaflet(`, `reactive(`, `observeEvent(`,
   `library(shinydashboard)`, `dashboardPage(`.
-- **Plain R code.** Functions, scripts, loops, plots saved to file, data in
-  and data out, with no user interface.
+- **Plain R code.** Any R code **without** Shiny: a plain script (lines run
+  top to bottom, e.g. read data → analyse → plot/save), one or more
+  functions, or a mix. It does **not** need to contain an `rFunction` or
+  any function at all; turning it into the MoveApps `rFunction` is the
+  converter's job, not the user's.
 - **Something else.** Python code, or no code at all, only a description
   of an App the user wants (for example "I want an App that can detect
   stopovers and show them on a map").
@@ -34,8 +37,12 @@ live map, dashboard, "the user should be able to choose …").
 | User gives … | Skill to use |
 |---|---|
 | R code containing Shiny / shinydashboard code | `convert-shiny-to-moveapp` |
-| Plain R code, and the user asks for an interactive / Shiny / dashboard App | `convert-shiny-to-moveapp` |
-| Plain R code, no request for interactivity | `convert-r-to-moveapp` |
+| Plain R code (script or functions, no Shiny), and the user asks for an interactive / Shiny / dashboard App | `convert-shiny-to-moveapp` |
+| Plain R code (script or functions, no Shiny), and the user asks for a non-interactive App, or the code only processes data (filter, compute, add columns) | `convert-r-to-moveapp` |
+| Plain R code (script or functions, no Shiny) that produces plots or maps, and the user only says "make it an App" | Ask once (Step 3) |
+
+A plain script without any function is normal input. Never ask the user to
+rewrite their script as a function first.
 
 
 ### If the request is something else
