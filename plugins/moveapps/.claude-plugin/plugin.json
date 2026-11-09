@@ -1,0 +1,8 @@
+{
+  "name": "moveapps",
+  "version": "1.1.1",
+  "description": "Build MoveApps Apps with Claude. Paste your R, R Shiny or Python code and Claude picks the right converter to turn it into a MoveApps App, or describe in plain text what the App should do, its purpose and any details, and Claude builds it without existing code.",
+  "author": {
+    "name": "MoveApps Development Team - Max Planck Institute of Animal Behavior"
+  }
+}
