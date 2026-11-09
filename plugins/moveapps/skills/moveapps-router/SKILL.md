@@ -39,10 +39,43 @@ live map, dashboard, "the user should be able to choose …").
 | R code containing Shiny / shinydashboard code | `convert-shiny-to-moveapp` |
 | Plain R code (script or functions, no Shiny), and the user asks for an interactive / Shiny / dashboard App | `convert-shiny-to-moveapp` |
 | Plain R code (script or functions, no Shiny), and the user asks for a non-interactive App, or the code only processes data (filter, compute, add columns) | `convert-r-to-moveapp` |
-| Plain R code (script or functions, no Shiny) that produces plots or maps, and the user only says "make it an App" | Ask once (Step 3) |
+| Plain R code (script or functions, no Shiny) that produces plots or maps, and the user only says "make it an App" | Recommend one and ask once (see below) |
+
 
 A plain script without any function is normal input. Never ask the user to
 rewrite their script as a function first.
+
+### When a Shiny App may be the better fit
+
+Even if the user did not ask for interactivity, a Shiny App can suit plain R
+code better. Signs:
+
+- The main result is something to **look at and explore** (maps, plots,
+  tables), not data passed on to the next App in a Workflow.
+- The script is clearly meant to be **re-run with different values** (e.g.
+  changing an animal ID, date range, threshold or buffer and plotting again),
+  or contains commented-out alternatives for such values.
+- It makes many similar plots per animal / per period that a user would
+  rather pick from than download all at once.
+
+Signs that an **R Function App** fits better:
+
+- The main result is **processed data** (filtered, annotated, summarised)
+  that later Apps in the Workflow should use.
+- It runs once with fixed settings and writes files (CSV, PDF, PNG) as the
+  result.
+
+If the signs point to Shiny but the user did not ask for it, **do not switch
+on your own**. Recommend it in one or two sentences with the reason, and let
+the user choose, for example:
+
+> Your script mainly creates maps for different animals and date ranges, so
+> it could work well as an interactive Shiny App where users pick the animal
+> and dates and see the map update. Would you like a Shiny App (recommended),
+> or a regular R App that produces the maps as files?
+
+Then use the skill the user picks. If the user already said which App type
+they want, follow that and do not recommend the other.
 
 
 ### If the request is something else
@@ -61,12 +94,11 @@ force it into one of the converters. Tell the user plainly, for example:
 If the request does not fit any row clearly, ask the user **one** short
 question. Examples:
 
-- Plain R code that draws a plot, no word about interactivity:
+- Plain R code that draws a plot, no word about interactivity, and the
+  signs above do not clearly favour either type:
   > Should this become a regular MoveApps App (runs once and produces
   > results) or an interactive Shiny App (the user can change settings and
   > see results live)?
-- The user mentions "my script" but no code is attached:
-  > Please paste or attach your R or R Shiny code, and I'll convert it.
 
 Do not ask if the answer is already clear from the code or the request.
 
