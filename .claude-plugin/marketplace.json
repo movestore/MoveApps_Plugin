@@ -2,14 +2,14 @@
   "name": "MoveApps-Plugin",
   "description": "Make an App in MoveApps",
   "owner": {
-    "name": "MoveApps Development Team- Max Planck Institute of Animal Behavior",
+    "name": "MoveApps Development Team- Max Planck Institute of Animal Behavior- Germany",
     "email": "support@moveapps.org"
   },
   "plugins": [
     {
       "name": "moveapps",
       "source": "./plugins/moveapps",
-      "description": "Convert the R or R Shiny code into a MoveApps App."
+      "description": "Create or convert R or RShiny code into a MoveApps App."
     }
   ]
 }
