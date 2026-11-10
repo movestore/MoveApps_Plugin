@@ -3,6 +3,19 @@
 Turns existing R or R Shiny code into a MoveApps App. Install it once, paste
 your code, and Claude picks the right converter.
 
+
+## Install
+
+In Claude Code:
+
+```
+/plugin install moveapps --marketplace movestore/MoveApps_Plugin
+```
+
+For claude.ai or the Claude desktop app, see the
+[main README](https://github.com/movestore/MoveApps_Plugin#install).
+
+
 ## Skills
 
 | Skill | Used when |
