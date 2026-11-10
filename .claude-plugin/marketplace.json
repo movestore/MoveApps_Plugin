@@ -2,7 +2,7 @@
   "name": "MoveApps-Plugin",
   "description": "Make an App in MoveApps",
   "owner": {
-    "name": "MoveApps Development Team- Max Planck Institute of Animal Behavior- Germany",
+    "name": "MoveApps Development Team - Max Planck Institute of Animal Behavior - Germany",
     "email": "support@moveapps.org"
   },
   "plugins": [
