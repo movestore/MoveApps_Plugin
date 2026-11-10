@@ -37,3 +37,11 @@ You can also start it directly:
 ```
 /moveapps:moveapps-router
 ```
+
+## What this plugin does and doesn't do
+
+This plugin contains only instructions for Claude (skills and reference
+documents). It runs no code of its own, installs nothing, and doesn't send
+your code or data to any service. Claude reads the code you paste in your
+conversation and writes the MoveApps App files for you. Links in the skills
+point to the public MoveApps documentation and templates on GitHub.
