@@ -1,7 +1,7 @@
 ---
 name: convert-shiny-to-moveapp
 description: "Convert R Shiny / shinydashboard code, or plain R code the user wants to be interactive, into a MoveApps Shiny App (ShinyModule.R, appspec.json, README.md …). Use when the code contains Shiny elements (ui/server, shinyApp, fluidPage, moduleServer, render*/reactive) or the user asks to \"convert this R Shiny code to a MoveApps Shiny App\", \"turn my R code into an interactive MoveApps App\", or wants a dashboard. Do NOT use for plain R code with no request for interactivity; use convert-r-to-moveapp instead. Normally reached through the moveapps-router skill; if a hand-off brief is present, treat its facts as already answered."
-version: 1.1.1
+version: 1.0.0
 ---
 
 
