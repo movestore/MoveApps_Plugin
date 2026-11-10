@@ -10,12 +10,31 @@ Paste your code, and Claude decides which converter fits:
 | Plain R script or function | MoveApps **R Function App** (`RFunction.R`, `appspec.json`, `app-configuration.json`, `.env`, `README.md`) |
 | R Shiny / shinydashboard code, or R code you want to be interactive | MoveApps **Shiny App** (`ShinyModule.R`, `appspec.json`, `README.md`, …) |
 
-## Install (once, in Claude Code)
+## Install
+
+### In Claude Code
+
+Run these two commands once:
 
 ```
 /plugin marketplace add movestore/MoveApps_Plugin
 /plugin install moveapps@MoveApps-Plugin
 ```
+
+Then restart Claude Code. To check that it works, type
+`/moveapps:moveapps-router`, or just paste your R code and ask for a MoveApp.
+
+### In claude.ai or the Claude desktop app
+
+> [!IMPORTANT]
+> Don't use GitHub's green **Code → Download ZIP** button. That zip contains
+> the whole repository, so `plugin.json` is in the wrong place and the upload
+> fails with *"plugin.json must be at .claude-plugin/plugin.json at the zip root"*.
+> Use the `moveapps.zip` link below instead.
+
+1. Download [moveapps.zip](https://github.com/movestore/MoveApps_Plugin/releases/latest/download/moveapps.zip).
+2. In Claude, open the plugin upload page ("Upload a plugin") and choose `moveapps.zip`.
+3. Start a new chat, paste your R code, and ask for a MoveApp.
 
 ## How to use
 
@@ -29,12 +48,20 @@ interactive, it asks you once.
 
 ## Update
 
+### In Claude Code
+
 ```
 /plugin marketplace update MoveApps-Plugin
 ```
 
 Or turn on auto-update for the `MoveApps-Plugin` marketplace in the
 `/plugin` menu (Marketplaces tab).
+
+### In claude.ai or the Claude desktop app
+
+Download [moveapps.zip](https://github.com/movestore/MoveApps_Plugin/releases/latest/download/moveapps.zip)
+again and upload it in place of the old one.
+
 
 ## Roadmap
 
