@@ -1,6 +1,6 @@
 {
   "name": "moveapps",
-  "version": "1.1.1",
+  "version": "1.0.0",
   "description": "Build MoveApps Apps with Claude. Paste your R or R Shiny code and Claude picks the right converter to turn it into a MoveApps App.",
   "author": {
     "name": "MoveApps Development Team - Max Planck Institute of Animal Behavior"
