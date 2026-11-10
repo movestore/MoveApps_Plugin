@@ -1,7 +1,7 @@
 ---
 name: convert-r-to-moveapp
 description: "Convert plain (non-Shiny) R analysis code, either a script without any function or one or more functions, into a MoveApps R Function App (RFunction.R, appspec.json, app-configuration.json, .env, README.md). Use when the user asks, for example, to \"convert this R code to a MoveApp\", \"turn my R script into a MoveApps app\", \"wrap this R function for MoveApps\", or pastes R code without any Shiny UI and wants it in MoveApps format. Do NOT use when the code contains Shiny or shinydashboard code (ui/server, shinyApp, moduleServer) or the user wants an interactive App; use convert-shiny-to-moveapp instead. Normally reached through the moveapps-router skill; if a hand-off brief is present, treat its facts as already answered."
-version: 1.1.1
+version: 1.0.0
 ---
 Convert existing R analysis code into the content of a MoveApps App that
 follows the [`movestore/Template_R_Function_App`](https://github.com/movestore/Template_R_Function_App) conventions. 
