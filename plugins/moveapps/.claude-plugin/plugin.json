@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Build MoveApps Apps with Claude. Paste your R or R Shiny code and Claude picks the right converter to turn it into a MoveApps App.",
   "author": {
-    "name": "MoveApps Development Team - Max Planck Institute of Animal Behavior"
+    "name": "MoveApps Development Team - Max Planck Institute of Animal Behavior - Germany"
   },
   "license": "CC-BY-ND-4.0",
   "homepage": "https://www.moveapps.org",
