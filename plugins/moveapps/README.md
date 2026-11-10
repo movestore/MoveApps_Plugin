@@ -37,10 +37,3 @@ You can also start it directly:
 ```
 /moveapps:moveapps-router
 ```
-
-## For maintainers: adding a skill
-
-1. Add `skills/<new-skill>/SKILL.md` (and `references/` if needed). In its
-   `description`, say when to use it and when not to.
-2. Add one row to the table in `skills/moveapps-router/SKILL.md`.
-3. Bump `version` in `.claude-plugin/plugin.json`.
