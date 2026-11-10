@@ -1,7 +1,7 @@
 ---
 name: moveapps-router
 description: "Entry point for MoveApps App development. Use this skill FIRST whenever the user mentions MoveApps or a MoveApp, or pastes or attaches R or R Shiny code and wants it turned into a MoveApps App. It inspects the request, picks exactly one specialised MoveApps skill, and hands over to it with a short brief so the user is not asked twice."
-version: 1.1.1
+version: 1.0.0
 ---
 
 # MoveApps router
