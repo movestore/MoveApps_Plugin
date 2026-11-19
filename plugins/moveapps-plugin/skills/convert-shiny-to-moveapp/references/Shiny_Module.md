@@ -57,7 +57,7 @@ for the full list. The guidance below only applies when the App's input type is 
      finished App into several files, that is a manual step afterward; see
      [Source additional R scripts](https://docs.moveapps.org/#/copilot-shiny-sdk?id=source-aditional-r-scripts).
    
-7. **Source aditional R scripts**
+7. **Parallel computing within MoveApps**
    - It's possible to write Apps so that suitable tasks run in parallel on MoveApps. Read this: [Parallel computing in R Apps](https://docs.moveapps.org/#/parallelcomp?id=parallel-computing-in-r-apps).
    - For a worked example, see Bruno Caneco's test App: [dmpstats/moveapps-check-parallel](https://github.com/dmpstats/moveapps-check-parallel).
 
