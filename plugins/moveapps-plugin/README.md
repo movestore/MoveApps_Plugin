@@ -35,7 +35,7 @@ so you are not asked the same things twice.
 You can also start it directly:
 
 ```
-/moveapps:moveapps-router
+/moveapps-plugin:moveapps-router
 ```
 
 ## What this plugin does and doesn't do
