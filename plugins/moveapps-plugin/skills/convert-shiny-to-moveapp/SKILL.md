@@ -118,7 +118,6 @@ do not guess at code that hasn't been shown.
 ### Step 2. Check the kind of source code
 
 After reading the source, check which kind of code it is:
-If a hand-off brief from `moveapps-router` already says which App type the user chose, use it and do not ask again.
 
 - **R Shiny code** (e.g. it uses `shinyApp()`, `fluidPage()`, `ui`/`server`,
   or `render*()` functions): continue with the next step. If the code
@@ -126,8 +125,10 @@ If a hand-off brief from `moveapps-router` already says which App type the user 
   If it uses `shinydashboard`, note this and read
   `references/shinydashboard.md` when applying the dashboard-specific rules.
 
-- **Ordinary R code without Shiny**: help the user choose which kind of
-  MoveApps App to make. Briefly explain the two options:
+- **Ordinary R code without Shiny**: if a hand-off brief or the user's own
+  request already says which App type they want, use it and do not ask
+  again. Otherwise, help the user choose which kind of MoveApps App to
+  make. Briefly explain the two options:
 
   **MoveApps Shiny App**
   - Benefits: the user sees the results on an interactive screen (maps,
