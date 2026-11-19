@@ -95,7 +95,8 @@ for the full list. The guidance below only applies when the App's input type is 
 
      
      3- Auxiliary input files:   
-            - It is possible to design Apps that require auxiliary files as input, There are three types: "Fixed auxiliary file", "Local upload auxiliary files" and "Local upload auxiliary files with fixed fallback files". Read this link: [Auxiliary input files](https://docs.moveapps.org/#/copilot-shiny-sdk?id=auxiliary-input-files). For more details and to integrate the full functionality into an App see the [detailed description](https://docs.moveapps.org/#/auxiliary).
+             - It is possible to design Apps that require auxiliary files as input, There are three types: ... see the [detailed description](https://docs.moveapps.org/#/auxiliary).
+            - Local testing of each type: [fixed](https://docs.moveapps.org/#/auxiliary?id=local-testing), [local upload](https://docs.moveapps.org/#/auxiliary?id=local-testing-1), [local upload with fixed fallback](https://docs.moveapps.org/#/auxiliary?id=local-testing-2).
       
 11. **Logging and error handling**
     - Replace `print()`/`message()`/`cat()` with `logger.info()`/`logger.warn()`/etc.
