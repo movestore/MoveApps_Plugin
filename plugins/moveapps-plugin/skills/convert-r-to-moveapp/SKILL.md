@@ -400,7 +400,7 @@ generating `RFunction.R`, `appspec.json`, `app-configuration.json`, `.env` or
   implementation added or removed package usage compared with Step 8.
 
 ### Step 14. Check large fixed or fallback auxiliary files, if applicable
-
+- If the App uses fixed or fallback auxiliary input files, ask the user whether any of those files are larger than 100 MB.
 - If any such file is larger than 100 MB:
   - tell the user that handling this is outside the scope of this skill and
     must be done manually;
