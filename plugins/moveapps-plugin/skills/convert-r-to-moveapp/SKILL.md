@@ -33,8 +33,9 @@ deliverable must be completed first and ask whether the user wants to proceed
 with that prerequisite.
 
 It does not create or modify `tests/`, `src/app/`, `Dockerfile`, `renv.lock`,
-or other template/SDK files. When secret credentials are required, it may
-provide the necessary changes for `sdk.R` and `.gitignore`.
+or other template/SDK files. It may provide the necessary changes for
+`sdk.R` and `.gitignore` when secret credentials are required, and for
+`.gitignore` when fixed or fallback auxiliary files are larger than 100 MB.
 
 Files outside these five deliverables are outside the scope of this skill.
 They may come from the
@@ -400,13 +401,14 @@ generating `RFunction.R`, `appspec.json`, `app-configuration.json`, `.env` or
 
 ### Step 14. Check large fixed or fallback auxiliary files, if applicable
 
-- If the App uses fixed or fallback auxiliary input files, ask the user
-  whether any of those files are larger than 100 MB.
-- If any such file is larger than 100 MB, tell the user that handling this is
-  outside the scope of this skill and must be done manually.
-- Instruct the user to add: `data/auxiliary/user-files/provided-app-files/**`  to `.gitignore`.
-- Remind the user to follow the official MoveApps instructions:
-  [Adding large fixed or fallback files to an App](https://docs.moveapps.org/#/auxiliary?id=adding-large-fixed-or-fallback-files-to-an-app)
+- If any such file is larger than 100 MB:
+  - tell the user that handling this is outside the scope of this skill and
+    must be done manually;
+  - instruct the user to add `data/auxiliary/user-files/provided-app-files/**`
+    to `.gitignore`;
+  - remind the user to follow the official MoveApps instructions:
+    [Adding large fixed or fallback files to an App](https://docs.moveapps.org/#/auxiliary?id=adding-large-fixed-or-fallback-files-to-an-app).
+- If no file is larger than 100 MB, skip this step.
 
   
 ### Step 15. Produce `appspec.json`
