@@ -482,7 +482,7 @@ If a secret credential is required:
 
 If no secret credential is required, continue without credential-specific handling.
 
-### Step 12. Prepare the conversion plan and get user confirmation
+### Step 14. Prepare the conversion plan and get user confirmation
 
 Before generating any of the MoveApps deliverables, summarize the agreed App
 design:
@@ -524,7 +524,7 @@ before generating the file that depends on it.
 Present the plan to the user and ask them to confirm or correct it before
 generating `ShinyModule.R`, `appspec.json`, `.env`, or `README.md`.
 
-### Step 14. Before generating any deliverable file
+### Step 15. Before generating any deliverable file
 
 - Before generating a deliverable file, first identify all information required
   for that file.
@@ -534,7 +534,7 @@ generating `ShinyModule.R`, `appspec.json`, `.env`, or `README.md`.
 - Generate the file only after the required information has been resolved.
 
 
-### Step 15. Produce `ShinyModule.R`
+### Step 16. Produce `ShinyModule.R`
 
 - Generate the App code in `ShinyModule.R`, with the two functions `shinyModuleUserInterface()` and `shinyModule()`.
 - Before writing or modifying this file, read `references/Shiny_Module.md` and follow its instructions and linked references for the required structure, coding rules, input/output handling, bookmarking, and MoveApps-specific expectations.
@@ -552,7 +552,7 @@ generating `ShinyModule.R`, `appspec.json`, `.env`, or `README.md`.
 - After `ShinyModule.R` is finalized, re-check the functions and packages actually used in the final code.
 - Update the package decisions and later `appspec.json` dependencies if the implementation added or removed package usage compared with **Check the required packages**.
 
-### Step 16. Check large fixed or fallback auxiliary files, if applicable
+### Step 17. Check large fixed or fallback auxiliary files, if applicable
 
 - If the App uses fixed or fallback auxiliary input files, ask the user
   whether any of those files are larger than 100 MB.
@@ -562,7 +562,7 @@ generating `ShinyModule.R`, `appspec.json`, `.env`, or `README.md`.
       - remind the user to follow the official MoveApps instructions: [Adding large fixed or fallback files to an App](https://docs.moveapps.org/#/auxiliary?id=adding-large-fixed-or-fallback-files-to-an-app)
 
   
-### Step 17. Produce `appspec.json`
+### Step 18. Produce `appspec.json`
 
 - Before creating `appspec.json`, read `references/appspec.md` and follow all
   of its instructions and linked official MoveApps documentation.
@@ -580,7 +580,7 @@ generating `ShinyModule.R`, `appspec.json`, `.env`, or `README.md`.
 - Validate the final `appspec.json` against the current MoveApps specification
   and Shiny template before presenting it to the user.
 
-### Step 18. Produce `.env`
+### Step 19. Produce `.env`
 
 - Before creating or updating `.env`, read `references/env.md` and follow all of its instructions and linked MoveApps documentation.
 - Start from the current MoveApps  [`Shiny Template .env`](https://github.com/movestore/Template_R_Shiny_App/blob/master/.env) for regular Shiny or
@@ -594,7 +594,7 @@ generating `ShinyModule.R`, `appspec.json`, `.env`, or `README.md`.
 - Do not change unrelated `.env` values unless required by the current MoveApps documentation or the App's local-testing requirements.
 
 
-### Step 19. Produce `README.md`
+### Step 20. Produce `README.md`
 
 - Produce `README.md` only after `ShinyModule.R`, `appspec.json`, and `.env` have been completed.
 - Before creating `README.md`, read `references/README_guide.md` and follow all of its instructions and the linked official MoveApps Shiny README template.
@@ -609,7 +609,7 @@ generating `ShinyModule.R`, `appspec.json`, `.env`, or `README.md`.
 - If required information cannot be verified, ask the user for it, as described in `references/README_guide.md`.
 - Verify the final README against the current MoveApps Shiny README template before presenting it to the user.
 
-### Step 20. Determine App Categories
+### Step 21. Determine App Categories
 
 - Read the official MoveApps documentation for
   [App Categories](https://docs.moveapps.org/#/IO_types?id=app-categories).
@@ -644,7 +644,7 @@ generating `ShinyModule.R`, `appspec.json`, `.env`, or `README.md`.
 - Treat App Categories as submission metadata unless the current MoveApps
   specification explicitly requires them in one of the generated App files.
   
-### Final check
+### Step 22. Final check
 
 Before finishing, verify the generated deliverable or deliverables against the agreed App design and any previously generated deliverables.
 
