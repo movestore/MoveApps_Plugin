@@ -52,7 +52,10 @@ for the full list. The guidance below only applies when the App's input type is 
    - All tracking data comes in with timestamps in `UTC` — if the App converts to a local time zone for interpretation, convert it back to `UTC` before passing data on as output. Read this: [Time zones](https://docs.moveapps.org/#/best_practices_coding?id=time-zones).
 
 6. **Scope: single `ShinyModule.R`**
-   If user rather divide the code of your App into several files, use this [link](https://docs.moveapps.org/#/copilot-shiny-sdk?id=source-aditional-r-scripts).
+   - This skill always keeps all App code in one `ShinyModule.R`, even if the
+     source is split across several files. If the user wants to split the
+     finished App into several files, that is a manual step afterward; see
+     [Source additional R scripts](https://docs.moveapps.org/#/copilot-shiny-sdk?id=source-aditional-r-scripts).
    
 7. **Source aditional R scripts**
    - It's possible to write Apps so that suitable tasks run in parallel on MoveApps. Read this: [Parallel computing in R Apps](https://docs.moveapps.org/#/parallelcomp?id=parallel-computing-in-r-apps).
