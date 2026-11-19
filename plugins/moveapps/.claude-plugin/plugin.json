@@ -5,7 +5,7 @@
   "author": {
     "name": "MoveApps Development Team - Max Planck Institute of Animal Behavior - Germany"
   },
-  "license": "CC-BY-ND-4.0",
+  "license": "MIT",
   "homepage": "https://www.moveapps.org",
   "repository": "https://github.com/movestore/MoveApps_Plugin",
   "keywords": ["moveapps", "movebank", "animal-movement", "animal-behaviour", "r", "shiny"]
