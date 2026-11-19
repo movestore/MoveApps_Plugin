@@ -1,5 +1,5 @@
 {
-  "name": "moveapps",
+  "name": "moveapps-plugin",
   "version": "1.0.0",
   "description": "Build MoveApps Apps with Claude. Paste your R or R Shiny code and Claude picks the right converter to turn it into a MoveApps App.",
   "author": {
