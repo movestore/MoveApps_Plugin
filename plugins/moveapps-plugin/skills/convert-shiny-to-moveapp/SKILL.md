@@ -118,6 +118,7 @@ do not guess at code that hasn't been shown.
 ### Step 2. Check the kind of source code
 
 After reading the source, check which kind of code it is:
+If a hand-off brief from `moveapps-router` already says which App type the user chose, use it and do not ask again.
 
 - **R Shiny code** (e.g. it uses `shinyApp()`, `fluidPage()`, `ui`/`server`,
   or `render*()` functions): continue with the next step. If the code
