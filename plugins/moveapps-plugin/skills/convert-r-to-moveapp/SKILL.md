@@ -270,9 +270,9 @@ Read through the source and identify:
 2. If the user has not provided an App name:
    - Based on the App's functionality, suggest **2–3** suitable names in
      **Title Case without hyphens**.
-   - Check the current MoveApps App list at
-     `https://www.moveapps.org/api/v1/apps/repositories` and compare the
-     suggested names against the values in the `title` field.
+   - Use the MoveApps App list downloaded in Step "Check for existing Apps
+     with the same or overlapping purpose" and compare the suggested names
+     against the values in the `title` field.
    - Do not suggest names that are identical or very similar to existing App
      titles.
    - Let the user choose one of the proposed names.
@@ -313,7 +313,35 @@ Read through the source and identify:
   the data into an unsuitable existing type.
 - State the determined input and output IO types clearly before continuing.
 
-### Step 10. Prepare the conversion plan and get user confirmation
+
+### Step 10. Determine whether the App needs secret credentials
+
+- Determine whether the App requires sensitive authentication information such as
+  a password, personal API key, access token, client secret, or other credential.
+
+Treat secret credentials as required when any of the following applies:
+
+- the source code uses or contains a credential;
+- the App accesses an external API or service that requires authentication;
+- the user states that authentication credentials are required; or
+- the App requires a setting that should be defined as type `SECRET`.
+
+If a secret credential is required:
+
+- Read and follow
+  `references/Dealing_with_secret_credentials.md` and its linked official
+  MoveApps documentation.
+- Never ask the user to provide or paste the actual credential into the
+  conversation.
+- Apply the "Change `sdk.R` and `.gitignore`" step only when a secret credential is required.
+- Resolve any credential-related design decisions before preparing the
+  conversion plan.
+  
+If no secret credential is required:
+
+- Skip the "Change `sdk.R` and `.gitignore`" step.
+
+### Step 11. Prepare the conversion plan and get user confirmation
 
 Before generating any of the MoveApps deliverables, summarize the agreed App design:
 
@@ -322,6 +350,8 @@ Before generating any of the MoveApps deliverables, summarize the agreed App des
 - the input IO type;
 - the output IO type;
 - the expected artifacts, if any;
+- whether the App needs a secret credential, the `SECRET` setting IDs, and
+  whether `sdk.R` and `.gitignore` must be changed;
 - the agreed user-configurable settings, including each setting `id` and how it
   will be received by `RFunction.R`, following the setting-specific,
   auxiliary-file, and secret-credential rules;
@@ -342,32 +372,6 @@ or `appspec.json`.
 Present the plan to the user and ask them to confirm or correct it before
 generating `RFunction.R`, `appspec.json`, `app-configuration.json`, `.env` or
 `README.md`.
-
-### Step 11. Determine whether the App needs secret credentials
-
-- Determine whether the App requires sensitive authentication information such as
-  a password, personal API key, access token, client secret, or other credential.
-
-Treat secret credentials as required when any of the following applies:
-
-- the source code uses or contains a credential;
-- the App accesses an external API or service that requires authentication;
-- the user states that authentication credentials are required; or
-- the App requires a setting that should be defined as type `SECRET`.
-
-If a secret credential is required:
-
-- Read and follow
-  `references/Dealing_with_secret_credentials.md` and its linked official
-  MoveApps documentation.
-- Never ask the user to provide or paste the actual credential into the
-  conversation.
-- Apply the "Change `sdk.R` and `.gitignore`" step only when a secret credential is required.
-  
-If no secret credential is required:
-
-- Skip the "Change `sdk.R` and `.gitignore`" step.
-
 
 ### Step 12. Before generating any deliverable file
 
@@ -478,8 +482,8 @@ If no secret credential is required:
 - Use the selected App display name consistently.
 - Do not invent repository information, functionality, settings, data
   requirements, outputs, artefacts, or runtime behavior.
-- If required information cannot be verified, follow
-  `references/README_guide.md` for how to mark it.
+- If required information cannot be verified, ask the user for it, as
+  described in `references/README_guide.md`.
 - Verify the final README against the current MoveApps template before
   presenting it to the user.
 
