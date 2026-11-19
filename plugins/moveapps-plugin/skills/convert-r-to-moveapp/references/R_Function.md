@@ -4,7 +4,7 @@
 
 - The file must be named `RFunction.R`.
 - See the [verified real template](https://github.com/movestore/Template_R_Function_App/blob/master/RFunction.R) for the real file structure.
-- - Use the final package-loading decisions from `Check the required packages` in `SKILL.md`.
+- Use the final package-loading decisions from `Check the required packages` in `SKILL.md`.
 - Do not automatically add `library()` for every dependency.
 - Use explicit `package::function()` calls when they are clearer, safer, or help avoid function masking or namespace conflicts.
 - When loading libraries, watch for function-name masking/conflicts between packages. Prefer explicit namespace calls such as `package::function()` when needed.
@@ -60,15 +60,13 @@ for the full list. The guidance below only applies when the App's input type is 
 ```
 
 9. **Helper functions**
-
-- Helper functions can be defined above `rFunction` in the same `RFunction.R`
-  file.
-- Pass required data and settings to helper functions through their arguments
+   - Helper functions can be defined above `rFunction` in the same `RFunction.R` file.
+   - Pass required data and settings to helper functions through their arguments
   rather than relying on global variables.
-- If the App is later reorganized manually into multiple R files after this
+   - If the App is later reorganized manually into multiple R files after this
   Skill has finished, additional scripts can be sourced into `RFunction.R`.
   See: [Source additional R scripts](https://docs.moveapps.org/#/copilot-r-sdk?id=source-aditional-r-scripts).
-- Creating or splitting code into additional R files is outside the scope of
+   - Creating or splitting code into additional R files is outside the scope of
   this Skill.
 
   

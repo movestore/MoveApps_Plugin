@@ -158,7 +158,7 @@ new versions arrive by themselves.
 
 To hear about new versions, watch this repository on GitHub
 (**Watch → Custom → Releases**) or check the
-[releases page](https://github.com/movestore/MoveApps_Plugin/releases).
+[releases](https://github.com/movestore/MoveApps_Plugin/releases) page.
 
 
 ## Security and privacy
@@ -175,7 +175,7 @@ To hear about new versions, watch this repository on GitHub
   `main`.
 - **Auto-update installs new versions without asking.** If you'd rather see
   what changed first, leave it off, read the
-  [release notes](https://github.com/movestore/MoveApps_Plugin/releases), and
+  [release](https://github.com/movestore/MoveApps_Plugin/releases) notes, and
   update by hand.
 
   
@@ -197,5 +197,4 @@ you that this isn't supported yet.
 
 ## License
 
-CC BY-ND 4.0. You may use and share this plugin unchanged, with credit to the
-MoveApps Development Team. See [LICENSE](LICENSE).
+MIT. See [LICENSE](LICENSE).

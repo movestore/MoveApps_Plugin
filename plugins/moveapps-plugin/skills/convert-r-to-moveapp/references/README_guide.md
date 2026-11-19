@@ -3,7 +3,7 @@
 - Create the `README.md` based on the official MoveApps [Template](https://github.com/movestore/Template_R_Function_App/blob/master/README.md).
 - Follow the template strictly. Read and use the instructional text under each section as guidance for what content to provide, but do not copy the template's instructional text or example text into the final README.
 - **Name of App:** Use the App name chosen in the workflow step that determines the App's display name. Use the same display title in the README and preserve the required **Title Case without hyphens** convention.
--- If the App name has not been provided or determined yet, ask the user for it before generating `README.md`. Do not use a placeholder for the App title.
+- If the App name has not been provided or determined yet, ask the user for it before generating `README.md`. Do not use a placeholder for the App title.
 - **Github repository:**
   1. If the user has provided the repository URL in the conversation or workflow context, include it.
   2. If no repository URL has been provided, remove the template placeholder and leave nothing after `Github repository:`.

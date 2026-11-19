@@ -1,7 +1,7 @@
 ## ShinyModule.R
 
-`ShinyModule.R` is the entrypoint for the App logic — MoveApps calls this function during a Workflow run that includes the App. 
-The function must accept and return the App's declared MoveApps input/output types. 
+`ShinyModule.R` is the entrypoint for the App logic — MoveApps calls `shinyModuleUserInterface()` and `shinyModule()` during a Workflow run that includes the App.
+`shinyModule()` receives the input IO type as `data` and must return the output IO type as a reactive.
 Read references/io-types.md and follow the requirements of the specific IO type used by the App.
 
 - The file must be named `ShinyModule.R`.
@@ -52,9 +52,12 @@ for the full list. The guidance below only applies when the App's input type is 
    - All tracking data comes in with timestamps in `UTC` — if the App converts to a local time zone for interpretation, convert it back to `UTC` before passing data on as output. Read this: [Time zones](https://docs.moveapps.org/#/best_practices_coding?id=time-zones).
 
 6. **Scope: single `ShinyModule.R`**
-   If user rather divide the code of your App into several files, use this [link](https://docs.moveapps.org/#/copilot-shiny-sdk?id=source-aditional-r-scripts).
+   - This skill always keeps all App code in one `ShinyModule.R`, even if the
+     source is split across several files. If the user wants to split the
+     finished App into several files, that is a manual step afterward; see
+     [Source additional R scripts](https://docs.moveapps.org/#/copilot-shiny-sdk?id=source-aditional-r-scripts).
    
-7. **Source aditional R scripts**
+7. **Parallel computing within MoveApps**
    - It's possible to write Apps so that suitable tasks run in parallel on MoveApps. Read this: [Parallel computing in R Apps](https://docs.moveapps.org/#/parallelcomp?id=parallel-computing-in-r-apps).
    - For a worked example, see Bruno Caneco's test App: [dmpstats/moveapps-check-parallel](https://github.com/dmpstats/moveapps-check-parallel).
 
@@ -72,7 +75,7 @@ for the full list. The guidance below only applies when the App's input type is 
        return(result)
      }
 ```
-- Read the [Shiny User Interface (UI) ](https://docs.moveapps.org/#/copilot-shiny-sdk?id=shinymoduleuserinterface-defining-the-user-interface) and the [Example](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-1) and the the [module server functions](https://docs.moveapps.org/#/copilot-shiny-sdk?id=shinymodule-defining-the-module-server-functions) and the [Example](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-2).
+- Read the [Shiny User Interface (UI) ](https://docs.moveapps.org/#/copilot-shiny-sdk?id=shinymoduleuserinterface-defining-the-user-interface) and the [Example](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-1) and the [module server functions](https://docs.moveapps.org/#/copilot-shiny-sdk?id=shinymodule-defining-the-module-server-functions) and the [Example](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-2).
 
 9. **Helper functions**
 - Helper functions can be defined above `shinyModuleUserInterface` in the same `ShinyModule.R` file.
@@ -85,14 +88,15 @@ for the full list. The guidance below only applies when the App's input type is 
    
         
     2- MoveApps parameters:     
-         - `shinyModuleUserInterface` has two inputarguments: `id` and `label`. Just keep it in the line and ignore it. Don’t remove it. All IDs of UI functions need to be wrapped in ns().  
+         - `shinyModuleUserInterface` has two input arguments: `id` and `label`. Just keep it in the line and ignore it. Don’t remove it. All IDs of UI functions need to be wrapped in ns().  
             - Read about the two buttons `OPEN APP UI` and `Store settings` [here](https://docs.moveapps.org/#/copilot-shiny-sdk?id=moveapps-parameters).  
             - Only user inputs that are part of the Shiny UI are stored by the bookmarking mechanism; the workflow data object itself is not stored as a setting.  
             - Find and read [the Example from Simple Map](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-from-simple-map).
 
      
      3- Auxiliary input files:   
-            - It is possible to design Apps that require auxiliary files as input, There are three types: "Fixed auxiliary file", "Local upload auxiliary files" and "Local upload auxiliary files with fixed fallback files". Read this link: [Auxiliary input files](https://docs.moveapps.org/#/copilot-shiny-sdk?id=auxiliary-input-files). For more details and to integrate the full functionality into an App see the [detailed description](https://docs.moveapps.org/#/auxiliary).
+             - It is possible to design Apps that require auxiliary files as input, There are three types: "Fixed auxiliary file", "Local upload auxiliary files" and "Local upload auxiliary files with fixed fallback files". Read this link: [Auxiliary input files](https://docs.moveapps.org/#/copilot-shiny-sdk?id=auxiliary-input-files). For more details and to integrate the full functionality into an App see the [detailed description](https://docs.moveapps.org/#/auxiliary).
+            - Local testing of each type: [fixed](https://docs.moveapps.org/#/auxiliary?id=local-testing), [local upload](https://docs.moveapps.org/#/auxiliary?id=local-testing-1), [local upload with fixed fallback](https://docs.moveapps.org/#/auxiliary?id=local-testing-2).
       
 11. **Logging and error handling**
     - Replace `print()`/`message()`/`cat()` with `logger.info()`/`logger.warn()`/etc.
@@ -132,8 +136,7 @@ Before finishing `ShinyModule.R`, verify that:
   without tiles, base maps and layer control are added with `addBaseMaps()`
   from `references/App_standards.md`, and an Esri map is the first base group;
 - every saved map (HTML and PNG) is built with `osm = FALSE`; if there is an
-  HTML map download, there is also a "Map (PNG)" download built as described in
+  HTML map download, there is also a "Save Map as PNG" download built as described in
   `references/App_standards.md`, and `webshot2` is in the dependencies.
-- If the App has map downloads, describe both buttons: "Map (HTML)" for an
-  interactive map and "Map (PNG)" for an image of the map. Both show the Esri
-  base maps only.
+-  if the App has map downloads, both the "Download as HTML" and the "Save Map
+  as PNG" buttons are in the Download section.
