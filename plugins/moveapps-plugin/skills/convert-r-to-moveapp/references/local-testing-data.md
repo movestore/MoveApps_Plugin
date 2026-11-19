@@ -11,19 +11,17 @@ Use this reference only when the user has selected either:
      - If the input IO type is `move2::move2_loc` Ask:
          **Was this CSV downloaded directly from Movebank?**
          - Yes:  
-             1- Use `move2::mt_read()` to read the Movebank CSV and convert it to a `move2` object.  
-             2- Do not ask the user for custom column mappings intended for generic CSV files.  
-             3- Verify that the resulting object satisfies the App's declared `move2::move2_loc` input type.  
-             4- Save the prepared object as an `.rds` file under `data/raw/`.  
-             5- Update `SOURCE_FILE` in `.env` to point to that `.rds` file.  
+             1- Give the user R code that reads the CSV with `move2::mt_read()`, checks that the result is a `move2::move2_loc` object, and saves it with `saveRDS()` as an `.rds` file under `data/raw/`.
+             2- Do not ask the user for custom column mappings intended for generic CSV files.
+             3- Tell the user to run the code locally.
+             4- Set `SOURCE_FILE` in the generated `.env` to that `.rds` file.
 
          - No:  
              1- Follow the conversion approach used by the MoveApps [ `Upload-File-from-Local` App](https://github.com/movestore/Upload-File-from-Local).  
              2- Ask the user for: `time_col`, `track_id_col`, `track_attr`, `coords`, `crss`.  
              3- Do not invent values when they cannot be established from the CSV or the documented defaults.  
-             4- Convert the data to a compatible `move2::move2_loc` object.  
-             5- Save the prepared object as an `.rds` file under `data/raw/`.  
-             6- Update `SOURCE_FILE` in `.env` to point to that `.rds` file.  
+             4- Give the user R code that converts the data to a `move2::move2_loc` object, checks it, and saves it with `saveRDS()` as an `.rds` file under `data/raw/`. Tell the user to run it locally.
+             5- Set `SOURCE_FILE` in the generated `.env` to that `.rds` file.
 
    - If the input IO type is not `move2::move2_loc`:
      - Do not invent a conversion workflow.
@@ -74,7 +72,7 @@ Then:
 6. Follow `references/Dealing_with_secret_credentials.md` for all additional
    credential-handling rules.
 
-7. After the data are downloaded:
-   - verify that the resulting object matches the App's declared input IO type;
-   - save the prepared object as an `.rds` file under `data/raw/`;
-   - update `SOURCE_FILE` in `.env` to point to that `.rds` file.
+7. Include in the same code a check that the downloaded object matches the
+   App's declared input IO type, and save it with `saveRDS()` as an `.rds`
+   file under `data/raw/`.
+8. Set `SOURCE_FILE` in the generated `.env` to that `.rds` file.
