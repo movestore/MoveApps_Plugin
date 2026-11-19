@@ -79,9 +79,7 @@ The values most relevant here are:
 
 #### 2. Secret credentials
 
-- If the App requires a secret credential, read and follow
-  `references/Dealing_with_secret_credentials.md` for any `.env`-specific
-  handling.
+- Use `shiny::passwordInput()`; credentials need nothing in `.env`.
 
 #### 3. `USER_APP_FILE_HOME_DIR`
 
