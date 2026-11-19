@@ -156,7 +156,7 @@ After reading the source, check which kind of code it is:
   Ask the user one question with two choices: "Which App do you want to
   make: a MoveApps Shiny App or a MoveApps R App?"
   - **MoveApps R App:** tell the user to use the `convert-r-to-moveapp` skill
-    of the MoveApps R Converter plugin instead, and stop.
+    of the plugin instead, and stop.
   - **MoveApps Shiny App:** read `references/R_to_Shiny.md`, follow it, and
     then continue with **Understand the App goal** (skip
     **Collect all Shiny App files**).
