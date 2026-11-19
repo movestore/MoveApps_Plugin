@@ -31,11 +31,11 @@ Currently, the following specifications can/need to be added:
   - Include every package that `ShinyModule.R` calls, also when it is only
     called with `package::function()` and not loaded with `library()`, for
     example:
-  - `shinycssloaders` (loading spinner, `withSpinner()`) and `shinybusy`
+     - `shinycssloaders` (loading spinner, `withSpinner()`) and `shinybusy`
       (download spinner, `show_modal_spinner()`) from the standard UI layout
       in `references/App_standards.md`, when they are used;
-  - `leaflet` and `htmlwidgets` when the App shows or saves a leaflet map;
-  - `webshot2` when the App has a "Save Map as PNG" download.
+     - `leaflet` and `htmlwidgets` when the App shows or saves a leaflet map;
+     - `webshot2` when the App has a "Save Map as PNG" download.
   - Before finalizing, compare the dependencies with all `library()` calls and
     all `package::` prefixes in the final `ShinyModule.R`: every package used
     must be listed, and no package that is not used.
