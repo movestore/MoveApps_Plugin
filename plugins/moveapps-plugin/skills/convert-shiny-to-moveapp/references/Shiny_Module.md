@@ -75,7 +75,7 @@ for the full list. The guidance below only applies when the App's input type is 
        return(result)
      }
 ```
-- Read the [Shiny User Interface (UI) ](https://docs.moveapps.org/#/copilot-shiny-sdk?id=shinymoduleuserinterface-defining-the-user-interface) and the [Example](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-1) and the the [module server functions](https://docs.moveapps.org/#/copilot-shiny-sdk?id=shinymodule-defining-the-module-server-functions) and the [Example](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-2).
+- Read the [Shiny User Interface (UI) ](https://docs.moveapps.org/#/copilot-shiny-sdk?id=shinymoduleuserinterface-defining-the-user-interface) and the [Example](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-1) and the [module server functions](https://docs.moveapps.org/#/copilot-shiny-sdk?id=shinymodule-defining-the-module-server-functions) and the [Example](https://docs.moveapps.org/#/copilot-shiny-sdk?id=example-2).
 
 9. **Helper functions**
 - Helper functions can be defined above `shinyModuleUserInterface` in the same `ShinyModule.R` file.
