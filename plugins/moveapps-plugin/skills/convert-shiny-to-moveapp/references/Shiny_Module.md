@@ -1,7 +1,7 @@
 ## ShinyModule.R
 
-`ShinyModule.R` is the entrypoint for the App logic — MoveApps calls this function during a Workflow run that includes the App. 
-The function must accept and return the App's declared MoveApps input/output types. 
+`ShinyModule.R` is the entrypoint for the App logic — MoveApps calls `shinyModuleUserInterface()` and `shinyModule()` during a Workflow run that includes the App.
+`shinyModule()` receives the input IO type as `data` and must return the output IO type as a reactive.
 Read references/io-types.md and follow the requirements of the specific IO type used by the App.
 
 - The file must be named `ShinyModule.R`.
