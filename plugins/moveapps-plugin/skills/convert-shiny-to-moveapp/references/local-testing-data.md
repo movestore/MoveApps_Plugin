@@ -69,8 +69,8 @@ Then:
 5. Tell the user to run the credential-dependent download code locally where
    Claude cannot see the password.
 
-6. Follow `references/Dealing_with_secret_credentials.md` for all additional
-   credential-handling rules.
+6.  Never put the Movebank password in the code you give the user; let the
+   user store it locally with `move2::movebank_store_credentials()`.
 
 7. Include in the same code a check that the downloaded object matches the
    App's declared input IO type, and save it with `saveRDS()` as an `.rds`
