@@ -179,8 +179,7 @@ Do not silently invent missing analysis logic or change the scientific meaning
 of the source code. If the intended behavior cannot be determined, ask the
 user.
 
-After the App goal, scope, and required source-code changes are agreed, proceed
-with determining the App's IO types and creating the MoveApps deliverables.
+After the App goal, scope, and required source-code changes are agreed, continue with the next step.
 
 ### Step 5. Understand the code before restructuring it
 
@@ -390,7 +389,7 @@ generating `RFunction.R`, `appspec.json`, `app-configuration.json`, `.env` or
 - Before writing or modifying this file, read `references/R_Function.md` and
   follow its instructions and linked references for the required structure,
   coding rules, input/output handling, and MoveApps-specific expectations.
-- Keep all App R code in this file unless explicitly instructed otherwise.
+- Keep all App R code in this file.
 - Only `RFunction.R` and the directories listed in `appspec.json` under
   `providedAppFiles` are bundled into the final MoveApps App. Do not rely on
   any other project files being available at runtime.
