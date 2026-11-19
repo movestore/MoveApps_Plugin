@@ -34,7 +34,7 @@ Currently, the following specifications can/need to be added:
      - `shinycssloaders` (loading spinner, `withSpinner()`) and `shinybusy`
       (download spinner, `show_modal_spinner()`) from the standard UI layout
       in `references/App_standards.md`, when they are used;
-     - `leaflet` and `htmlwidgets` when the App shows or saves a leaflet map;
+     - `leaflet` when the App shows a leaflet map, and `htmlwidgets` when it saves one (HTML or PNG download);
      - `webshot2` when the App has a "Save Map as PNG" download.
   - Before finalizing, compare the dependencies with all `library()` calls and
     all `package::` prefixes in the final `ShinyModule.R`: every package used
