@@ -132,8 +132,7 @@ Before finishing `ShinyModule.R`, verify that:
   without tiles, base maps and layer control are added with `addBaseMaps()`
   from `references/App_standards.md`, and an Esri map is the first base group;
 - every saved map (HTML and PNG) is built with `osm = FALSE`; if there is an
-  HTML map download, there is also a "Map (PNG)" download built as described in
+  HTML map download, there is also a "Save Map as PNG" download built as described in
   `references/App_standards.md`, and `webshot2` is in the dependencies.
-- If the App has map downloads, describe both buttons: "Map (HTML)" for an
-  interactive map and "Map (PNG)" for an image of the map. Both show the Esri
-  base maps only.
+- If the App has map downloads, describe both buttons: "Download as HTML" for an
+  interactive map and "Save Map as PNG" for an image of the map. Both show the Esri base maps only.
