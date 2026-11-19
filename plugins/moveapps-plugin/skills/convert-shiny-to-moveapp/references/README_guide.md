@@ -34,8 +34,8 @@
   `appArtifactPath()` separately, as artefacts saved with every Workflow run.
   If there are neither, write `none`.
   
-- If the App has map downloads, describe both buttons: "Map (HTML)" for an
-    interactive map and "Map (PNG)" for an image of the map. Both contain only
+- If the App has map downloads, describe both buttons: "Download as HTML" for an
+    interactive map and "Save Map as PNG" for an image of the map. Both contain only
     the Esri base maps (TopoMap and Aerial); OpenStreetMap is available only in
     the App, because its tiles are blocked in files opened from disk.
 
@@ -51,7 +51,7 @@
   - the App title is present and follows the **Title Case without hyphens** convention;
   - the `Github repository:` line is present and is either filled with the user-provided repository URL or correctly left blank, with no template placeholder remaining;
   - all required sections in template are present.
-  - if the App has map downloads, both "Map (HTML)" and "Map (PNG)" are
+  - if the App has map downloads, both "Download as HTML" and "Save Map as PNG" are
     described, including that they contain only the Esri base maps.
   - if the App uses `shinydashboard`, the README has been checked against the
     current Shinydashboard README template rather than only the regular Shiny
