@@ -149,7 +149,8 @@ output$save_png <- downloadHandler(
 - MoveApps adds the "Store settings" and "Restore default settings" buttons
   automatically and stores all Shiny inputs. Do not add own Store/Restore
   buttons or own code to save or restore settings.
-- Do not exclude inputs with `setBookmarkExclude()`
+- Do not exclude inputs with `setBookmarkExclude()`, except sensitive inputs
+  that are not a `passwordInput()` (see `references/Dealing_with_secret_credentials.md`).
 - Inputs built with `renderUI()` are restored automatically. Pass the normal
   default with `selected =` / `value =`.
 - Never let an observer overwrite a restored input: do not call
