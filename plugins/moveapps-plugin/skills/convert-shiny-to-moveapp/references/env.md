@@ -4,7 +4,7 @@
 
 - Read and follow the [MoveApps local-testing documentation](https://docs.moveapps.org/#/run_app_locally?id=run-an-app-locally).
 - Read and use the `.env` from the corresponding official MoveApps template:
-  [`Template_R_Shiny_App` ](https://github.com/movestore/Template_R_Shiny_App/blob/master/.env) for a regular Shiny App or `Template_R_Shinydashboard_App` when the App uses [`shinydashboard`](https://github.com/movestore/Template_R_Shinydashboard_App/blob/master/.env).
+  [`Template_R_Shiny_App` ](https://github.com/movestore/Template_R_Shiny_App/blob/master/.env) for a regular Shiny App or [`Template_R_Shinydashboard_App`](https://github.com/movestore/Template_R_Shinydashboard_App/blob/master/.env) when the App uses `shinydashboard`.
 - Read the MoveApps documentation for [`.env`](https://docs.moveapps.org/#/run_app_locally?id=_2-fileenv).
 - The `.env` setting names are fixed and must not be renamed.
 
