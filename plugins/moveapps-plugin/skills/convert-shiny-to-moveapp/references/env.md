@@ -35,7 +35,7 @@ The values most relevant here are:
 
   `SOURCE_FILE=./data/raw/input1_move2loc_LatLon.rds`
 
-- The R template provides test datasets under `./data/raw/`.
+- The Shiny template provides test datasets under `./data/raw/`.
 
 - Show the user the available template datasets and explain that the App should
   eventually be tested with all datasets that are compatible with its declared
