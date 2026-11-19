@@ -197,5 +197,4 @@ you that this isn't supported yet.
 
 ## License
 
-CC BY-ND 4.0. You may use and share this plugin unchanged, with credit to the
-MoveApps Development Team. See [LICENSE](LICENSE).
+MIT. See [LICENSE](LICENSE).
