@@ -39,7 +39,7 @@ Currently, the following specifications can/need to be added:
   - Before finalizing, compare the dependencies with all `library()` calls and
     all `package::` prefixes in the final `ShinyModule.R`: every package used
     must be listed, and no package that is not used.
-  - Do not include any base library in the appspecs.json file.
+  - Do not include any base library in the appspec.json file.
   - For a CRAN package, just use `{"name": "pkgname"}`, if required the version can also be specified in the argument "version". For a package that comes from somewhere else (GitHub, GitLab, etc.), use the functions provided by the library  [`"remotes"`](https://remotes.r-lib.org/reference/index.html).
   - Follow the official [Examples](https://docs.moveapps.org/#/appspec/current/dependencies_appspec?id=example).
   - Do not list the MoveApps SDK package `moveapps` in the dependencies. MoveApps provides the SDK functionality in every R App.
@@ -68,7 +68,7 @@ If the App developer can/wants to provide either fixed or fallback auxiliary fil
 - Do not choose the license for the user. Present the currently supported options with a short explanation and ask the user to select one.
   
 5- Language:
-  - Read and follow the official MoveApps specification for[Language](https://docs.moveapps.org/#/appspec/current/language_appspec).
+  - Read and follow the official MoveApps specification for [Language](https://docs.moveapps.org/#/appspec/current/language_appspec).
   - Follow the official [example](https://docs.moveapps.org/#/appspec/current/language_appspec?id=example).
   - Infer the implementation language from the App where possible.
   - Currently only English is allowed
@@ -98,7 +98,7 @@ If the App developer can/wants to provide either fixed or fallback auxiliary fil
   - Check the supported reference types: [Reference types](https://docs.moveapps.org/#/appspec/current/references_appspec?id=reference-types)
   - Follow the official [example](https://docs.moveapps.org/#/appspec/current/references_appspec?id=examples) and the Note after that.
   - Add references that are directly relevant to the App.
-  - If the App is based mainly on a single library, to acknowledge them add it as a [refrence](https://docs.moveapps.org/#/best_practices_coding?id=acknowledgements-and-references).
+  - If the App is based mainly on a single library, to acknowledge them add it as a [reference](https://docs.moveapps.org/#/best_practices_coding?id=acknowledgements-and-references).
   - Do not write reference details from memory.
   - Verify each reference from an authoritative source before adding it to `appspec.json`.
   - Do not invent citation details.
