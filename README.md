@@ -12,6 +12,39 @@ Paste your code, and Claude decides which converter fits:
 
 ## Install
 
+### Before you install (Claude Code only, once per computer)
+
+Claude Code needs `git` to download the marketplace. Set it up for your system:
+
+**Windows 11**, in PowerShell:
+
+1. Install Claude Code: `irm https://claude.ai/install.ps1 | iex`
+2. Install [Git for Windows](https://git-scm.com/downloads/win) (default options).
+3. Run `setx CLAUDE_CODE_PLUGIN_PREFER_HTTPS 1`
+4. Open a **new** PowerShell window and check: `claude --version`, `git --version`
+
+If you work in WSL, follow the Linux steps inside WSL instead.
+
+**macOS**, in Terminal:
+
+1. Install Claude Code: `curl -fsSL https://claude.ai/install.sh | bash`
+2. Run `git --version`. If macOS offers to install the Command Line Tools, accept.
+3. Run `echo 'export CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1' >> ~/.zshrc`
+4. Open a **new** Terminal window and check: `claude --version`, `git --version`
+
+**Linux** (e.g. Ubuntu), in a terminal:
+
+1. Install Claude Code: `curl -fsSL https://claude.ai/install.sh | bash`
+2. Install git: `sudo apt install git` (or your distribution's package manager)
+3. Run `echo 'export CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1' >> ~/.bashrc`
+4. Open a **new** terminal and check: `claude --version`, `git --version`
+
+Step 3 matters if you don't have a GitHub SSH key (most people don't):
+without it, installing and updating the plugin can fail. It does no harm if
+you do have a key.
+
+The desktop app and claude.ai need none of this.
+
 ### In Claude Code
 
 **Inside Claude Code** (type these in a session):
@@ -20,6 +53,9 @@ Paste your code, and Claude decides which converter fits:
 /plugin marketplace add movestore/MoveApps_Plugin
 /plugin install moveapps-plugin@moveapps-marketplace
 ```
+
+`/plugin install` opens the plugin's page: choose **Install**, then the scope
+**User**, so the plugin works in all your projects.
 
 **Or from your terminal:**
 
@@ -49,15 +85,31 @@ Claude Code documentation for more.
 
 ### In claude.ai or the Claude desktop app
 
-> [!IMPORTANT]
-> Don't use GitHub's green **Code → Download ZIP** button. That zip contains
-> the whole repository, so `plugin.json` is in the wrong place and the upload
-> fails with *"plugin.json must be at .claude-plugin/plugin.json at the zip root"*.
-> Use the `moveapps.zip` link below instead.
+Nothing to install beforehand: claude.ai fetches the marketplace itself.
+
+1. Go to **Customize → Plugins → Add → Add marketplace** and enter
+   `movestore/MoveApps_Plugin`.
+2. Add the plugin `moveapps-plugin`.
+3. Start a new chat, paste your R code, and ask for a MoveApp.
+
+The plugin then also works in Cowork, and in Claude Code when you sign in with
+the same account. Use one way only: if you also install it with `/plugin` in
+Claude Code, that copy is used instead.
+
+#### If you can't add a marketplace
+
+Some organizations don't allow members to add their own marketplaces. Then
+use the zip file instead:
 
 1. Download [moveapps.zip](https://github.com/movestore/MoveApps_Plugin/releases/latest/download/moveapps.zip).
-2. In **Customize → Plugins**, select **Add → Upload plugin** and choose moveapps.zip.
-3. Start a new chat, paste your R code, and ask for a MoveApp.
+2. In **Customize → Plugins**, select **Add → Upload plugin** and choose `moveapps.zip`.
+
+> [!IMPORTANT]
+> Use the `moveapps.zip` link above, not GitHub's green **Code → Download ZIP**
+> button. That zip contains the whole repository, so `plugin.json` is in the
+> wrong place and the upload fails.
+
+An uploaded zip doesn't update by itself; see [Update](#update).
 
 ## How to use
 
@@ -73,7 +125,7 @@ interactive, it asks you once.
 
 ### In Claude Code
 
-**Automatic updates (recommended).** Turn this on once:
+**Automatic updates** Turn this on once:
 
 1. In Claude Code, type `/plugin` and open **Marketplaces**.
 2. Select `moveapps-marketplace`, then select **Enable auto-update**.
@@ -93,15 +145,20 @@ If you use Claude through a Team or Enterprise plan and can't see **Enable auto-
 
 ### In claude.ai or the Claude desktop app
 
-Uploaded plugins don't update automatically. For each new version:
+**If you added the marketplace:** in **Customize → Plugins**, open the
+`movestore/MoveApps_Plugin` marketplace and select **Check for updates** to
+get the latest version. You can also turn on **Sync automatically** there, so
+new versions arrive by themselves.
+
+**If you uploaded the zip:** it doesn't update by itself. For each new version:
 
 1. Download [moveapps.zip](https://github.com/movestore/MoveApps_Plugin/releases/latest/download/moveapps.zip) again.
-2. In **Customize → Plugins**, open the menu (**⋯**) next to the plugin and select **Remove**.
+2. In **Customize → Plugins**, open the plugin's menu (**⋯**) and select **Remove**.
 3. Select **Add → Upload plugin** and choose the new `moveapps.zip`.
 
 To hear about new versions, watch this repository on GitHub
 (**Watch → Custom → Releases**) or check the
-[releases page](https://github.com/movestore/MoveApps_Plugin/releases).
+[releases](https://github.com/movestore/MoveApps_Plugin/releases) page.
 
 
 ## Security and privacy
@@ -118,7 +175,7 @@ To hear about new versions, watch this repository on GitHub
   `main`.
 - **Auto-update installs new versions without asking.** If you'd rather see
   what changed first, leave it off, read the
-  [release notes](https://github.com/movestore/MoveApps_Plugin/releases), and
+  [release](https://github.com/movestore/MoveApps_Plugin/releases) notes, and
   update by hand.
 
   
@@ -140,5 +197,4 @@ you that this isn't supported yet.
 
 ## License
 
-CC BY-ND 4.0. You may use and share this plugin unchanged, with credit to the
-MoveApps Development Team. See [LICENSE](LICENSE).
+MIT. See [LICENSE](LICENSE).

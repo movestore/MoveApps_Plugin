@@ -4,7 +4,7 @@
 
 - Read and follow the [MoveApps local-testing documentation](https://docs.moveapps.org/#/run_app_locally?id=run-an-app-locally).
 - Read and use the `.env` from the corresponding official MoveApps template:
-  [`Template_R_Shiny_App` ](https://github.com/movestore/Template_R_Shiny_App/blob/master/.env) for a regular Shiny App or `Template_R_Shinydashboard_App` when the App uses [`shinydashboard`](https://github.com/movestore/Template_R_Shinydashboard_App/blob/master/.env).
+  [`Template_R_Shiny_App` ](https://github.com/movestore/Template_R_Shiny_App/blob/master/.env) for a regular Shiny App or [`Template_R_Shinydashboard_App`](https://github.com/movestore/Template_R_Shinydashboard_App/blob/master/.env) when the App uses `shinydashboard`.
 - Read the MoveApps documentation for [`.env`](https://docs.moveapps.org/#/run_app_locally?id=_2-fileenv).
 - The `.env` setting names are fixed and must not be renamed.
 
@@ -35,7 +35,7 @@ The values most relevant here are:
 
   `SOURCE_FILE=./data/raw/input1_move2loc_LatLon.rds`
 
-- The R template provides test datasets under `./data/raw/`.
+- The Shiny template provides test datasets under `./data/raw/`.
 
 - Show the user the available template datasets and explain that the App should
   eventually be tested with all datasets that are compatible with its declared
@@ -79,9 +79,7 @@ The values most relevant here are:
 
 #### 2. Secret credentials
 
-- If the App requires a secret credential, read and follow
-  `references/Dealing_with_secret_credentials.md` for any `.env`-specific
-  handling.
+- Use `shiny::passwordInput()`; credentials need nothing in `.env`.
 
 #### 3. `USER_APP_FILE_HOME_DIR`
 

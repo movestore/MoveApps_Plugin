@@ -25,7 +25,7 @@ and follow its rules when constructing the file, including the required formatti
 
     - For setting types that allow multiple values, use the exact representation required by the current MoveApps documentation.
     - Do not infer or invent a value format from the setting name alone.
-    - Apply the general `defaultValue` fallback only when it is compatible with the setting type's specific handling rules below. Type-specific rules for `SECRET` and `USER_FILE` take precedence.
+    - Apply the general `defaultValue` fallback only when it is compatible with the setting type's specific handling rules above. Type-specific rules for `SECRET` and `USER_FILE` take precedence.
 
 - Arrange the resulting values in `app-configuration.json` following the official template structure and MoveApps formatting requirements.
 - Ensure the final file is valid JSON and contains only configuration entries corresponding to settings defined in `appspec.json`.

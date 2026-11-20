@@ -1,4 +1,4 @@
-# moveapps (Claude plugin)
+# moveapps-plugin (Claude plugin)
 
 Turns existing R or R Shiny code into a MoveApps App. Install it once, paste
 your code, and Claude picks the right converter.
@@ -9,7 +9,7 @@ your code, and Claude picks the right converter.
 In Claude Code:
 
 ```
-/plugin install moveapps --marketplace movestore/MoveApps_Plugin
+/plugin install moveapps-plugin --marketplace movestore/MoveApps_Plugin
 ```
 
 For claude.ai or the Claude desktop app, see the
@@ -35,7 +35,7 @@ so you are not asked the same things twice.
 You can also start it directly:
 
 ```
-/moveapps:moveapps-router
+/moveapps-plugin:moveapps-router
 ```
 
 ## What this plugin does and doesn't do
