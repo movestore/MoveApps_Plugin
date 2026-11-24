@@ -82,7 +82,7 @@
     current Shinydashboard README template rather than only the regular Shiny
     template;
   - the optional **Technical details** section is included when sufficient implementation information is available.
-  -  - the text under **Documentation** contains no package, function or method
+  - the text under **Documentation** contains no package, function or method
     names and no other technical terms, and can be understood without any
     programming or methods knowledge; anything technical is in
     **Technical details**.
