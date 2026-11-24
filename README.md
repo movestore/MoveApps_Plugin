@@ -101,11 +101,11 @@ Claude Code, that copy is used instead.
 Some organizations don't allow members to add their own marketplaces. Then
 use the zip file instead:
 
-1. Download [moveapps.zip](https://github.com/movestore/MoveApps_Plugin/releases/latest/download/moveapps.zip).
-2. In **Customize → Plugins**, select **Add → Upload plugin** and choose `moveapps.zip`.
+1. Download [moveapps.zip](https://github.com/movestore/MoveApps_Plugin/releases/latest/download/moveapps-plugin.zip).
+2. In **Customize → Plugins**, select **Add → Upload plugin** and choose `moveapps-plugin.zip`.
 
 > [!IMPORTANT]
-> Use the `moveapps.zip` link above, not GitHub's green **Code → Download ZIP**
+> Use the `moveapps-plugin.zip` link above, not GitHub's green **Code → Download ZIP**
 > button. That zip contains the whole repository, so `plugin.json` is in the
 > wrong place and the upload fails.
 
@@ -152,9 +152,9 @@ new versions arrive by themselves.
 
 **If you uploaded the zip:** it doesn't update by itself. For each new version:
 
-1. Download [moveapps.zip](https://github.com/movestore/MoveApps_Plugin/releases/latest/download/moveapps.zip) again.
+1. Download [moveapps.zip](https://github.com/movestore/MoveApps_Plugin/releases/latest/download/moveapps-plugin.zip) again.
 2. In **Customize → Plugins**, open the plugin's menu (**⋯**) and select **Remove**.
-3. Select **Add → Upload plugin** and choose the new `moveapps.zip`.
+3. Select **Add → Upload plugin** and choose the new `moveapps-plugin.zip`.
 
 To hear about new versions, watch this repository on GitHub
 (**Watch → Custom → Releases**) or check the
