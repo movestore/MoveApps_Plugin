@@ -10,6 +10,20 @@ Paste your code, and Claude decides which converter fits:
 | Plain R script or function | MoveApps **R Function App** (`RFunction.R`, `appspec.json`, `app-configuration.json`, `.env`, `README.md`) |
 | R Shiny / shinydashboard code, or R code you want to be interactive | MoveApps **Shiny App** (`ShinyModule.R`, `appspec.json`, `README.md`, …) |
 
+## Contents
+
+- [Install](#install)
+  - [Before you install (Claude Code only)](#before-you-install-claude-code-only-once-per-computer)
+  - [In Claude Code](#in-claude-code)
+  - [In claude.ai or the Claude desktop app](#in-claudeai-or-the-claude-desktop-app)
+- [How to use](#how-to-use)
+- [Update](#update)
+  - [In Claude Code](#in-claude-code-1)
+  - [In claude.ai or the Claude desktop app](#in-claudeai-or-the-claude-desktop-app-1)
+- [Security and privacy](#security-and-privacy)
+- [Roadmap](#roadmap)
+- [License](#license)
+
 ## Install
 
 ### Before you install (Claude Code only, once per computer)
